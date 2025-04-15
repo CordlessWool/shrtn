@@ -19,14 +19,22 @@
 	>
 	<span>{m.made_with_love()} <a href="https://dropanote.de">CordlessWool</a></span>
 	{#if env[`PUBLIC_LINK_TERMS_${languageTag().toUpperCase()}`]}
-		<a href={env[`PUBLIC_LINK_TERMS_${languageTag().toUpperCase()}`]}>{m.terms_of_use()}</a>
+		<a
+			href={env[`PUBLIC_LINK_TERMS_${languageTag().toUpperCase()}`]}
+			target="_blank"
+			rel="noopener noreferrer">{m.terms_of_use()}</a
+		>
 	{:else if env['PUBLIC_LINK_TERMS']}
-		<a href={env['PUBLIC_LINK_TERMS']}>Terms of Use</a>
+		<a href={env['PUBLIC_LINK_TERMS']} target="_blank" rel="noopener noreferrer">Terms of Use</a>
 	{/if}
 	{#if env[`PUBLIC_LINK_TERMS_${languageTag().toUpperCase()}`]}
-		<a href={env[`PUBLIC_LINK_IMPRINT_${languageTag().toUpperCase()}`]}>{m.imprint()}</a>
+		<a
+			href={env[`PUBLIC_LINK_IMPRINT_${languageTag().toUpperCase()}`]}
+			target="_blank"
+			rel="noopener noreferrer">{m.imprint()}</a
+		>
 	{:else if env['PUBLIC_LINK_IMPRINT']}
-		<a href={env['PUBLIC_LINK_IMPRINT']}>Imprint</a>
+		<a href={env['PUBLIC_LINK_IMPRINT']} target="_blank" rel="noopener noreferrer">Imprint</a>
 	{/if}
 </footer>
 

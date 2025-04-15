@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 1.7.2
+
+### Patch Changes
+
+- open terms and imrpint in new tab
+
 ## 1.7.1
 
 ### Patch Changes
