@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 1.7.0
+
+### Minor Changes
+
+- Add possbility to add term of use and imprint
+
 ## 1.6.4
 
 ### Patch Changes
