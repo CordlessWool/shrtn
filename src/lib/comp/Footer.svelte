@@ -3,6 +3,9 @@
 	import { page } from '$app/state';
 	import { i18n } from '$lib/i18n';
 	import { Github } from 'lucide-svelte';
+	import { languageTag } from '$lib/paraglide/runtime';
+	import { env } from '$env/dynamic/public';
+	import { toUpperCase } from 'valibot';
 </script>
 
 <footer>
@@ -15,6 +18,16 @@
 		rel="noopener noreferrer"><Github /></a
 	>
 	<span>{m.made_with_love()} <a href="https://dropanote.de">CordlessWool</a></span>
+	{#if env[`PUBLIC_LINK_TERMS_${languageTag().toUpperCase()}`]}
+		<a href={env[`PUBLIC_LINK_TERMS_${languageTag().toUpperCase()}`]}>{m.terms_of_use()}</a>
+	{:else if env['PUBLIC_LINK_TERMS']}
+		<a href={env['PUBLIC_LINK_TERMS']}>Terms of Use</a>
+	{/if}
+	{#if env[`PUBLIC_LINK_TERMS_${languageTag().toUpperCase()}`]}
+		<a href={env[`PUBLIC_LINK_IMPRINT_${languageTag().toUpperCase()}`]}>{m.imprint()}</a>
+	{:else if env['PUBLIC_LINK_IMPRINT']}
+		<a href={env['PUBLIC_LINK_IMPRINT']}>Imprint</a>
+	{/if}
 </footer>
 
 <style lang="postcss">
