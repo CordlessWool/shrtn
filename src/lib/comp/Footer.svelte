@@ -17,7 +17,7 @@
 	<span>{m.made_with_love()} <a href="https://dropanote.de">CordlessWool</a></span>
 </footer>
 
-<style>
+<style lang="postcss">
 	@reference "tailwindcss/theme";
 	footer {
 		@apply my-3 flex flex-wrap items-center justify-center gap-y-5 text-zinc-600;
