@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 1.7.1
+
+### Patch Changes
+
+- update dependencies
+
 ## 1.7.0
 
 ### Minor Changes
