@@ -34,9 +34,8 @@
 		"autoprefixer": "^10.4.21",
 		"eslint": "^9.26.0",
 		"eslint-config-prettier": "^10.1.2",
-		"eslint-plugin-svelte": "^2.46.1",
-		"globals": "^15.15.0",
-		"lucide-svelte": "^0.474.0",
+		"eslint-plugin-svelte": "^3.5.1",
+		"lucide-svelte": "^0.507.0",
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
@@ -54,12 +53,12 @@
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
 		"better-sqlite3": "^11.9.1",
-		"drizzle-kit": "^0.30.6",
-		"drizzle-orm": "^0.39.3",
+		"drizzle-kit": "^0.31.1",
+		"drizzle-orm": "^0.43.1",
 		"juice": "^11.0.1",
 		"mustache": "^4.2.0",
 		"nanoid": "^5.1.5",
-		"nodemailer": "^6.10.1",
+		"nodemailer": "^7.0.2",
 		"@inlang/paraglide-sveltekit": "0.15.5"
 	}
 }
