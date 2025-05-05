@@ -6,12 +6,12 @@ import { error, redirect } from '@sveltejs/kit';
 import { getLinkSchema, getString } from '$lib/helper/form';
 import { createAndLoginTempUser } from '$lib/helper/auth.server';
 import { and, eq, gte, isNull, or } from 'drizzle-orm';
-import { pathWithLang } from '$lib/helper/path';
 import { nanoid } from 'nanoid';
 import { SHORTEN_LENGTH } from '$lib/helper/defaults';
 import type { Link as LinkSchema } from '$lib/server/db/schema';
 import { ORIGIN } from '$lib/server/defaults.js';
 import type { Link } from '$lib/definitions';
+import { localizeHref } from '$lib/paraglide/runtime';
 
 const saveLink = (data: LinkSchema, counter = 5) => {
 	try {
@@ -98,7 +98,7 @@ export const actions = {
 			expiresAt
 		});
 
-		redirect(302, pathWithLang(`/link/${id}`));
+		redirect(302, localizeHref(`/link/${id}`));
 	},
 	remove: async ({ locals, request }) => {
 		const { user } = locals;

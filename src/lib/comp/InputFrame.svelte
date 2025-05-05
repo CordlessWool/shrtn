@@ -28,7 +28,7 @@
 	{/if}
 </div>
 
-<style>
+<style lang="postcss">
 	@reference "tailwindcss/theme";
 	.frame {
 		@apply grid gap-0;
