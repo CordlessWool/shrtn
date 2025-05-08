@@ -24,3 +24,5 @@ vite.config.ts.timestamp-*
 
 # SQLite
 *.db
+
+.cloudflare/

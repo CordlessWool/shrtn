@@ -5,7 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
+		"dev:cloudflare": "BUILD_FOR=cloudflare vite dev",
 		"build": "vite build",
+		"build:cloudflare": "BUILD_FOR=cloudflare vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -58,6 +60,7 @@
 		"drizzle-kit": "^0.31.1",
 		"drizzle-orm": "^0.43.1",
 		"juice": "^11.0.1",
+		"mailgun.js": "^12.0.1",
 		"mustache": "^4.2.0",
 		"nanoid": "^5.1.5",
 		"nodemailer": "^7.0.2"
