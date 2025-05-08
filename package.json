@@ -61,5 +61,6 @@
 		"mustache": "^4.2.0",
 		"nanoid": "^5.1.5",
 		"nodemailer": "^7.0.2"
-	}
+	},
+	"packageManager": "^bun@1.1.0"
 }

@@ -9,13 +9,13 @@
 <footer>
 	<a
 		data-sveltekit-reload
-		rel="alternative"
+		rel="alternate"
 		hreflang="en"
 		href={localizeHref(page.url.pathname, { locale: 'en' })}>EN</a
 	>
 	<a
 		data-sveltekit-reload
-		rel="alternative"
+		rel="alternate"
 		hreflang="de"
 		href={localizeHref(page.url.pathname, { locale: 'de' })}>DE</a
 	>
