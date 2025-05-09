@@ -1,4 +1,4 @@
-import { drizzle } from 'drizzle-orm/better-sqlite3';
+import { drizzle, LibSQLDatabase } from 'drizzle-orm/libsql';
 import { building } from '$app/environment';
 import { env } from '$env/dynamic/private';
 export * as schema from './schema';
@@ -12,4 +12,12 @@ const getDatabaseURL = () => {
 	}
 	return env.DATABASE_URL;
 };
-export const db = drizzle(getDatabaseURL());
+
+let db: LibSQLDatabase;
+
+export const getDB = () => {
+	if (!db) {
+		db = drizzle(getDatabaseURL());
+	}
+	return db;
+};

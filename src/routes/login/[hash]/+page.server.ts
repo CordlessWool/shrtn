@@ -1,4 +1,4 @@
-import { db, schema } from '$lib/server/db';
+import { getDB, schema } from '$lib/server/db';
 import { eq, and, gte } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 import { loginUser } from '$lib/helper/auth.server';
@@ -18,11 +18,12 @@ const maskmail = (mail: string) => {
 
 export const load: PageServerLoad = async (event) => {
 	const { locals, params } = event;
+	const db = getDB();
 	if (locals.user && locals.user.temp === false) {
 		redirect(302, localizeHref('/'));
 	}
 
-	const data = db
+	const data = await db
 		.select({
 			mail: schema.magicLink.email,
 			key: schema.magicLink.verification,
@@ -54,12 +55,13 @@ export const actions = {
 	resend: async (event) => {
 		const { params } = event;
 		const { hash } = params;
+		const db = getDB();
 		const form = await superValidate(event.request, valibot(ThemeSchema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
 
-		const data = db
+		const data = await db
 			.select({
 				email: schema.magicLink.email,
 				key: schema.magicLink.verification
@@ -78,13 +80,14 @@ export const actions = {
 	verify: async (event) => {
 		const { locals, params, request } = event;
 		const { hash } = params;
+		const db = getDB();
 
 		const form = await superValidate(request, valibot(VerificationSchema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
 
-		const user = db
+		const user = await db
 			.select({
 				id: schema.user.id,
 				temp: schema.user.temp
@@ -111,20 +114,21 @@ export const actions = {
 		}
 
 		if (user.temp === true) {
-			db.update(schema.user).set({ temp: false }).where(eq(schema.user.id, user.id)).run();
+			await db.update(schema.user).set({ temp: false }).where(eq(schema.user.id, user.id)).run();
 		} else if (locals.user?.id && locals.user.temp === true) {
-			db.update(schema.link)
+			await db
+				.update(schema.link)
 				.set({ userId: user.id })
 				.where(eq(schema.link.userId, locals.user.id))
 				.run();
 			if (locals.session) {
-				invalidateSession(locals.session.id);
+				await invalidateSession(locals.session.id);
 			}
-			db.delete(schema.user).where(eq(schema.user.id, locals.user.id)).run();
+			await db.delete(schema.user).where(eq(schema.user.id, locals.user.id)).run();
 		}
-		db.delete(schema.magicLink).where(eq(schema.magicLink.id, hash)).run();
+		await db.delete(schema.magicLink).where(eq(schema.magicLink.id, hash)).run();
 
-		loginUser(event, user.id);
+		await loginUser(event, user.id);
 		redirect(302, localizeHref('/'));
 	}
 } satisfies Actions;
