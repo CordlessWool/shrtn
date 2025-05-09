@@ -1,6 +1,6 @@
 {
 	"name": "shrtn.to",
-	"private": true,
+	"license": "MIT",
 	"version": "1.7.2",
 	"type": "module",
 	"scripts": {
