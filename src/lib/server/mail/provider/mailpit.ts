@@ -4,7 +4,6 @@ import type { MailData, MailProvider } from './types';
 const mail = () => {
 	const domain = env.MAILPIT_DOMAIN;
 	const url = new URL('/api/v1/send', domain);
-	console.log({ url });
 	return async ({ html, from, to, subject }: MailData) => {
 		const response = await fetch(url, {
 			method: 'POST',

@@ -7,8 +7,15 @@ import { initMailgun } from './provider/mailgun';
 import { env } from '$env/dynamic/private';
 import type { MailProvider } from './provider/types';
 import { initMailpit } from './provider/mailpit';
+import assert from 'node:assert';
+import { building } from '$app/environment';
 
 const getProvider = (): MailProvider => {
+	if (building) {
+		return {
+			mail: () => {}
+		} as unknown as MailProvider;
+	}
 	switch (env.MAIL_PROVIDER) {
 		case 'MAILGUN':
 			return initMailgun();
@@ -21,6 +28,7 @@ const getProvider = (): MailProvider => {
 const provider = getProvider();
 
 const defaultFrom = env.MAIL_FROM;
+assert(defaultFrom, 'Env MAIL_FROM is required!');
 
 export const sendVerificationMail = async (to: string, key: string, theme: THEME = THEME.DARK) => {
 	const html = mustache.render(VERIFICATION_TEMPLATE, {
