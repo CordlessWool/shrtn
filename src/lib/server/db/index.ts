@@ -17,7 +17,12 @@ let db: LibSQLDatabase;
 
 export const getDB = () => {
 	if (!db) {
-		db = drizzle(getDatabaseURL());
+		db = drizzle({
+			connection: {
+				url: getDatabaseURL(),
+				authToken: env.DATABASE_AUTH_TOKEN
+			}
+		});
 	}
 	return db;
 };

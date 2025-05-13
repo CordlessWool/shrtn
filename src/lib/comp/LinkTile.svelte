@@ -93,7 +93,7 @@
 	</div>
 </section>
 
-<style>
+<style lang="postcss">
 	@reference "tailwindcss/theme";
 	section {
 		@apply grid grid-flow-col grid-cols-3 grid-rows-3 items-center gap-x-3;
