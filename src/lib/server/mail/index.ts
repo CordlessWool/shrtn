@@ -18,7 +18,7 @@ const getProvider = (): MailProvider => {
 	}
 };
 
-let provider = getProvider();
+const provider = getProvider();
 
 const defaultFrom = env.MAIL_FROM;
 
