@@ -4,6 +4,8 @@
 2. **Run the Docker Container**:
    ```bash
    docker run -d -p 3001:3001 --name your-shrtn-container cordlesswool/shrtn
+   # or
+   docker run -d -p 3001:3001 --name your-shrtn-container ghcr.io/cordlesswool/shrtn
    ```
 3. **Access the Application**: Navigate to `http://localhost:3001`.
 
