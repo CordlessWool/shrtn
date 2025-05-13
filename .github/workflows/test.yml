@@ -12,6 +12,8 @@ jobs:
       # run any `bun` or `bunx` command
       - run: bun install
       - run: bun run build
+      - name: Prepare playwright
+        run: bunx playwright install
       - name: Run all Tests
         run: bun run test
         env:
