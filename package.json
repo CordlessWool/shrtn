@@ -65,8 +65,7 @@
 		"juice": "^11.0.1",
 		"mailgun.js": "^12.0.1",
 		"mustache": "^4.2.0",
-		"nanoid": "^5.1.5",
-		"pipe-and-combine": "^0.8.1"
+		"nanoid": "^5.1.5"
 	},
 	"packageManager": "^bun@1.1.0"
 }

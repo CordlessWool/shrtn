@@ -13,7 +13,6 @@
         "mailgun.js": "^12.0.1",
         "mustache": "^4.2.0",
         "nanoid": "^5.1.5",
-        "pipe-and-combine": "^0.8.1",
       },
       "devDependencies": {
         "@changesets/cli": "^2.29.3",
@@ -1110,8 +1109,6 @@
     "picomatch": ["picomatch@4.0.2", "", {}, "sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg=="],
 
     "pify": ["pify@4.0.1", "", {}, "sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g=="],
-
-    "pipe-and-combine": ["pipe-and-combine@0.8.1", "", {}, "sha512-Kcb8BY1MjB5poVb6fUW9Pl7A1Z7f4VH18B5fF40azKQYhu1PWJFjb4IKFEwq4BiPNlb3DxztYlcuXXH9qWBAWg=="],
 
     "pkce-challenge": ["pkce-challenge@5.0.0", "", {}, "sha512-ueGLflrrnvwB3xuo/uGob5pd5FN7l0MsLf0Z87o/UQmRtwjvfylfc9MurIxRAWywCYTgrvpXBcqjV4OfCYGCIQ=="],
 
