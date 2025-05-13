@@ -38,6 +38,7 @@
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/mustache": "^4.2.6",
 		"autoprefixer": "^10.4.21",
+		"dotenv": "^16.5.0",
 		"eslint": "^9.26.0",
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-svelte": "^3.5.1",

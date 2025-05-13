@@ -5,8 +5,21 @@ import VERIFICATION_TEMPLATE from './templates/verification.html?raw';
 import * as m from '$lib/paraglide/messages';
 import { initMailgun } from './provider/mailgun';
 import { env } from '$env/dynamic/private';
+import type { MailProvider } from './provider/types';
+import { initMailpit } from './provider/mailpit';
 
-const provider = initMailgun();
+const getProvider = (): MailProvider => {
+	switch (env.MAIL_PROVIDER) {
+		case 'MAILGUN':
+			return initMailgun();
+		default:
+		case 'MAILPIT':
+			return initMailpit();
+	}
+};
+
+let provider = getProvider();
+
 const defaultFrom = env.MAIL_FROM;
 
 export const sendVerificationMail = async (to: string, key: string, theme: THEME = THEME.DARK) => {

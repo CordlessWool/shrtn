@@ -1,7 +1,7 @@
 import Mailgun from 'mailgun.js';
 import { Interfaces } from 'mailgun.js/definitions';
 import { env } from '$env/dynamic/private';
-import type { MailData } from './types';
+import type { MailData, MailProvider } from './types';
 
 const mail = (client: Interfaces.IMailgunClient) => {
 	const domain = env.MAILGUN_DOMAIN;
@@ -13,7 +13,7 @@ const mail = (client: Interfaces.IMailgunClient) => {
 	};
 };
 
-export const initMailgun = () => {
+export const initMailgun = (): MailProvider => {
 	const mailgun = new Mailgun(FormData);
 	const client = mailgun.client({
 		username: 'api',

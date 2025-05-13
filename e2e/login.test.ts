@@ -1,11 +1,11 @@
 import { expect, test } from '@playwright/test';
-import { addLinkAndTest } from './helper/shortener';
-import { goto } from './helper/navigation';
+import { hasSignOut, login } from './helper/login';
 import { combine } from './helper/general';
 
 test('home page has expected h1', async ({ page }) => {
-	await page.goto('/');
+	await page.goto('/login');
 	await expect(page.locator('h1')).toBeVisible();
+	expect(page.locator('h1')).toContainText('Sign in');
 });
 
-test('enter a invalid URL', combine(goto('/'), addLinkAndTest()));
+test('login', combine(login(), hasSignOut()));

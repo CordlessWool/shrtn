@@ -1,20 +1,6 @@
-import { expect, type Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-
-type TestFunction = (args: { page: Page }) => Promise<void>;
-export const combine =
-	(...fus: Array<TestFunction>): TestFunction =>
-	async ({ page }) => {
-		for (const fu of fus) {
-			await fu({ page });
-		}
-	};
-
-export const goto =
-	(path: string): TestFunction =>
-	async ({ page }) => {
-		await page.goto(path);
-	};
+import { type TestFunction, combine } from './general';
 
 export const fillLinkIntoInput =
 	(link: string): TestFunction =>
