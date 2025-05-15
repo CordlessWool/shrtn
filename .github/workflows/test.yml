@@ -19,5 +19,5 @@ jobs:
         env:
           MAILPIT_DOMAIN: https://mailpit.dropanote.de
           MAIL_FROM: noreply@shrtn.io
-          DATABASE: file:./local.db
+          DATABASE_URL: file:./local.db
           ORIGIN: http://localhost:5173
