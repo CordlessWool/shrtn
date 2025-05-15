@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/private';
 import type { MailData, MailProvider } from './types';
 
 const mail = () => {
-	const domain = env.MAILPIT_DOMAIN;
+	const domain = env.MAILPIT_DOMAIN ?? 'http://localhost:8025';
 	const url = new URL('/api/v1/send', domain);
 	return async ({ html, from, to, subject }: MailData) => {
 		const response = await fetch(url, {

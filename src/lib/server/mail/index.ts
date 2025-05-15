@@ -11,11 +11,6 @@ import assert from 'node:assert';
 import { building } from '$app/environment';
 
 const getProvider = (): MailProvider => {
-	if (building) {
-		return {
-			mail: () => {}
-		} as unknown as MailProvider;
-	}
 	switch (env.MAIL_PROVIDER) {
 		case 'MAILGUN':
 			return initMailgun();
@@ -27,10 +22,7 @@ const getProvider = (): MailProvider => {
 
 const provider = getProvider();
 
-const defaultFrom = env.MAIL_FROM!;
-if (!building) {
-	assert(defaultFrom, 'Env MAIL_FROM is required!');
-}
+const defaultFrom = env.MAIL_FROM;
 
 export const sendVerificationMail = async (to: string, key: string, theme: THEME = THEME.DARK) => {
 	const html = mustache.render(VERIFICATION_TEMPLATE, {
@@ -42,6 +34,7 @@ export const sendVerificationMail = async (to: string, key: string, theme: THEME
 		key
 	});
 	const htmlWithInlineStyles = juice(html);
+	assert(defaultFrom, 'Env MAIL_FROM is required!');
 	await provider.mail({
 		from: defaultFrom,
 		to,
