@@ -16,6 +16,8 @@ jobs:
         run: bunx playwright install
       - name: Create Database
         run: bun run db:migrate
+        env:
+          DATABASE_URL: file:./local.db
       - name: Run all Tests
         run: bun run test
         env:
