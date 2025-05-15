@@ -52,7 +52,7 @@
 		<InputFrame error={$verifyErrors.key?.[0]}>
 			<KeyInput type="text" name="key" length={data.keyLength} bind:value={$verifyForm.key} />
 		</InputFrame>
-		<Button disabled={$verifySubmitting} class="text-lg"
+		<Button disabled={$verifySubmitting} class="text-lg" title={m.verify()}
 			><ShieldCheck class={$verifySubmitting ? 'animate-spin' : ''} />{m.verify()}</Button
 		>
 	</form>

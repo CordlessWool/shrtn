@@ -69,7 +69,7 @@
 					bind:value={$form.link}
 				/>
 				<Select name="ttl" aria-label={m.ttl()}>
-					{#each getTTLs(isLoggedIn(data.user)).reverse() as [time, text]}
+					{#each getTTLs(isLoggedIn(data.user)).reverse() as [time, text] (time)}
 						<option value={time}>{m[text]()}</option>
 					{/each}
 				</Select>

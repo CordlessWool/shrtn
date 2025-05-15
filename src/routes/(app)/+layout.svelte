@@ -18,7 +18,7 @@
 		<a href={localizeHref('/login')}>{m.sign_in_link()}</a>
 	{:else}
 		<form method="POST" action="/login/?/logout">
-			<button type="submit">{m.sign_out()}</button>
+			<button type="submit" title={m.sign_out()}>{m.sign_out()}</button>
 		</form>
 	{/if}
 </Header>

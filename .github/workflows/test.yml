@@ -4,6 +4,8 @@ jobs:
   test:
     name: Test and Build
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: file:local.db
     steps:
       # ...
       - uses: actions/checkout@v4
@@ -12,3 +14,13 @@ jobs:
       # run any `bun` or `bunx` command
       - run: bun install
       - run: bun run build
+      - name: Prepare playwright
+        run: bunx playwright install
+      - name: Create Database
+        run: bun run db:migrate
+      - name: Run all Tests
+        run: bun run test
+        env:
+          MAILPIT_DOMAIN: https://mailpit.dropanote.de
+          MAIL_FROM: noreply@shrtn.io
+          ORIGIN: http://localhost:5173

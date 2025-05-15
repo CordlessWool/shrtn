@@ -1,0 +1,18 @@
+{
+	"name": "shrtnio",
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"compatibility_date": "2025-01-01",
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
+	"compatibility_flags": ["nodejs_compat"],
+	"d1_databases": [
+		{
+			"binding": "BINDING_NAME",
+			"database_name": "YOUR_DB_NAME",
+			"database_id": "YOUR_DB_ID",
+			"migrations_dir": "drizzle/migrations"
+		}
+	]
+}

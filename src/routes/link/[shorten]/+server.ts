@@ -1,12 +1,13 @@
-import { db, schema } from '$lib/server/db';
+import { getDB, schema } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import type { Link } from '$lib/definitions';
 
-export const GET: RequestHandler = ({ params }) => {
+export const GET: RequestHandler = async ({ params }) => {
+	const db = getDB();
 	const { shorten } = params;
-	const link = db
+	const link = await db
 		.select({
 			url: schema.link.url,
 			key: schema.link.id,

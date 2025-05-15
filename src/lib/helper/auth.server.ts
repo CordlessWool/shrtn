@@ -1,9 +1,10 @@
-import { db, schema } from '$lib/server/db';
+import { getDB, schema } from '$lib/server/db';
 import * as auth from '$lib/server/auth';
 import type { RequestEvent } from '@sveltejs/kit';
 import { createUUID } from './identifiers';
 
-export const createAndLoginTempUser = (event: RequestEvent) => {
+export const createAndLoginTempUser = async (event: RequestEvent) => {
+	const db = getDB();
 	const userId = createUUID();
 	const user = {
 		id: userId,
@@ -12,16 +13,16 @@ export const createAndLoginTempUser = (event: RequestEvent) => {
 		lastSeen: new Date(),
 		createdAt: new Date()
 	};
-	db.insert(schema.user).values([user]).run();
+	await db.insert(schema.user).values([user]).run();
 
 	const sessionToken = auth.generateSessionToken();
-	const session = auth.createSession(sessionToken, userId);
+	const session = await auth.createSession(sessionToken, userId);
 	auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 	return { user, session } satisfies App.Locals;
 };
 
-export const loginUser = (event: RequestEvent, userId: string) => {
+export const loginUser = async (event: RequestEvent, userId: string) => {
 	const sessionToken = auth.generateSessionToken();
-	const session = auth.createSession(sessionToken, userId);
+	const session = await auth.createSession(sessionToken, userId);
 	auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 };

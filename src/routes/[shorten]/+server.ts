@@ -1,11 +1,12 @@
 import type { RequestHandler } from './$types';
 import { eq, and, gte, or, isNull } from 'drizzle-orm';
-import { db, schema } from '$lib/server/db';
+import { getDB, schema } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
 
-export const GET: RequestHandler = ({ params }) => {
+export const GET: RequestHandler = async ({ params }) => {
+	const db = getDB();
 	const { shorten } = params;
-	const data = db
+	const data = await db
 		.select({
 			link: schema.link.url
 		})
