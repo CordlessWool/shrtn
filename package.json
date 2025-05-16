@@ -15,8 +15,10 @@
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
+		"db:generate": "drizzle-kit generate",
 		"db:push": "drizzle-kit push",
 		"db:migrate": "drizzle-kit migrate",
+		"db:migrate:cloudflare": "wrangler d1 migrations apply SHRTN_D1",
 		"db:studio": "drizzle-kit studio",
 		"machine-translate": "inlang machine translate --project project.inlang",
 		"test:e2e": "playwright test"
