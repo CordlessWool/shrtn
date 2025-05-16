@@ -1,25 +1,47 @@
-import Mailgun from 'mailgun.js';
-import { Interfaces } from 'mailgun.js/definitions';
 import { env } from '$env/dynamic/private';
+import assert from 'node:assert';
 import type { MailData, MailProvider } from './types';
 
-const mail = (client: Interfaces.IMailgunClient) => {
-	const domain = env.MAILGUN_DOMAIN;
+function objectToFormData(obj) {
+	const formData = new FormData();
+
+	Object.entries(obj).forEach(([key, value]) => {
+		formData.append(key, value);
+	});
+
+	return formData;
+}
+
+const mail = (meta: { username: string; key: string; url: string; domain: string }) => {
+	const url = new URL(`${meta.url}/v3/${meta.domain}/messages`, meta.url);
 	return async (data: MailData) => {
-		const response = await client.messages.create(domain, data);
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				Authorization: `Basic ${Buffer.from(`${meta.username}:${meta.key}`).toString('base64')}`
+			},
+			body: objectToFormData(data)
+		});
 		if (response.status >= 400) {
+			console.error(response.statusText);
+			console.error(await response.text());
 			throw new Error('Error on sending mail with Mailgun');
 		}
 	};
 };
 
 export const initMailgun = (): MailProvider => {
-	const mailgun = new Mailgun(FormData);
-	const client = mailgun.client({
+	assert(env.MAILGUN_API_KEY);
+	assert(env.MAILGUN_URL);
+	assert(env.MAILGUN_DOMAIN);
+
+	const client = {
 		username: 'api',
 		key: env.MAILGUN_API_KEY!,
-		url: env.MAILGUN_URL
-	});
+		url: env.MAILGUN_URL,
+		domain: env.MAILGUN_DOMAIN
+	};
+
 	return {
 		mail: mail(client)
 	};

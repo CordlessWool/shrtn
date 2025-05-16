@@ -27,3 +27,5 @@ vite.config.ts.timestamp-*
 *.db
 
 .cloudflare/
+
+.dev.vars

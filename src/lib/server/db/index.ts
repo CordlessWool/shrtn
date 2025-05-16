@@ -23,8 +23,10 @@ const createDatabase = () => {
 		return drizzleD1(env.SHRTN_D1);
 	} else {
 		return drizzleLibSQL({
-			url: getDatabaseURL(),
-			authToken: env.DATABASE_AUTH_TOKEN
+			connection: {
+				url: getDatabaseURL(),
+				authToken: env.DATABASE_AUTH_TOKEN
+			}
 		});
 	}
 };
