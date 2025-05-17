@@ -1,6 +1,6 @@
 #!/bin/bash
 bun run build:cloudflare
-bun wrangler dev --port 4173 &
+bun wrangler dev --port 4173 --local &
 bun run db:migrate:cloudflare --local
 
 SERVER_PID=$!
