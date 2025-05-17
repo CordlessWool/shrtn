@@ -5,7 +5,6 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const { BUILD_FOR } = process.env;
 
 const getAdapter = (env) => {
-	console.log({ env });
 	if (env && env.toUpperCase() === 'CLOUDFLARE') {
 		return cloudflareAdapter();
 	}
