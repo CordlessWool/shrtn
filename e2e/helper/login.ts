@@ -52,13 +52,17 @@ export const deleteMailpitMail = async (...ids: string[]) => {
 
 export const getVerificationCode = async (mail: string) => {
 	const id = await findIdByMail(mail);
-	const url = new URL(`/api/v1/message/${id}/raw`, process.env.MAILPIT_DOMAIN);
+	const url = new URL(`/api/v1/message/${id}`, process.env.MAILPIT_DOMAIN, {
+		headers: {
+			accept: 'application/json'
+		}
+	});
 	const response = await fetch(url);
 
 	handleMailpitResponseError(response);
-	await deleteMailpitMail(id);
-	const html = await response.text();
+	const {HTML: html} = await response.json();
 	const code = /<.*class="code"[^>]*>(\w*)<\/.*>/.exec(html);
+	await deleteMailpitMail(id);
 
 	assert(code, 'Could not find Code');
 
