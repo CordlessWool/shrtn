@@ -21,11 +21,12 @@ export const initSMTP = (): MailProvider => {
 	assert(env.MAIL_HOST, 'MAIL_HOST is not set');
 
 	const hasAuth = env.MAIL_USER && env.MAIL_PASS;
+	const isSecure = env.MAIL_SECURE ? Boolean(env.MAIL_SECURE) : hasAuth;
 
 	const transporter = nodemailer.createTransport({
 		host: env.MAIL_HOST,
 		port: env.MAIL_PORT,
-		secure: env.MAIL_SECURE ? Boolean(env.MAIL_SECURE) : true,
+		secure: isSecure,
 		auth: hasAuth
 			? {
 					user: env.MAIL_USER,

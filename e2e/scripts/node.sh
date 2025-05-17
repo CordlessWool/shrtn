@@ -9,7 +9,7 @@ SERVER_PID=$!
 
 # Wait for it to be ready
 until curl --silent --output /dev/null --fail http://localhost:4173; do
-  sleep 1
+  sleep 3
 done
 
 bun playwright test
