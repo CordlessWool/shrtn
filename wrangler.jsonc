@@ -6,16 +6,6 @@
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
 	},
-	"env":  {
-		"citest": {
-			"vars": {
-				"MAILPIT_DOMAIN": "http://localhost:8025",
-				"MAIL_PROVIDER": "mailpit",
-				"MAIL_FROM": "noreply@shrtn.io",
-				"ORIGIN": "http://localhost:4173"
-			}
-		}
-	},
 	"vars": {
 		"ORIGIN": "http://localhost:8787",
 		"MAIL_FROM": "noreply@shrtn.io",
@@ -24,6 +14,19 @@
 		"BUILD_FOR": "cloudflare",
 		"DATABASE_TYPE": "D1"
 	},
+	"env":  {
+		"citest": {
+			"vars": {
+			  "ORIGIN": "http://localhost:4173",
+				"MAILPIT_DOMAIN": "http://localhost:8025",
+				"MAIL_PROVIDER": "mailpit",
+				"MAIL_FROM": "noreply@shrtn.io",
+				"ORIGIN": "http://localhost:4173",
+				"DATABASE_TYPE": "D1"
+			}
+		}
+	},
+
 	"compatibility_flags": ["nodejs_compat"],
 	"d1_databases": [
 		{
