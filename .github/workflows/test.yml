@@ -5,6 +5,7 @@ jobs:
     name: Test and Build
     runs-on: ubuntu-latest
     env:
+      DATABASE_TYPE: libSQL
       DATABASE_URL: file:local.db
     steps:
       # ...
