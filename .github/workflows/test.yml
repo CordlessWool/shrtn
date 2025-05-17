@@ -29,7 +29,7 @@ jobs:
     name: Test and Build
     runs-on: ubuntu-latest
     env:
-      DATABASE_TYPE: cloudflare
+      DATABASE_TYPE: d1
     steps:
       # ...
       - uses: actions/checkout@v4

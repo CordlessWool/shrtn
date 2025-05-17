@@ -18,7 +18,6 @@ let db: LibSQLDatabase | DrizzleD1Database;
 
 const createDatabase = () => {
 	const type = env.DATABASE_TYPE?.toLowerCase() ?? 'libsql';
-	console.log({ databaseType: type });
 	if (type === 'd1') {
 		return drizzleD1(env.SHRTN_D1);
 	} else {
