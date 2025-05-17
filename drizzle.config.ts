@@ -22,12 +22,11 @@ const getDataForD1Database = () => {
 const defineDatabase = () => {
 	const type = process.env.DATABASE_TYPE?.toLowerCase();
 	switch (type) {
-		case 'libsql':
-			return getDataForLibSQLDatabase();
 		case 'd1':
 			return getDataForD1Database();
+		case 'libsql':
 		default:
-			throw new Error('Invalid DATABASE_TYPE');
+			return getDataForLibSQLDatabase();
 	}
 };
 
