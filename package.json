@@ -21,7 +21,8 @@
 		"db:migrate:cloudflare": "wrangler d1 migrations apply SHRTN_D1",
 		"db:studio": "drizzle-kit studio",
 		"machine-translate": "inlang machine translate --project project.inlang",
-		"test:e2e": "playwright test"
+		"test:e2e": "./e2e/scripts/node.sh",
+		"test:e2e:cloudflare": "./e2e/scripts/node.sh"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.29.4",
