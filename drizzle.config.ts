@@ -5,35 +5,35 @@ const getDataForLibSQLDatabase = () => {
 	return { dbCredentials: { url: process.env.DATABASE_URL } };
 };
 
-const getDataForD1Database = () => {
-	return {
-		dialect: 'sqlite',
-		driver: 'd1-http',
-		out: 'drizzle',
-		migrationsTable: '__drizzle_migrations',
-		dbCredentials: {
-			accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
-			databaseId: process.env.CLOUDFLARE_DATABASE_ID!,
-			token: process.env.CLOUDFLARE_D1_TOKEN!
-		}
-	};
-};
+// const getDataForD1Database = () => {
+// 	return {
+// 		dialect: 'sqlite',
+// 		driver: 'd1-http',
+// 		out: 'drizzle',
+// 		migrationsTable: '__drizzle_migrations',
+// 		dbCredentials: {
+// 			accountId: process.env.CLOUDFLARE_ACCOUNT_ID!,
+// 			databaseId: process.env.CLOUDFLARE_DATABASE_ID!,
+// 			token: process.env.CLOUDFLARE_D1_TOKEN!
+// 		}
+// 	};
+// };
 
-const defineDatabase = () => {
-	const type = process.env.DATABASE_TYPE?.toLowerCase();
-	switch (type) {
-		case 'd1':
-			return getDataForD1Database();
-		case 'libsql':
-		default:
-			return getDataForLibSQLDatabase();
-	}
-};
+// const defineDatabase = () => {
+// 	const type = process.env.DATABASE_TYPE?.toLowerCase();
+// 	switch (type) {
+// 		case 'd1':
+// 			return getDataForD1Database();
+// 		case 'libsql':
+// 		default:
+// 			return getDataForLibSQLDatabase();
+// 	}
+// };
 
 export default defineConfig({
 	schema: './src/lib/server/db/schema.ts',
 
-	...defineDatabase(),
+	...getDataForLibSQLDatabase(),
 
 	verbose: true,
 	strict: true,

@@ -2,9 +2,10 @@
 
 set -e
 
-bun run build
-bun run db:migrate
-bun run preview &
+bun run build:cloudflare
+bun run db:migrate:cloudflare --local --env citest
+bun wrangler dev --port 4173 --local --env citest &
+
 SERVER_PID=$!
 
 # Wait for it to be ready

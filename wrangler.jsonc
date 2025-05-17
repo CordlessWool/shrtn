@@ -14,6 +14,28 @@
 		"BUILD_FOR": "cloudflare",
 		"DATABASE_TYPE": "D1"
 	},
+	"env": {
+		"citest": {
+			"d1_databases": [
+				{
+					"binding": "SHRTN_D1",
+					"database_name": "test-shrtn",
+					"database_id": "553dd2db-9ae6-4d12-95ed-dc905cf7505a",
+					"migrations_dir": "drizzle",
+					"migrations_table": "__drizzle_migrations"
+				}
+			],
+			"vars": {
+				"BUILD_FOR": "cloudflare",
+				"MAILGUN_URL": "",
+				"MAIL_PROVIDER": "mailpit",
+				"MAIL_FROM": "noreply@shrtn.io",
+				"ORIGIN": "http://localhost:4173",
+				"DATABASE_TYPE": "D1"
+			}
+		}
+	},
+
 	"compatibility_flags": ["nodejs_compat"],
 	"d1_databases": [
 		{

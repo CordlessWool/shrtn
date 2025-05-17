@@ -1,8 +1,15 @@
 name: Test
 on: [push]
+
 jobs:
   test-local:
-    name: Test and Build
+    services:
+      mailpit:
+        image: axllent/mailpit
+        ports:
+          - 8025:8025
+          - 1025:1025
+    name: Test and Build - Local
     runs-on: ubuntu-latest
     env:
       DATABASE_TYPE: libSQL
@@ -14,18 +21,32 @@ jobs:
 
       # run any `bun` or `bunx` command
       - run: bun install
-      - run: bun run build
       - name: Prepare playwright
         run: bunx playwright install
       - name: Run all Tests
         run: bun run test
         env:
-          MAILPIT_DOMAIN: https://mailpit.dropanote.de
+          MAILPIT_DOMAIN: http://localhost:8025
+          MAIL_FROM: noreply@shrtn.io
+          ORIGIN: http://localhost:4173
+      - name: Test SMTP
+        run: bun run test:e2e:smtp
+        env:
+          MAILPIT_DOMAIN: http://localhost:8025 #Requiered for e2e api access
+          MAIL_PROVIDER: smtp
+          MAIL_HOST: localhost
+          MAIL_PORT: 1025
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
   test-cloudflare:
-    name: Test and Build
+    name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
+    services:
+      mailpit:
+        image: axllent/mailpit
+        ports:
+          - 8025:8025
+          - 1025:1025
     env:
       DATABASE_TYPE: d1
     steps:
@@ -35,12 +56,9 @@ jobs:
 
       # run any `bun` or `bunx` command
       - run: bun install
-      - run: bun run build
       - name: Prepare playwright
         run: bunx playwright install
       - name: Run all Tests
         run: bun run test:e2e:cloudflare
         env:
-          MAILPIT_DOMAIN: https://mailpit.dropanote.de
-          MAIL_FROM: noreply@shrtn.io
-          ORIGIN: http://localhost:4173
+          MAILPIT_DOMAIN: http://localhost:8025

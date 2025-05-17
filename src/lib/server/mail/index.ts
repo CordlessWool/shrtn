@@ -7,12 +7,15 @@ import { initMailgun } from './provider/mailgun';
 import { env } from '$env/dynamic/private';
 import type { MailProvider } from './provider/types';
 import { initMailpit } from './provider/mailpit';
+import { initSMTP } from './provider/smtp';
 import assert from 'node:assert';
 
 const getProvider = (): MailProvider => {
 	switch (env.MAIL_PROVIDER?.toUpperCase()) {
 		case 'MAILGUN':
 			return initMailgun();
+		case 'SMTP':
+			return initSMTP();
 		default:
 		case 'MAILPIT':
 			return initMailpit();
