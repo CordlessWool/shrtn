@@ -9,7 +9,7 @@ jobs:
         ports:
           - 8025:8025
           - 1025:1025
-    name: Test and Build
+    name: Test and Build - Local
     runs-on: ubuntu-latest
     env:
       DATABASE_TYPE: libSQL
@@ -39,7 +39,7 @@ jobs:
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
   test-cloudflare:
-    name: Test and Build
+    name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
     services:
       mailpit:
