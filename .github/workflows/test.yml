@@ -33,6 +33,7 @@ jobs:
       - name: Test SMTP
         run: bun run test:e2e:smtp
         env:
+          MAILPIT_DOMAIN: http://localhost:8025 #Requiered for e2e api access
           MAIL_PROVIDER: smtp
           MAIL_HOST: localhost
           MAIL_PORT: 1025

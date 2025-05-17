@@ -2,7 +2,6 @@ import { env } from '$env/dynamic/private';
 import nodemailer from 'nodemailer';
 import type { MailData, MailProvider } from './types';
 import assert from 'node:assert';
-import { union } from 'drizzle-orm/sqlite-core';
 
 const mail = (transporter: nodemailer.Transporter) => {
 	return async (data: MailData) => {
