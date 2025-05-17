@@ -3,7 +3,7 @@
 set -e
 
 bun run build:cloudflare
-bun run db:migrate:cloudflare --local
+bun run db:migrate:cloudflare --local --env citest
 bun wrangler dev --port 4173 --local &
 
 SERVER_PID=$!

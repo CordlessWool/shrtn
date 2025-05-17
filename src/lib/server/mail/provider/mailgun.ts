@@ -31,9 +31,9 @@ const mail = (meta: { username: string; key: string; url: string; domain: string
 };
 
 export const initMailgun = (): MailProvider => {
-	assert(env.MAILGUN_API_KEY);
-	assert(env.MAILGUN_URL);
-	assert(env.MAILGUN_DOMAIN);
+	assert(env.MAILGUN_API_KEY, 'MAILGUN_API_KEY is required');
+	assert(env.MAILGUN_URL, 'MAILGUN_URL is required');
+	assert(env.MAILGUN_DOMAIN, 'MAILGUN_DOMAIN is required');
 
 	const client = {
 		username: 'api',

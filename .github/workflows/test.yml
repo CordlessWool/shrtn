@@ -62,8 +62,3 @@ jobs:
         run: bunx playwright install
       - name: Run all Tests
         run: bun run test:e2e:cloudflare
-        env:
-          MAILPIT_DOMAIN: http://localhost:8025
-          MAIL_PROVIDER: mailpit
-          MAIL_FROM: noreply@shrtn.io
-          ORIGIN: http://localhost:4173
