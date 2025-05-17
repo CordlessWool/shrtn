@@ -8,10 +8,9 @@ import { env } from '$env/dynamic/private';
 import type { MailProvider } from './provider/types';
 import { initMailpit } from './provider/mailpit';
 import assert from 'node:assert';
-import { building } from '$app/environment';
 
 const getProvider = (): MailProvider => {
-	switch (env.MAIL_PROVIDER) {
+	switch (env.MAIL_PROVIDER?.toUpperCase()) {
 		case 'MAILGUN':
 			return initMailgun();
 		default:

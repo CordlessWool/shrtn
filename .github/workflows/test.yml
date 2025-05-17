@@ -1,10 +1,11 @@
 name: Test
 on: [push]
 jobs:
-  test:
+  test-local:
     name: Test and Build
     runs-on: ubuntu-latest
     env:
+      DATABASE_TYPE: libSQL
       DATABASE_URL: file:local.db
     steps:
       # ...
@@ -16,11 +17,30 @@ jobs:
       - run: bun run build
       - name: Prepare playwright
         run: bunx playwright install
-      - name: Create Database
-        run: bun run db:migrate
       - name: Run all Tests
         run: bun run test
         env:
           MAILPIT_DOMAIN: https://mailpit.dropanote.de
           MAIL_FROM: noreply@shrtn.io
-          ORIGIN: http://localhost:5173
+          ORIGIN: http://localhost:4173
+  test-cloudflare:
+    name: Test and Build
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_TYPE: d1
+    steps:
+      # ...
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      # run any `bun` or `bunx` command
+      - run: bun install
+      - run: bun run build
+      - name: Prepare playwright
+        run: bunx playwright install
+      - name: Run all Tests
+        run: bun run test:e2e:cloudflare
+        env:
+          MAILPIT_DOMAIN: https://mailpit.dropanote.de
+          MAIL_FROM: noreply@shrtn.io
+          ORIGIN: http://localhost:4173

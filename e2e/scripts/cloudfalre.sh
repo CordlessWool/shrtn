@@ -1,0 +1,14 @@
+#!/bin/bash
+bun run build:cloudflare
+bun wrangler dev --port 4173 --local &
+bun run db:migrate:cloudflare --local
+
+SERVER_PID=$!
+
+# Wait for it to be ready
+until curl --silent --output /dev/null --fail http://localhost:4173; do
+  sleep 1
+done
+
+bun playwright test
+kill $SERVER_PID

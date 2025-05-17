@@ -6,13 +6,22 @@
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
 	},
+	"vars": {
+		"ORIGIN": "http://localhost:8787",
+		"MAIL_FROM": "noreply@shrtn.io",
+		"MAIL_PROVIDER": "mailgun",
+		"MAILGUN_URL": "https://api.eu.mailgun.net",
+		"BUILD_FOR": "cloudflare",
+		"DATABASE_TYPE": "D1"
+	},
 	"compatibility_flags": ["nodejs_compat"],
 	"d1_databases": [
 		{
-			"binding": "BINDING_NAME",
-			"database_name": "YOUR_DB_NAME",
-			"database_id": "YOUR_DB_ID",
-			"migrations_dir": "drizzle/migrations"
+			"binding": "SHRTN_D1",
+			"database_name": "test-shrtn",
+			"database_id": "553dd2db-9ae6-4d12-95ed-dc905cf7505a",
+			"migrations_dir": "drizzle",
+			"migrations_table": "__drizzle_migrations"
 		}
 	]
 }
