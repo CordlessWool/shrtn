@@ -40,6 +40,7 @@
 		"@tailwindcss/vite": "^4.1.7",
 		"@types/better-sqlite3": "^7.6.13",
 		"@types/mustache": "^4.2.6",
+		"@types/nodemailer": "^6.4.17",
 		"autoprefixer": "^10.4.21",
 		"dotenv": "^16.5.0",
 		"eslint": "^9.26.0",
@@ -68,7 +69,8 @@
 		"drizzle-orm": "^0.43.1",
 		"juice": "^11.0.1",
 		"mustache": "^4.2.0",
-		"nanoid": "^5.1.5"
+		"nanoid": "^5.1.5",
+		"nodemailer": "^7.0.3"
 	},
 	"packageManager": "^bun@1.1.0"
 }
