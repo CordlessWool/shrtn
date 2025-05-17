@@ -16,9 +16,19 @@
 	},
 	"env":  {
 		"citest": {
+		"d1_databases": [
+			{
+				"binding": "SHRTN_D1",
+				"database_name": "test-shrtn",
+				"database_id": "553dd2db-9ae6-4d12-95ed-dc905cf7505a",
+				"migrations_dir": "drizzle",
+				"migrations_table": "__drizzle_migrations"
+			}
+		],
 			"vars": {
-			  "ORIGIN": "http://localhost:4173",
-				"MAILPIT_DOMAIN": "http://localhost:8025",
+				"BUILD_FOR": "cloudflare",
+				"MAILGUN_URL":"",
+				"MAILPIT_DOMAIN": "http://192.168.178.72:8025",
 				"MAIL_PROVIDER": "mailpit",
 				"MAIL_FROM": "noreply@shrtn.io",
 				"ORIGIN": "http://localhost:4173",
