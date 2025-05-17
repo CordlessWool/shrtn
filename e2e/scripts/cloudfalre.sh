@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 bun run build:cloudflare
 bun wrangler dev --port 4173 --local &
 bun run db:migrate:cloudflare --local
