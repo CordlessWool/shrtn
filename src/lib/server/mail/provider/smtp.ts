@@ -2,6 +2,7 @@ import { env } from '$env/dynamic/private';
 import nodemailer from 'nodemailer';
 import type { MailData, MailProvider } from './types';
 import assert from 'node:assert';
+import { union } from 'drizzle-orm/sqlite-core';
 
 const mail = (transporter: nodemailer.Transporter) => {
 	return async (data: MailData) => {
@@ -18,16 +19,19 @@ const mail = (transporter: nodemailer.Transporter) => {
 
 export const initSMTP = (): MailProvider => {
 	assert(env.MAIL_HOST, 'MAIL_HOST is not set');
-	assert(env.MAIL_USER, 'MAIL_USER is not set');
-	assert(env.MAIL_PASSWORD, 'MAIL_PASSWORD is not set');
+
+	const hasAuth = env.MAIL_USER && env.MAIL_PASS;
+
 	const transporter = nodemailer.createTransport({
 		host: env.MAIL_HOST,
 		port: env.MAIL_PORT,
 		secure: env.MAIL_SECURE ? Boolean(env.MAIL_SECURE) : true,
-		auth: {
-			user: env.MAIL_USER,
-			pass: env.MAIL_PASSWORD
-		}
+		auth: hasAuth
+			? {
+					user: env.MAIL_USER,
+					pass: env.MAIL_PASS
+				}
+			: undefined
 	});
 	return {
 		mail: mail(transporter)
