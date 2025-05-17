@@ -5,7 +5,7 @@ jobs:
   test-local:
     services:
       mailpit:
-        image: mailpit/mailpit
+        image: axllent/mailpit
         ports:
           - 8025:8025
           - 1025:1025
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mailpit:
-        image: mailpit/mailpit
+        image: axllent/mailpit
         ports:
           - 8025:8025
           - 1025:1025
