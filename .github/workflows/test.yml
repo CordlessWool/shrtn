@@ -61,4 +61,4 @@ jobs:
       - name: Run all Tests
         run: bun run test:e2e:cloudflare
         env:
-          MAILPIT_DOMAIN: http://192.168.178.72:8025
+          MAILPIT_DOMAIN: http://localhost:8025
