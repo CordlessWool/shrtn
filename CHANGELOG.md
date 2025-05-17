@@ -1,5 +1,21 @@
 # shrtn.to
 
+## 2.0.0
+
+### Major Changes
+
+- f45860c: - !Important: local sqlite files must now start with file: in env name.
+  - Replace better-sqlite3 with libSQL to support remove databases and async use
+  - Add cloudflare worker support
+
+### Minor Changes
+
+- ae6ec6e: fix mailsending and add d1 support
+
+### Patch Changes
+
+- 5ec1592: fix select dropdown background color in windows by set a fix color for select
+
 ## 1.7.2
 
 ### Patch Changes
