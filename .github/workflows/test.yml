@@ -60,3 +60,5 @@ jobs:
         run: bunx playwright install
       - name: Run all Tests
         run: bun run test:e2e:cloudflare
+        env:
+          MAILPIT_DOMAIN: http://192.168.178.72:8025
