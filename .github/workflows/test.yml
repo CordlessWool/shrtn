@@ -48,6 +48,8 @@ jobs:
           - 8025:8025
           - 1025:1025
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Build Docker Image
         run: docker build -t shrtn .
       - name: Start Container
