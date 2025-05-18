@@ -74,7 +74,7 @@ jobs:
         env:
           MAILPIT_DOMAIN: http://localhost:8025 #Requiered for e2e api access
       - name: Stop Container
-        run: docker stop shrtn && docker rm shrtn
+        run: docker stop shrtn && docker stop mailpit
   test-cloudflare:
     name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
