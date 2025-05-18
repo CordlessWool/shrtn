@@ -38,6 +38,27 @@ jobs:
           MAIL_PORT: 1025
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
+  test-docker:
+    name: Test and Build - Docker
+    services:
+      mailpit:
+        image: axllent/mailpit
+        ports:
+          - 8025:8025
+          - 1025:1025
+    steps:
+      - name: Build Docker Image
+        run: docker build -t shrtn .
+      - name: Start Container
+        run: |
+          docker run -d --name shrtn \
+          -p 3001:3001 \
+          -e MAILPIT_DOMAIN=http://host.docker.internal:8025 \
+          shrtn
+      - name: Run Tests
+        run: bun run test:e2e:docker
+      - name: Stop Container
+        run: docker stop shrtn && docker rm shrtn
   test-cloudflare:
     name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
