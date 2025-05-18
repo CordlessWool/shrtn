@@ -30,6 +30,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Push Tags
         run: |
+          set +e
           TAG=$(jq -r .version < package.json)
           git show-ref --tags --verify --quiet "v$TAG"
           if [[ $? -eq 0 ]]; then
