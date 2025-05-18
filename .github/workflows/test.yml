@@ -59,7 +59,7 @@ jobs:
         run: docker build -t shrtn .
       - name: Start Container
         run: |
-          docker run -d --rm \
+          docker run -d --name shrtn --rm \
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
           -e MAILPIT_DOMAIN=http://mailpit:8025 \
