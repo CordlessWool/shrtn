@@ -59,7 +59,7 @@ jobs:
         run: docker build -t shrtn .
       - name: Start Container
         run: |
-          docker run --rm \
+          docker run -d --rm \
           -p 4173:3001 \
           -e MAILPIT_DOMAIN=http://host.docker.internal:8025 \
           shrtn
