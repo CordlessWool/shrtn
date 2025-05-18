@@ -28,9 +28,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Create Tag
-        run: bun changeset tag
       - name: Push Tags
-        run: git push --follow-tags
+        run: --
+          TAG=$(jq -r .version < package.json)
+          git tag "v$TAG"
+          git push origin "v$TAG"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
