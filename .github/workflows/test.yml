@@ -61,6 +61,7 @@ jobs:
         run: |
           docker run -d --rm \
           -p 4173:3001 \
+          -e ORIGIN=http://localhost:4173 \
           -e MAILPIT_DOMAIN=http://host.docker.internal:8025 \
           shrtn
       - name: Run Tests
