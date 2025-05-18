@@ -41,12 +41,6 @@ jobs:
   test-docker:
     name: Test and Build - Docker
     runs-on: ubuntu-latest
-    services:
-      mailpit:
-        image: axllent/mailpit
-        ports:
-          - 8025:8025
-          - 1025:1025
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,19 +51,24 @@ jobs:
       - run: bun install
       - name: Build Docker Image
         run: docker build -t shrtn .
+      - name: Create Docker Network
+        run: docker network create shrtn
+      - name: Start Mailpit
+        run: |
+          docker run -d --name mailpit --rm \
+          --network shrtn \
+          -p 8025:8025 \
+          -p 1025:1025 \
+          axllent/mailpit
       - name: Start Container
         run: |
           docker run -d --name shrtn --rm \
+          --network shrtn \
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
           -e MAILPIT_DOMAIN=http://mailpit:8025 \
           -e MAIL_FROM=noreply@shrtn.io \
           shrtn
-      - name: Add Container to Network
-        run: |
-          docker network create shrtn
-          docker network connect shrtn shrtn
-          docker network connect shrtn mailpit
       - name: Run Tests
         run: bun run test:e2e:docker
       - name: Stop Container
