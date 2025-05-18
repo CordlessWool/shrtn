@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.0.3
+
+### Patch Changes
+
+- a431d63: remove build for arm7
+
 ## 2.0.2
 
 ### Patch Changes
