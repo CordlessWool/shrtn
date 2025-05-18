@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.0.2
+
+### Patch Changes
+
+- d9c9f27: add test to testing container and fix container build issues
+
 ## 2.0.1
 
 ### Patch Changes
