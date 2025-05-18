@@ -33,7 +33,7 @@ jobs:
           set +e
           TAG=$(jq -r .version < package.json)
           git show-ref --tags --verify --quiet "v$TAG"
-          if [[ $? -eq 0 ]]; then
+          if [ $? -eq 1 ]; then
             echo "Tag already exists"
           else
             git tag "v$TAG"
