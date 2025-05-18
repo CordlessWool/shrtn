@@ -31,7 +31,12 @@ jobs:
       - name: Push Tags
         run: |
           TAG=$(jq -r .version < package.json)
-          git tag "v$TAG"
-          git push origin "v$TAG"
+          git show-ref --tags --verify --quiet "v$TAG"
+          if [ $? -eq 0 ]; then
+            echo "Tag already exists"
+          else
+            git tag "v$TAG"
+            git push origin "v$TAG"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
