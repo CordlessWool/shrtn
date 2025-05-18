@@ -66,7 +66,7 @@ jobs:
           --network shrtn \
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
-          -e MAILPIT_DOMAIN=http://mailpit:8025 \
+          -e MAILPIT_DOMAIN=http://mailpit.local:8025 \
           -e MAIL_FROM=noreply@shrtn.io \
           shrtn
       - name: Run Tests
