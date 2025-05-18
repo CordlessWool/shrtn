@@ -54,6 +54,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
       - name: Prepare playwright
         run: bunx playwright install
+      - run: bun install
       - name: Build Docker Image
         run: docker build -t shrtn .
       - name: Start Container
