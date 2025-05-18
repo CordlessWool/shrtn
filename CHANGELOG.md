@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.0.1
+
+### Patch Changes
+
+- 4876de7: switch docker container from node to bun
+
 ## 2.0.0
 
 ### Major Changes
