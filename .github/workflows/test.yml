@@ -65,6 +65,11 @@ jobs:
           -e MAILPIT_DOMAIN=http://mailpit:8025 \
           -e MAIL_FROM=noreply@shrtn.io \
           shrtn
+      - name: Add Container to Network
+        run: |
+          docker network create shrtn
+          docker network connect shrtn shrtn
+          docker network connect shrtn mailpit
       - name: Run Tests
         run: bun run test:e2e:docker
       - name: Stop Container
