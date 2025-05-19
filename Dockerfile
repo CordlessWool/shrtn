@@ -51,6 +51,11 @@ EXPOSE 3001/tcp
 COPY --chmod=755 <<EOT /entrypoint.sh
 #!/usr/bin/env bash
 set -e
+if ! [ -e /data/shrt-container.db ]
+then
+    touch /data/shrt-container.db
+fi
+
 bunx drizzle-kit migrate --config=drizzle.config.ts
 chown -R bun:bun /data
 bun ./index.js
