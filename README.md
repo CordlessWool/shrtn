@@ -40,20 +40,43 @@ To configure the application, set the following environment variables. Default v
 
 ```
 # Database connection string
-DATABASE_URL=sqlite_file_name.db
+DATABASE_URL=file:sqlite_file_name.db
 
 # Base URL for the public-facing site, could also be provided by request headers
 ORIGIN=http://localhost:5173
 
-# Mail server configuration
+# Using SMTP to send emails
+MAIL_PROVIDER=smtp
 MAIL_HOST=smtp.example.com
 MAIL_FROM=noreply@example.com
 MAIL_PORT=465
 MAIL_USER=noreply@example.com
 MAIL_PASS=secure_password
 
+# Using Mailgun to send emails
+MAIL_PROVIDER=mailgun
+MAILGUN_API_KEY=your_mailgun_api_key
+MAILGUN_DOMAIN=your_mailgun_domain
+MAILGUN_URL=https://api.mailgun.net
+
+# Using Mailpit to send emails
+MAIL_PROVIDER=mailpit
+MAILPIT_DOMAIN=http://localhost:8025
+
 # Time-to-live settings for temporary and user-generated content
 ## Possible values: HOUR, DAY, WEEK, MONTH, YEAR, EVER
 PUBLIC_TTL_TEMP=YEAR  # Temporary content expires after 30 days
 PUBLIC_TTL_USER=EVER # User-generated content expires after 1 year
 ```
+
+## Database
+
+With the Version 2 the package switched from `better-sqlite3` to `libSQL`. This means you can now use a higher variety of databases.
+
+In combination with Cloudflare you will now be able to use Cloudflare D1.
+
+## Cloudflare Worker
+
+In version 2, support for Cloudflare workers was added. There is a wrangler file in the source directory.
+
+Remember to adapt the envs to your needs.

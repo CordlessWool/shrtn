@@ -56,6 +56,4 @@ chown -R bun:bun /data
 bun ./index.js
 EOT
 
-
-
 ENTRYPOINT ["/entrypoint.sh"]
