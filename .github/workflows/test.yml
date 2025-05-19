@@ -72,14 +72,14 @@ jobs:
         run: docker network create shrtn
       - name: Start Mailpit
         run: |
-          docker run --name mailpit --rm \
+          docker run -d --name mailpit --rm \
           --network shrtn \
           -p 8025:8025 \
           -p 1025:1025 \
           axllent/mailpit
       - name: Start Container
         run: |
-          docker run -d --name shrtn --rm \
+          docker run --name shrtn --rm \
           --network shrtn \
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
