@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.0.4
+
+### Patch Changes
+
+- fad9097: fix permissions of database on docker mounted folder
+
 ## 2.0.3
 
 ### Patch Changes
