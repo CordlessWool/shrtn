@@ -72,7 +72,7 @@ jobs:
         run: docker network create shrtn
       - name: Start Mailpit
         run: |
-          docker run -d --name mailpit --rm \
+          docker run --name mailpit --rm \
           --network shrtn \
           -p 8025:8025 \
           -p 1025:1025 \
