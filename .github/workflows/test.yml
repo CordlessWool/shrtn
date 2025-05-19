@@ -79,7 +79,7 @@ jobs:
           axllent/mailpit
       - name: Start Container
         run: |
-          docker run --name shrtn --rm \
+          docker run -d --name shrtn --rm \
           --network shrtn \
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
