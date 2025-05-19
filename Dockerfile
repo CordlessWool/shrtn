@@ -39,12 +39,23 @@ COPY --from=prerelease /usr/src/app/package.json .
 COPY --from=prerelease /usr/src/app/drizzle.config.ts .
 COPY --from=prerelease /usr/src/app/drizzle ./drizzle
 
-RUN mkdir -p /data && touch /data/shrt-container.db
-RUN chown -R bun:bun /data
+RUN mkdir -p /data
 ENV DATABASE_URL="file:/data/shrt-container.db"
 ENV PORT=3001
 
 # Run the app
 USER bun
 EXPOSE 3001/tcp
-ENTRYPOINT bunx drizzle-kit migrate --config=drizzle.config.ts && bun ./index.js
+
+
+COPY --chmod=755 <<EOT /entrypoint.sh
+#!/usr/bin/env bash
+set -e
+bunx drizzle-kit migrate --config=drizzle.config.ts
+chown -R bun:bun /data
+bun ./index.js
+EOT
+
+
+
+ENTRYPOINT ["/entrypoint.sh"]
