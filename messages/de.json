@@ -5,12 +5,12 @@
 	"meta_keywords": "Link-Kürzer, URL-Kürzer, Open-Source, anpassbar, Link-Verwaltung",
 	"made_with_love": "Entwicklet mit ♥ von",
 	"sign_in": "Anmelden",
-	"sign_in_link": "Fügen die Links Deinem Konto hinzu",
+	"sign_in_link": "Füge die Links Deinem Konto hinzu",
 	"sign_out": "Abmelden",
-	"teaser": "Kürze deine Links einfach und schnell mit Open-Source-Software und auf wunsch mit eigener Domain",
+	"teaser": "Kürze deine Links einfach und schnell mit Open-Source-Software und auf Wunsch mit eigener Domain",
 	"teaser_sub": "setze einfach Deine eigene Instanz auf",
 	"link_input_placeholder": "https://example.de",
-	"link_input_description": "Füge deinen Link in das eingabe Feld ein und wähle eine Gültigkeitsdauer",
+	"link_input_description": "Füge deinen Link in das Eingabefeld ein und wähle eine Gültigkeitsdauer",
 	"anhour": "eine Stunde",
 	"aday": "ein Tag",
 	"aweek": "eine Woche",
@@ -46,5 +46,7 @@
 	"send_verification": "Verifizierungs-Mail senden",
 	"verification_mail_headline": "Willkommen bei shrtn",
 	"verification_mail_body": "Bitte gebe den folgenden Schlüssel auf der Seite ein, die sich nach der Eingabe Deiner E-Mail geöffnet hat. Dieser Schlüssel funktioniert nur auf dieser Seite.",
-	"github_link_title": "Quellcode auf Github"
+	"github_link_title": "Quellcode auf Github",
+	"terms_of_use": "Nutzungsbedingungen",
+	"imprint": "Impressum"
 }

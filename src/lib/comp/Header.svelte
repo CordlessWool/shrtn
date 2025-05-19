@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import ToggleTheme from './ToggleTheme.svelte';
+	import { localizeHref } from '$lib/paraglide/runtime';
 
 	type Props = {
 		children?: Snippet;
@@ -12,7 +13,7 @@
 
 <header class:name={showName}>
 	{#if showName}
-		<a href="/" class="name">shrtn</a>
+		<a href={localizeHref('/')} class="name">shrtn</a>
 	{/if}
 	<nav>
 		<ToggleTheme />
@@ -20,7 +21,7 @@
 	</nav>
 </header>
 
-<style>
+<style lang="postcss">
 	@reference "tailwindcss/theme";
 	header {
 		@apply flex items-center justify-end gap-3 p-3;

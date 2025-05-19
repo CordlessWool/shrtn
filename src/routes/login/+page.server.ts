@@ -1,4 +1,4 @@
-import { db, schema } from '$lib/server/db';
+import { getDB, schema } from '$lib/server/db';
 import { sendVerificationMail } from '$lib/server/mail';
 import type { Actions } from './$types';
 import { customAlphabet } from 'nanoid';
@@ -10,13 +10,13 @@ import { superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { createUUID } from '$lib/helper/identifiers';
 import { HOUR_IN_MS } from '$lib/helper/defaults';
-
-import { pathWithLang } from '$lib/helper/path';
+import { localizeHref } from '$lib/paraglide/runtime';
 
 const nanokey = customAlphabet('abcdefghijkmnpqrstuvwxyz23456789', 3);
 
-const getUserId = (email: string, userId: string | null | undefined): string => {
-	const user = db
+const getUserId = async (email: string, userId: string | null | undefined): Promise<string> => {
+	const db = getDB();
+	const user = await db
 		.select({ id: schema.user.id })
 		.from(schema.user)
 		.where(eq(schema.user.email, email.toLowerCase()))
@@ -25,14 +25,16 @@ const getUserId = (email: string, userId: string | null | undefined): string => 
 	if (user) {
 		return user.id;
 	} else if (userId) {
-		db.update(schema.user)
+		await db
+			.update(schema.user)
 			.set({ email: email.toLowerCase() })
 			.where(eq(schema.user.id, userId))
 			.run();
 		return userId;
 	} else {
 		const id = createUUID();
-		db.insert(schema.user)
+		await db
+			.insert(schema.user)
 			.values([
 				{
 					id,
@@ -49,16 +51,18 @@ const getUserId = (email: string, userId: string | null | undefined): string => 
 
 export const actions = {
 	mail: async ({ request, locals }) => {
+		const db = getDB();
 		const form = await superValidate(request, valibot(LoginMailSchema));
 		if (!form.valid) {
 			return fail(400, { form });
 		}
 		const { email, theme } = form.data;
-		const userId = getUserId(email, locals.user?.id);
+		const userId = await getUserId(email, locals.user?.id);
 
 		const magicid = createUUID();
 		const verification = nanokey();
-		db.insert(schema.magicLink)
+		await db
+			.insert(schema.magicLink)
 			.values([
 				{
 					id: magicid,
@@ -77,15 +81,15 @@ export const actions = {
 			error(500);
 		}
 
-		redirect(302, pathWithLang(`/login/${magicid}`));
+		redirect(302, localizeHref(`/login/${magicid}`));
 	},
-	logout: (event) => {
+	logout: async (event) => {
 		if (!event.locals.session) {
 			return fail(401);
 		}
-		auth.invalidateSession(event.locals.session.id);
+		await auth.invalidateSession(event.locals.session.id);
 		auth.deleteSessionTokenCookie(event);
 
-		return redirect(302, pathWithLang('/'));
+		return redirect(302, localizeHref('/'));
 	}
 } satisfies Actions;

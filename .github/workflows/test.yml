@@ -1,9 +1,19 @@
 name: Test
 on: [push]
+
 jobs:
-  test:
-    name: Test and Build
+  test-local:
+    services:
+      mailpit:
+        image: axllent/mailpit
+        ports:
+          - 8025:8025
+          - 1025:1025
+    name: Test and Build - Local
     runs-on: ubuntu-latest
+    env:
+      DATABASE_TYPE: libSQL
+      DATABASE_URL: file:local.db
     steps:
       # ...
       - uses: actions/checkout@v4
@@ -11,4 +21,98 @@ jobs:
 
       # run any `bun` or `bunx` command
       - run: bun install
-      - run: bun run build
+      - name: Prepare playwright
+        run: bunx playwright install
+      - name: Run all Tests
+        run: bun run test
+        env:
+          MAILPIT_DOMAIN: http://localhost:8025
+          MAIL_FROM: noreply@shrtn.io
+          ORIGIN: http://localhost:4173
+      - name: Test SMTP
+        run: bun run test:e2e:smtp
+        env:
+          MAILPIT_DOMAIN: http://localhost:8025 #Requiered for e2e api access
+          MAIL_PROVIDER: smtp
+          MAIL_HOST: localhost
+          MAIL_PORT: 1025
+          MAIL_FROM: noreply@shrtn.io
+          ORIGIN: http://localhost:4173
+  test-docker:
+    name: Test and Build - Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache register
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: buildx-${{ hashFiles('**/Dockerfile') }}
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Prepare playwright
+        run: bunx playwright install
+      - run: bun install
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          load: true
+          push: false
+          tags: shrtn:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+      - name: Create Docker Network
+        run: docker network create shrtn
+      - name: Start Mailpit
+        run: |
+          docker run -d --name mailpit --rm \
+          --network shrtn \
+          -p 8025:8025 \
+          -p 1025:1025 \
+          axllent/mailpit
+      - name: Start Container
+        run: |
+          docker run -d --name shrtn --rm \
+          --network shrtn \
+          -p 4173:3001 \
+          -e ORIGIN=http://localhost:4173 \
+          -e MAILPIT_DOMAIN=http://mailpit.shrtn:8025 \
+          -e MAIL_FROM=noreply@shrtn.io \
+          shrtn
+      - name: Run Tests
+        run: bun run test:e2e:docker
+        env:
+          MAILPIT_DOMAIN: http://localhost:8025 #Requiered for e2e api access
+      - name: Stop Container
+        run: docker stop shrtn && docker stop mailpit
+  test-cloudflare:
+    name: Test and Build - Cloudflare
+    runs-on: ubuntu-latest
+    services:
+      mailpit:
+        image: axllent/mailpit
+        ports:
+          - 8025:8025
+          - 1025:1025
+    env:
+      DATABASE_TYPE: d1
+    steps:
+      # ...
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      # run any `bun` or `bunx` command
+      - run: bun install
+      - name: Prepare playwright
+        run: bunx playwright install
+      - name: Run all Tests
+        run: bun run test:e2e:cloudflare
+        env:
+          MAILPIT_DOMAIN: http://localhost:8025

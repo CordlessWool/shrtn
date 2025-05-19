@@ -40,6 +40,6 @@
 	<Moon class="block dark:hidden" />
 </button>
 
-<style>
+<style lang="postcss">
 	@import './Button.css';
 </style>

@@ -1,5 +1,63 @@
 # shrtn.to
 
+## 2.0.4
+
+### Patch Changes
+
+- fad9097: fix permissions of database on docker mounted folder
+
+## 2.0.3
+
+### Patch Changes
+
+- a431d63: remove build for arm7
+
+## 2.0.2
+
+### Patch Changes
+
+- d9c9f27: add test to testing container and fix container build issues
+
+## 2.0.1
+
+### Patch Changes
+
+- 4876de7: switch docker container from node to bun
+
+## 2.0.0
+
+### Major Changes
+
+- f45860c: - !Important: local sqlite files must now start with file: in env name.
+  - Replace better-sqlite3 with libSQL to support remove databases and async use
+  - Add cloudflare worker support
+
+### Minor Changes
+
+- ae6ec6e: fix mailsending and add d1 support
+
+### Patch Changes
+
+- 5ec1592: fix select dropdown background color in windows by set a fix color for select
+
+## 1.7.2
+
+### Patch Changes
+
+- open terms and imrpint in new tab
+
+## 1.7.1
+
+### Patch Changes
+
+- update dependencies
+
+## 1.7.0
+
+### Minor Changes
+
+- Add possbility to add term of use and imprint
+
 ## 1.6.4
 
 ### Patch Changes

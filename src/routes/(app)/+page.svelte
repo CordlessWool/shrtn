@@ -69,7 +69,7 @@
 					bind:value={$form.link}
 				/>
 				<Select name="ttl" aria-label={m.ttl()}>
-					{#each getTTLs(isLoggedIn(data.user)).reverse() as [time, text]}
+					{#each getTTLs(isLoggedIn(data.user)).reverse() as [time, text] (time)}
 						<option value={time}>{m[text]()}</option>
 					{/each}
 				</Select>
@@ -86,7 +86,7 @@
 	</section>
 </main>
 
-<style>
+<style lang="postcss">
 	@reference "tailwindcss/theme";
 	main {
 		@apply flex min-h-full flex-col items-center justify-center gap-3 p-3 md:p-7;

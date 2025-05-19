@@ -1,21 +1,22 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
-import { db, schema } from '$lib/server/db';
+import { getDB, schema } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
 import { getLinkSchema, getString } from '$lib/helper/form';
 import { createAndLoginTempUser } from '$lib/helper/auth.server';
 import { and, eq, gte, isNull, or } from 'drizzle-orm';
-import { pathWithLang } from '$lib/helper/path';
 import { nanoid } from 'nanoid';
 import { SHORTEN_LENGTH } from '$lib/helper/defaults';
 import type { Link as LinkSchema } from '$lib/server/db/schema';
 import { ORIGIN } from '$lib/server/defaults.js';
 import type { Link } from '$lib/definitions';
+import { localizeHref } from '$lib/paraglide/runtime';
 
-const saveLink = (data: LinkSchema, counter = 5) => {
+const saveLink = async (data: LinkSchema, counter = 5) => {
+	const db = getDB();
 	try {
-		db.insert(schema.link).values([data]).run();
+		await db.insert(schema.link).values([data]).run();
 		return data.id;
 	} catch (err) {
 		if (
@@ -34,6 +35,7 @@ const saveLink = (data: LinkSchema, counter = 5) => {
 };
 
 export const load: PageServerLoad = async ({ locals, request }) => {
+	const db = getDB();
 	const origin = ORIGIN || request.headers.get('origin');
 	if (!origin) {
 		error(400, 'Origin header is missing');
@@ -47,7 +49,7 @@ export const load: PageServerLoad = async ({ locals, request }) => {
 		};
 	}
 
-	const data = db
+	const data = await db
 		.select({
 			url: schema.link.url,
 			key: schema.link.id,
@@ -77,7 +79,7 @@ export const actions = {
 
 		if (user == null) {
 			// create tmp user
-			({ user } = createAndLoginTempUser(event));
+			({ user } = await createAndLoginTempUser(event));
 		}
 
 		const LinkSchema = getLinkSchema(!user.temp);
@@ -90,7 +92,7 @@ export const actions = {
 		const { ttl, link: url, short } = form.data;
 		const expiresAt = ttl === Infinity ? null : new Date(Date.now() + ttl);
 
-		const id = saveLink({
+		const id = await saveLink({
 			id: short || nanoid(SHORTEN_LENGTH),
 			userId: user.id,
 			url,
@@ -98,17 +100,19 @@ export const actions = {
 			expiresAt
 		});
 
-		redirect(302, pathWithLang(`/link/${id}`));
+		redirect(302, localizeHref(`/link/${id}`));
 	},
 	remove: async ({ locals, request }) => {
 		const { user } = locals;
+		const db = getDB();
 		if (user == null) {
 			return error(401, 'Not Authenticated');
 		}
 
 		const data = await request.formData();
 		const key = getString(data.get('key'));
-		db.delete(schema.link)
+		await db
+			.delete(schema.link)
 			.where(and(eq(schema.link.id, key), eq(schema.link.userId, user.id)))
 			.run();
 		return { success: true };

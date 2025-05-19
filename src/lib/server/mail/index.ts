@@ -1,33 +1,30 @@
-import nodemailer from 'nodemailer';
 import mustache from 'mustache';
 import juice from 'juice';
-import { env } from '$env/dynamic/private';
 import { THEME } from '$lib/helper/defaults';
 import VERIFICATION_TEMPLATE from './templates/verification.html?raw';
 import * as m from '$lib/paraglide/messages';
+import { initMailgun } from './provider/mailgun';
+import { env } from '$env/dynamic/private';
+import type { MailProvider } from './provider/types';
+import { initMailpit } from './provider/mailpit';
+import { initSMTP } from './provider/smtp';
+import assert from 'node:assert';
 
-const connection = {
-	host: env.MAIL_HOST,
-	port: env.MAIL_PORT,
-	secure: env.MAIL_SECURE ?? true,
-	auth: {
-		user: env.MAIL_USER,
-		pass: env.MAIL_PASS
+const getProvider = (): MailProvider => {
+	switch (env.MAIL_PROVIDER?.toUpperCase()) {
+		case 'MAILGUN':
+			return initMailgun();
+		case 'SMTP':
+			return initSMTP();
+		default:
+		case 'MAILPIT':
+			return initMailpit();
 	}
 };
 
-const transporter = nodemailer.createTransport(
-	encodeURI(`smtps://${connection.auth.user}:${connection.auth.pass}@${connection.host}`)
-);
+const provider = getProvider();
 
-export const mail = async (to: string, subject: string, html: string) => {
-	await transporter.sendMail({
-		from: env.MAIL_FROM,
-		to,
-		subject,
-		html
-	});
-};
+const defaultFrom = env.MAIL_FROM;
 
 export const sendVerificationMail = async (to: string, key: string, theme: THEME = THEME.DARK) => {
 	const html = mustache.render(VERIFICATION_TEMPLATE, {
@@ -39,5 +36,11 @@ export const sendVerificationMail = async (to: string, key: string, theme: THEME
 		key
 	});
 	const htmlWithInlineStyles = juice(html);
-	await mail(to, m.verification(), htmlWithInlineStyles);
+	assert(defaultFrom, 'Env MAIL_FROM is required!');
+	await provider.mail({
+		from: defaultFrom,
+		to,
+		subject: m.verification(),
+		html: htmlWithInlineStyles
+	});
 };
