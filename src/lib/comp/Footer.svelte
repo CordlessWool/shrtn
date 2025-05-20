@@ -49,12 +49,12 @@
 <style lang="postcss">
 	@reference "tailwindcss/theme";
 	footer {
-		@apply my-3 flex flex-wrap items-center justify-center gap-y-5 text-zinc-600;
+		@apply mt-7 mb-2 flex flex-wrap items-center justify-center gap-y-5 text-zinc-600;
 		@apply divide-x-2 divide-zinc-600;
 	}
 
 	footer > * {
-		@apply px-5;
+		@apply px-3;
 	}
 
 	:global(.dark) {
@@ -63,6 +63,7 @@
 		}
 	}
 	a {
+		@apply cursor-pointer;
 		@apply underline-offset-4 hover:font-bold hover:underline;
 		@apply transform transition-all duration-300 ease-in-out hover:scale-105;
 	}
