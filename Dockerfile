@@ -22,6 +22,9 @@ RUN cd /temp/prod && bun i --only=production
 # Copy node_modules from temp directory
 # Then copy all (non-ignored) project files into the image
 FROM base AS prerelease
+
+ENV PUBLIC_FEATURE_MARKETING_PAGES="off"
+
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
@@ -44,7 +47,6 @@ COPY --from=prerelease /usr/src/app/drizzle ./drizzle
 RUN mkdir -p /data
 RUN chown -R bun:bun /data
 ENV DATABASE_URL="file:/data/shrt-container.db"
-ENV PUBLIC_FEATURE_MARKETING_PAGES="off"
 ENV PORT=3001
 
 USER bun
