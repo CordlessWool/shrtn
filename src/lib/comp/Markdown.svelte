@@ -11,6 +11,30 @@
 	.markdown :global {
 		@apply hyphens-auto;
 
+		h1 {
+			@apply mt-1 mb-3 text-3xl font-bold;
+		}
+
+		h2 {
+			@apply mt-1 mb-3 text-2xl font-bold;
+		}
+
+		h3 {
+			@apply mt-1 mb-3 text-xl font-bold;
+		}
+
+		h4 {
+			@apply mt-1 mb-3 text-lg font-bold;
+		}
+
+		h5 {
+			@apply mt-1 mb-3 text-base font-bold;
+		}
+
+		h6 {
+			@apply mt-1 mb-3 text-sm font-bold;
+		}
+
 		a,
 		a.link {
 			@apply text-teal-800 underline decoration-dotted underline-offset-4 transition-colors duration-200 dark:text-teal-300;

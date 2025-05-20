@@ -82,30 +82,71 @@ We’re actively working on:
 - **Password-Protected Links**
   Secure shares with a custom passphrase so only authorized users can follow.
 
+- **Private Server**
+  Disable public access to your link shortener instance and restrict login access.
+
+- **Public Server**
+  Disable private access to your link shortener instance.
+
 - **Click Limits & Expirations**
   Perfect for one-time invites or limited-run promotions: cap total clicks or set an automatic expiry date.
 
 - **On-Prem Analytics Dashboard**
-  View click-through trends, top referrers, and geodata—all stored on your server with exportable CSV.
+  View click-through trends, top referrers, and geodata stored on your server.
 
-Stay tuned—these features will land in v2.1!
+- **Developer-Friendly**
+  A simple, RESTful API and minimal dependencies mean quick integrations and rock-solid stability.
 
 ---
 
 ## 🔧 Environment Variables & Customization
 
-| Variable           | Required | Description                                                      | Default                 |
-| ------------------- | --- |---------------------------------------------------------------- | ----------------------- |
-| `DATABASE_URL`      | yes | Connection string (SQLite, PostgreSQL, MySQL, Cloudflare D1)     | `file:shrtn.sqlite`     |
-| `ORIGIN`            | yes | Base URL for your short-link domain                              | `http://localhost:3001` |
-| `MAIL_PROVIDER`     | yes | `smtp` \| `mailgun` \| `mailpit`                                 | `smtp`                  |
-| `MAIL_HOST`         | yes | SMTP host for sending emails                                     | —                       |
-| `MAIL_PORT`         | yes | SMTP port                                                        | —                       |
-| `MAIL_USER`         | yes | SMTP username                                                    | —                       |
-| `MAIL_PASS`         | yes | SMTP password                                                    | —                       |
-| `MAIL_FROM`         | no  | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
-| `PUBLIC_TTL_TEMP`   | no  | Default expiry for anonymous/temporary links                     | `YEAR`                  |
-| `PUBLIC_TTL_USER`   | no  | Default expiry for user-generated or authenticated short URLs    | `EVER`                  |
+### Base Configuration
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `DATABASE_URL`      | Connection string (SQLite, PostgreSQL, MySQL, Cloudflare D1)     | –                       |
+| `ORIGIN`            | Base URL for your short-link domain                              | –                       |
+| `MAIL_PROVIDER`     | `smtp` \| `mailgun` \| `mailpit` (see blow)                      | –                       |
+| `PUBLIC_TTL_TEMP`   | Default expiry for anonymous/temporary links                     | `WEEK`                  |
+| `PUBLIC_TTL_USER`   | Default expiry for user-generated or authenticated short URLs    | `EVER`                  |
+
+### Sending Emails
+
+To login to your account or even create a new one, you need to setup a email provider.
+Choose one of the following providers:
+
+#### Mailpit
+
+Set `MAIL_PROVIDER` to `MAILPIT`
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `MAILPIT_DOMAIN`    | URL to your Mailpit Server  (e.g. `https://my.mailpit.io`)       | —                       |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+
+#### Mailgun
+
+Set `MAIL_PROVIDER` to `MAILGUN`
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `MAILGUN_DOMAIN`    | Domain of your Mailgun account  (e.g. `mg.example.com`)          | —                       |
+| `MAILGUN_API_KEY`   | API key for your Mailgun account                                 | —                       |
+| `MAILGUN_URL`       | URL of Mailgun ( e.g. `https://api.mailgun.net`)                 | —                       |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+
+#### SMTP
+
+Set `MAIL_PROVIDER` to `SMTP`.
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `MAIL_HOST`         | SMTP host for sending emails                                     | —                       |
+| `MAIL_PORT`         | SMTP port                                                        | —                       |
+| `MAIL_USER`         | SMTP username                                                    | —                       |
+| `MAIL_PASS`         | SMTP password                                                    | —                       |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
 
 ---
 

@@ -28,6 +28,8 @@ At Shrtn, we believe in:
   Create, update, and manage short links programmatically.
 - **Open Source**
   Licensed under MIT—contribute, audit, and customize as you see fit.
+- **Developer-Friendly**
+  A simple, RESTful API and minimal dependencies mean quick integrations and rock-solid stability.
 
 ---
 
@@ -37,10 +39,15 @@ We’re actively developing:
 
 - **Password-Protected Links**
   Add a passphrase requirement for secure sharing.
+- **Private Server**
+  Disable public access to your link shortener instance and restrict login access.
+
+- **Public Server**
+  Disable private access to your link shortener instance.
 - **Click Limits & Expirations**
   Define total click allowances or automatic expiry dates.
 - **On-Prem Analytics Dashboard**
-  View click trends, referrer data, and geolocations—all exportable as CSV.
+  View click trends, referrer data and geodata.
 
 Stay updated by following our releases and discussions on GitHub.
 
@@ -51,7 +58,6 @@ Stay updated by following our releases and discussions on GitHub.
 Shrtn thrives thanks to feedback and contributions from users like you:
 
 - **GitHub Repository**: https://github.com/CordlessWool/shrtn
-- **Discussions**: https://github.com/CordlessWool/shrtn/discussions
 - **Issues**: https://github.com/CordlessWool/shrtn/issues
 - **License**: MIT
 
@@ -63,7 +69,7 @@ We welcome pull requests, bug reports, and feature suggestions. Check our CONTRI
 
 For questions, support, or general inquiries:
 - Open an issue on GitHub.
-- Join the conversation in Discussions.
-- Reach out via email at [maintainer@example.com](mailto:maintainer@example.com).
+- Request a feature or report a bug.
+- Feel free to open pull requests or contribute code.
 
 Thank you for choosing Shrtn—shorten, share, and stay private!
