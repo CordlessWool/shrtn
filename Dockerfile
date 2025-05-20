@@ -22,6 +22,9 @@ RUN cd /temp/prod && bun i --only=production
 # Copy node_modules from temp directory
 # Then copy all (non-ignored) project files into the image
 FROM base AS prerelease
+
+ENV PUBLIC_FEATURE_MARKETING_PAGES="off"
+
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 

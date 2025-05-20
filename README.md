@@ -3,23 +3,27 @@
 1. **Install Docker**: Download from [Docker's official website](https://www.docker.com/products/docker-desktop).
 2. **Run the Docker Container**:
 
-   ```bash
-   docker run -d -p 3001:3001 \
-   --name your-shrtn-container \
-   -v ./data:/data \
-   -e ORIGIN=http://localhost:3001 \
-   -e MAIL_FROM=noreply@example.com \
-   cordlesswool/shrtn
+From Docker Hub:
 
-   # or #
+```bash
+docker run -d -p 3001:3001 \
+--name your-shrtn-container \
+-v ./data:/data \
+-e ORIGIN=http://localhost:3001 \
+-e MAIL_FROM=noreply@example.com \
+cordlesswool/shrtn
+```
 
-   docker run -d -p 3001:3001 \
-   --name your-shrtn-container \
-   -v ./data:/data \
-   -e ORIGIN=http://localhost:3001 \
-   -e MAIL_FROM=noreply@example.com \
-   ghcr.io/cordlesswool/shrtn
-   ```
+From GitHub Container Registry (ghcr.io):
+
+```bash
+docker run -d -p 3001:3001 \
+--name your-shrtn-container \
+-v ./data:/data \
+-e ORIGIN=http://localhost:3001 \
+-e MAIL_FROM=noreply@example.com \
+ghcr.io/cordlesswool/shrtn
+```
 
 3. **Access the Application**: Navigate to `http://localhost:3001`.
 

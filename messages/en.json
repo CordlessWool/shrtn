@@ -48,5 +48,7 @@
 	"verification_mail_body": "Please enter the following key on the page that opens after you have entered your e-mail. This key only works on this website.",
 	"github_link_title": "Source code on Github",
 	"terms_of_use": "Terms of Use",
-	"imprint": "Imprint"
+	"imprint": "Imprint",
+	"about_link": "About",
+	"setup_link": "Setup"
 }

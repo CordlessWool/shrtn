@@ -48,5 +48,7 @@
 	"verification_mail_body": "Bitte gebe den folgenden Schlüssel auf der Seite ein, die sich nach der Eingabe Deiner E-Mail geöffnet hat. Dieser Schlüssel funktioniert nur auf dieser Seite.",
 	"github_link_title": "Quellcode auf Github",
 	"terms_of_use": "Nutzungsbedingungen",
-	"imprint": "Impressum"
+	"imprint": "Impressum",
+	"about_link": "Über uns",
+	"setup_link": "Setup"
 }

@@ -2,6 +2,10 @@
 	import type { Snippet } from 'svelte';
 	import ToggleTheme from './ToggleTheme.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
+	import * as m from '$lib/paraglide/messages';
+
+	import { PUBLIC_FEATURE_MARKETING_PAGES } from '$env/static/public';
+	import { isOn } from '$lib/helper/env';
 
 	type Props = {
 		children?: Snippet;
@@ -17,6 +21,10 @@
 	{/if}
 	<nav>
 		<ToggleTheme />
+		{#if isOn(PUBLIC_FEATURE_MARKETING_PAGES)}
+			<a href={localizeHref('/about')}>{m.about_link()}</a>
+			<a href={localizeHref('/setup')}>{m.setup_link()}</a>
+		{/if}
 		{@render children?.()}
 	</nav>
 </header>
@@ -36,7 +44,7 @@
 	}
 
 	nav {
-		@apply flex items-center gap-3;
+		@apply flex items-center gap-7;
 	}
 	nav :global(button),
 	nav :global(a) {

@@ -1,0 +1,164 @@
+<meta name="description" content="Quickly self-host your own privacy-first URL shortener with Docker or native install. Upcoming support for password-protected links, click-limits and on-prem analytics.">
+
+# Self-Hosted Link Shortener Setup
+
+Launch your own privacy-first Link shortener in minutes. Whether you choose Docker or a native install, you’ll have a fast, lightweight service running on your own server—no third parties required.
+
+---
+
+## Why Choose a Self-Hosted Link Shortener?
+
+- **Full Control & Privacy**
+  Host on your own VPS or local machine—no vendor lock-in, no data leaks.
+- **Fast & Lightweight**
+  Built on Node.js with minimal dependencies for rock-solid performance.
+- **Extensible API**
+  Automate link creation from any app or script.
+
+---
+
+## 🚀 Quickstart: Docker Setup
+
+1. **Install Docker**
+   Get Docker Desktop for Windows/macOS or install Docker Engine on Linux from [docker.com](https://www.docker.com/products/docker-desktop).
+
+2. **Run the Container**
+   ```bash
+   docker run -d \
+     -p 3001:3001 \
+     --name my-shrtn \
+     -v ~/shrtn-data:/data \
+     -e ORIGIN=https://links.example.com \
+     -e MAIL_FROM=noreply@example.com \
+     cordlesswool/shrtn
+   ```
+   - **ORIGIN**: The public Link where your short links resolve (e.g. `https://links.example.com`).
+   - **MAIL_FROM**: Sender address for notification emails.
+
+3. **Verify & Use**
+   Visit `https://links.example.com` in your browser. Create and manage short Links instantly.
+
+---
+
+## ⚙️ Native Install (No Docker)
+
+1. **Download & Extract**
+   Grab the latest release from the [GitHub Releases page](https://github.com/CordlessWool/shrtn/releases).
+
+2. **Install Dependencies**
+   ```bash
+   cd shrtn
+   bun install --production
+   bun run db:migrate
+   ```
+
+3. **Configure Environment**
+   Create a `.env` file in the project root:
+
+   ```env
+   DATABASE_URL=file:./shrtn.sqlite
+   ORIGIN=https://links.example.com
+   MAIL_PROVIDER=smtp
+   MAIL_HOST=smtp.example.com
+   MAIL_PORT=465
+   MAIL_USER=user@example.com
+   MAIL_PASS=strong_password
+   MAIL_FROM=noreply@example.com
+   PUBLIC_TTL_TEMP=DAY
+   PUBLIC_TTL_USER=YEAR
+   ```
+
+4. **Start the Service**
+   ```bash
+   node index.js
+   ```
+
+---
+
+## 🛠️ Upcoming Features (Roadmap)
+
+We’re actively working on:
+
+- **Password-Protected Links**
+  Secure shares with a custom passphrase so only authorized users can follow.
+
+- **Private Server**
+  Disable public access to your link shortener instance and restrict login access.
+
+- **Public Server**
+  Disable private access to your link shortener instance.
+
+- **Click Limits & Expirations**
+  Perfect for one-time invites or limited-run promotions: cap total clicks or set an automatic expiry date.
+
+- **On-Prem Analytics Dashboard**
+  View click-through trends, top referrers, and geodata stored on your server.
+
+- **Developer-Friendly**
+  A simple, RESTful API and minimal dependencies mean quick integrations and rock-solid stability.
+
+---
+
+## 🔧 Environment Variables & Customization
+
+### Base Configuration
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `DATABASE_URL`      | Connection string (SQLite, PostgreSQL, MySQL, Cloudflare D1)     | –                       |
+| `ORIGIN`            | Base URL for your short-link domain                              | –                       |
+| `MAIL_PROVIDER`     | `smtp` \| `mailgun` \| `mailpit` (see blow)                      | –                       |
+| `PUBLIC_TTL_TEMP`   | Default expiry for anonymous/temporary links                     | `WEEK`                  |
+| `PUBLIC_TTL_USER`   | Default expiry for user-generated or authenticated short URLs    | `EVER`                  |
+
+### Sending Emails
+
+To login to your account or even create a new one, you need to setup a email provider.
+Choose one of the following providers:
+
+#### Mailpit
+
+Set `MAIL_PROVIDER` to `MAILPIT`
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `MAILPIT_DOMAIN`    | URL to your Mailpit Server  (e.g. `https://my.mailpit.io`)       | —                       |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+
+#### Mailgun
+
+Set `MAIL_PROVIDER` to `MAILGUN`
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `MAILGUN_DOMAIN`    | Domain of your Mailgun account  (e.g. `mg.example.com`)          | —                       |
+| `MAILGUN_API_KEY`   | API key for your Mailgun account                                 | —                       |
+| `MAILGUN_URL`       | URL of Mailgun ( e.g. `https://api.mailgun.net`)                 | —                       |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+
+#### SMTP
+
+Set `MAIL_PROVIDER` to `SMTP`.
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `MAIL_HOST`         | SMTP host for sending emails                                     | —                       |
+| `MAIL_PORT`         | SMTP port                                                        | —                       |
+| `MAIL_USER`         | SMTP username                                                    | —                       |
+| `MAIL_PASS`         | SMTP password                                                    | —                       |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+
+---
+
+## 📦 Supported Databases & Deploy Targets
+
+- **SQLite** (default) - via libSQL
+- **[Tursor](https://tursor.tech)** (default) - via libSQL
+- **Cloudflare D1** for edge-deployed, serverless URL hosting
+- Deploy via **Docker**, **Kubernetes**, **Cloud VM** or **bare-metal**
+
+---
+
+### Questions or Feedback?
+
+Join us on [GitHub Discussions](https://github.com/CordlessWool/shrtn/discussions) or open an issue—happy to help!

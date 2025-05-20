@@ -49,6 +49,7 @@
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-svelte": "^3.7.0",
 		"lucide-svelte": "^0.511.0",
+		"mdsvex": "^0.12.3",
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.6.11",
@@ -70,6 +71,7 @@
 		"drizzle-kit": "^0.31.1",
 		"drizzle-orm": "^0.43.1",
 		"juice": "^11.0.1",
+		"mdsvex": "^0.12.6",
 		"mustache": "^4.2.0",
 		"nanoid": "^5.1.5",
 		"nodemailer": "^7.0.3"

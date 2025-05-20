@@ -12,7 +12,8 @@
 		"MAIL_PROVIDER": "mailgun",
 		"MAILGUN_URL": "https://api.eu.mailgun.net",
 		"BUILD_FOR": "cloudflare",
-		"DATABASE_TYPE": "D1"
+		"DATABASE_TYPE": "D1",
+		"PUBLIC_FEATURE_MARKETING_PAGES": "on"
 	},
 	"env": {
 		"citest": {
