@@ -1,0 +1,69 @@
+<meta name="description" content="Learn about Shrtn, the privacy-first, self-hosted URL shortener. Discover our mission, features, roadmap, and how to contribute.">
+
+# About Shrtn
+
+**Shrtn** is an open-source, self-hosted URL shortener designed for maximum privacy, performance, and ease of use. Built with a focus on simplicity and extensibility, Shrtn empowers you to run your own link management solution—free from third-party restrictions and data harvesting.
+
+---
+
+## Our Mission
+
+At Shrtn, we believe in:
+- **Privacy First**
+  You control your data. No external tracking, analytics, or data sharing—ever.
+- **Full Ownership**
+  Host on your own server or edge environment. Keep complete control over your infrastructure and uptime.
+- **Developer-Friendly**
+  A simple, RESTful API and minimal dependencies mean quick integrations and rock-solid stability.
+
+---
+
+## Core Features
+
+- **Self-Hosted**
+  Deploy on Docker, Kubernetes, Cloud VM, or bare-metal with ease.
+- **SQLite (libSQL) & Cloudflare D1**
+  Reliable, embeddable storage options for local and edge deployments.
+- **REST API**
+  Create, update, and manage short links programmatically.
+- **Open Source**
+  Licensed under MIT—contribute, audit, and customize as you see fit.
+
+---
+
+## 🛠️ Roadmap & Upcoming Features
+
+We’re actively developing:
+
+- **Password-Protected Links**
+  Add a passphrase requirement for secure sharing.
+- **Click Limits & Expirations**
+  Define total click allowances or automatic expiry dates.
+- **On-Prem Analytics Dashboard**
+  View click trends, referrer data, and geolocations—all exportable as CSV.
+
+Stay updated by following our releases and discussions on GitHub.
+
+---
+
+## Community & Contributions
+
+Shrtn thrives thanks to feedback and contributions from users like you:
+
+- **GitHub Repository**: https://github.com/CordlessWool/shrtn
+- **Discussions**: https://github.com/CordlessWool/shrtn/discussions
+- **Issues**: https://github.com/CordlessWool/shrtn/issues
+- **License**: MIT
+
+We welcome pull requests, bug reports, and feature suggestions. Check our CONTRIBUTING.md to get started.
+
+---
+
+## Contact & Support
+
+For questions, support, or general inquiries:
+- Open an issue on GitHub.
+- Join the conversation in Discussions.
+- Reach out via email at [maintainer@example.com](mailto:maintainer@example.com).
+
+Thank you for choosing Shrtn—shorten, share, and stay private!
