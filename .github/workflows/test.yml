@@ -1,6 +1,7 @@
 name: Test
 on: [push]
-
+env:
+  PUBLIC_FEATURE_MARKETING_PAGES: 'off'
 jobs:
   test-local:
     services:
