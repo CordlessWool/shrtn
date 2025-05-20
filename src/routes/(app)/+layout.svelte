@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import Header from '$lib/comp/Header.svelte';
+	import { page } from '$app/state';
 	import * as m from '$lib/paraglide/messages';
 	import { localizeHref } from '$lib/paraglide/runtime';
 
@@ -13,7 +14,7 @@
 	<meta name="description" content={m.meta_description()} />
 	<meta name="keywords" content={m.meta_keywords()} />
 </svelte:head>
-<Header showName={false}>
+<Header showName={page.url.pathname !== '/'}>
 	{#if !data.user || data.user.temp}
 		<a href={localizeHref('/login')}>{m.sign_in_link()}</a>
 	{:else}
