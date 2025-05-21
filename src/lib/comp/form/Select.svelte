@@ -9,8 +9,8 @@
 <style lang="postcss">
 	@reference "tailwindcss/theme";
 	select {
-		@apply border-0 py-3 px-1;
-		@apply bg-zinc-200 rounded-md;
+		@apply border-0;
+		@apply rounded-md bg-zinc-200;
 		@apply cursor-pointer outline-none;
 		@apply ring-0;
 	}

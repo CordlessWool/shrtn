@@ -41,5 +41,5 @@
 </button>
 
 <style lang="postcss">
-	@import './Button.css';
+	@import './form/Button.css';
 </style>

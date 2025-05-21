@@ -4,15 +4,17 @@
 	type Props = {
 		for?: string;
 		label?: string;
+		large?: boolean;
+		small?: boolean;
 		children: Snippet;
 		info?: string;
 		error?: string;
 	};
 
-	const { label, children, info, error, ...props }: Props = $props();
+	const { label, children, info, large, small, error, ...props }: Props = $props();
 </script>
 
-<div class="frame">
+<div class="frame" class:large class:small>
 	{#if label && props.for}
 		<label for={props.for}>{label}</label>
 	{/if}
@@ -56,8 +58,23 @@
 
 	.inputs {
 		@apply flex flex-row flex-nowrap items-center gap-3;
-		@apply w-full px-5 py-3;
+		@apply w-full px-3 py-2;
 		@apply bg-zinc-200;
 		@apply rounded-md border-zinc-500;
+	}
+
+	.small {
+		label {
+			@apply text-xs;
+		}
+		.inputs {
+			@apply max-w-fit p-1;
+		}
+	}
+
+	.large {
+		.inputs {
+			@apply px-5 py-3;
+		}
 	}
 </style>

@@ -1,18 +1,15 @@
 <script lang="ts">
-	import Button from '$lib/comp/Button.svelte';
-	import Input from '$lib/comp/Input.svelte';
-	import InputFrame from '$lib/comp/InputFrame.svelte';
 	import LinkTile from '$lib/comp/LinkTile.svelte';
 	import { type Link } from '$lib/definitions.js';
-	import { Link as LinkIcon } from 'lucide-svelte';
+	import { Link as LinkIcon, X as XIcon } from 'lucide-svelte';
 	import type { PageData } from './$types.js';
-	import Select from '$lib/comp/Select.svelte';
-	import { getLinkSchema, getTTLs } from '$lib/helper/form.js';
+	import { couldTLLInfinit, getLinkSchema, getTTLs } from '$lib/helper/form.js';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { superForm } from 'sveltekit-superforms';
 	import { SHORTEN_LENGTH } from '$lib/helper/defaults.js';
 	import { nanoid } from 'nanoid';
 	import * as m from '$lib/paraglide/messages.js';
+	import { Input, Button, InputFrame, Select } from '$lib/comp/form';
 
 	const { data }: { data: PageData } = $props();
 	let links = $state(data.links);
@@ -59,6 +56,7 @@
 	<section class="links">
 		<form method="POST" use:enhance action="?/add">
 			<InputFrame
+				large
 				info={m.link_input_description()}
 				error={$errors.link?.[0] || $errors.ttl?.[0] || $errors.short?.[0]}
 			>
@@ -68,17 +66,52 @@
 					autocomplete="off"
 					bind:value={$form.link}
 				/>
-				<Select name="ttl" aria-label={m.ttl()}>
-					{#each getTTLs(isLoggedIn(data.user)).reverse() as [time, text] (time)}
-						<option value={time}>{m[text]()}</option>
-					{/each}
-				</Select>
+
 				<Button type="submit" title={m.create_link()}>
 					<LinkIcon size={16} />
 				</Button>
 			</InputFrame>
+			<ul class="add-ons">
+				<li>
+					<InputFrame small label="Time To Live" for="ttl-input">
+						{@const ttls = getTTLs(isLoggedIn(data.user)).reverse()}
+						<Button transparent disabled={!couldTLLInfinit(isLoggedIn(data.user))}
+							><XIcon size={16} /></Button
+						>
+						<Select id="ttl-input" name="ttl" aria-label={m.ttl()}>
+							{#each ttls as [time, text] (time)}
+								<option value={time}>{m[text]()}</option>
+							{/each}
+						</Select>
+					</InputFrame>
+				</li>
+				<li>
+					<InputFrame small label="Call Limit" for="call-limit-input">
+						<Button transparent><XIcon size={16} /></Button>
+						<Input
+							id="call-limit-input"
+							name="call-limit"
+							type="number"
+							placeholder="amount"
+							class="!w-23"
+						/>
+					</InputFrame>
+				</li>
+				<li>
+					<InputFrame small label="Passphrase" for="link-passphrase-input">
+						<Button transparent><XIcon size={16} /></Button>
+						<Input
+							id="link-passphrase-input"
+							name="link-passphrase"
+							placeholder="****"
+							type="password"
+						/>
+					</InputFrame>
+				</li>
+			</ul>
 		</form>
 		{#if data}
+			<hr />
 			{#each links as link (link.key)}
 				<LinkTile {...link} origin={data.origin} deletePath="?/remove" ondeleted={removeLink} />
 			{/each}
@@ -88,18 +121,33 @@
 
 <style lang="postcss">
 	@reference "tailwindcss/theme";
+
+	:global body {
+		@apply max-w-7xl;
+	}
+
 	main {
 		@apply flex min-h-full flex-col items-center justify-center gap-3 p-3 md:p-7;
 	}
 	h1 {
 		@apply text-5xl font-bold;
 	}
-	form {
-		@apply md:col-span-2;
+	form,
+	hr {
+		@apply col-span-full;
+	}
+
+	hr {
+		@apply mx-7 my-3 text-zinc-500;
+	}
+
+	.add-ons {
+		@apply flex flex-row flex-wrap;
+		@apply my-5 gap-5;
 	}
 
 	section.links {
-		@apply grid gap-3 md:grid-cols-2;
-		@apply m-3 w-full max-w-4xl md:m-7;
+		@apply grid gap-3 md:grid-cols-2 xl:grid-cols-3;
+		@apply m-3 w-full md:m-7;
 	}
 </style>

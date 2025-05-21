@@ -52,6 +52,8 @@ const getTTLTempUser = () => ttlMapFromStep(MAX_TTL_TEMP);
 const getTTLUser = () => ttlMapFromStep(MAX_TTL_USER);
 
 export const getTTLs = (loggedin: boolean) => (loggedin ? getTTLUser() : getTTLTempUser());
+export const couldTLLInfinit = (loggedin: boolean) =>
+	(loggedin ? MAX_TTL_USER : MAX_TTL_TEMP) === TTL_STEPS.EVER;
 
 const LinkValueSchema = v.pipe(
 	v.string(),
