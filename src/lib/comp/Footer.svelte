@@ -20,6 +20,12 @@
 		href={localizeHref(page.url.pathname, { locale: 'de' })}>DE</a
 	>
 	<a
+		data-sveltekit-reload
+		rel="alternate"
+		hreflang="sp"
+		href={localizeHref(page.url.pathname, { locale: 'sp' })}>SP</a
+	>
+	<a
 		title={m.github_link_title()}
 		href="https://github.com/CordlessWool/shrtn"
 		target="_blank"
