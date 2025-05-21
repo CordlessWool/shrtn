@@ -9,7 +9,7 @@
 	import { SHORTEN_LENGTH } from '$lib/helper/defaults.js';
 	import { nanoid } from 'nanoid';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Input, Button, InputFrame, Select } from '$lib/comp/form';
+	import { Input, Button, InputFrame, Select, OptionalInputFrame } from '$lib/comp/form';
 
 	const { data }: { data: PageData } = $props();
 	let links = $state(data.links);
@@ -71,23 +71,23 @@
 					<LinkIcon size={16} />
 				</Button>
 			</InputFrame>
-			<ul class="add-ons">
+			<ul class="optional-definitions">
 				<li>
-					<InputFrame small label="Time To Live" for="ttl-input">
+					<OptionalInputFrame
+						label="Time To Live"
+						for="ttl-input"
+						required={!couldTLLInfinit(isLoggedIn(data.user))}
+					>
 						{@const ttls = getTTLs(isLoggedIn(data.user)).reverse()}
-						<Button transparent disabled={!couldTLLInfinit(isLoggedIn(data.user))}
-							><XIcon size={16} /></Button
-						>
 						<Select id="ttl-input" name="ttl" aria-label={m.ttl()}>
 							{#each ttls as [time, text] (time)}
 								<option value={time}>{m[text]()}</option>
 							{/each}
 						</Select>
-					</InputFrame>
+					</OptionalInputFrame>
 				</li>
 				<li>
-					<InputFrame small label="Call Limit" for="call-limit-input">
-						<Button transparent><XIcon size={16} /></Button>
+					<OptionalInputFrame label="Call Limit" for="call-limit-input">
 						<Input
 							id="call-limit-input"
 							name="call-limit"
@@ -95,18 +95,17 @@
 							placeholder="amount"
 							class="!w-23"
 						/>
-					</InputFrame>
+					</OptionalInputFrame>
 				</li>
 				<li>
-					<InputFrame small label="Passphrase" for="link-passphrase-input">
-						<Button transparent><XIcon size={16} /></Button>
+					<OptionalInputFrame label="Passphrase" for="link-passphrase-input">
 						<Input
 							id="link-passphrase-input"
 							name="link-passphrase"
 							placeholder="****"
 							type="password"
 						/>
-					</InputFrame>
+					</OptionalInputFrame>
 				</li>
 			</ul>
 		</form>
@@ -141,8 +140,8 @@
 		@apply mx-7 my-3 text-zinc-500;
 	}
 
-	.add-ons {
-		@apply flex flex-row flex-wrap;
+	.optional-definitions {
+		@apply flex flex-row flex-wrap items-center;
 		@apply my-5 gap-5;
 	}
 

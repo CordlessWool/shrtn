@@ -67,6 +67,11 @@
 		label {
 			@apply text-xs;
 		}
+
+		small {
+			@apply text-xs;
+		}
+
 		.inputs {
 			@apply max-w-fit p-1;
 		}
