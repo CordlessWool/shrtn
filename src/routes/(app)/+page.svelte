@@ -87,6 +87,16 @@
 					</OptionalInputFrame>
 				</li>
 				<li>
+					<OptionalInputFrame label="Passphrase" for="link-passphrase-input">
+						<Input
+							id="link-passphrase-input"
+							name="link-passphrase"
+							placeholder="****"
+							type="password"
+						/>
+					</OptionalInputFrame>
+				</li>
+				<li>
 					<OptionalInputFrame label="Call Limit" for="call-limit-input">
 						<Input
 							id="call-limit-input"
@@ -94,16 +104,6 @@
 							type="number"
 							placeholder="amount"
 							class="!w-23"
-						/>
-					</OptionalInputFrame>
-				</li>
-				<li>
-					<OptionalInputFrame label="Passphrase" for="link-passphrase-input">
-						<Input
-							id="link-passphrase-input"
-							name="link-passphrase"
-							placeholder="****"
-							type="password"
 						/>
 					</OptionalInputFrame>
 				</li>

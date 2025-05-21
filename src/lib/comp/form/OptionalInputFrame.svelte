@@ -3,6 +3,7 @@
 	import InputFrame from './InputFrame.svelte';
 	import Button from './Button.svelte';
 	import { X as XIcon, Plus } from 'lucide-svelte';
+	import { fade } from 'svelte/transition';
 
 	type Props = {
 		label: string;
@@ -15,15 +16,19 @@
 </script>
 
 {#if required || active}
-	<InputFrame small {label} for={forInput}>
-		<Button transparent disabled={required} onclick={() => (active = false)}
-			><XIcon size={16} /></Button
-		>
-		{@render children()}
-	</InputFrame>
+	<div in:fade>
+		<InputFrame small {label} for={forInput}>
+			<Button transparent disabled={required} onclick={() => (active = false)}
+				><XIcon size={16} /></Button
+			>
+			{@render children()}
+		</InputFrame>
+	</div>
 {:else}
-	<Button transparent onclick={() => (active = true)}>
-		<Plus />
-		{label}
-	</Button>
+	<div in:fade>
+		<Button transparent onclick={() => (active = true)}>
+			<Plus />
+			{label}
+		</Button>
+	</div>
 {/if}
