@@ -1,8 +1,8 @@
 #!/bin/bash
 
 set -e
-rm -f test.db
-DATABASE_URL=file:test.db
+rm -f test-node.db
+DATABASE_URL=file:test-node.db
 bun run build
 bun run db:migrate
 bun run preview &
