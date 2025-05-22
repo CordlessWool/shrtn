@@ -54,5 +54,13 @@
 	"call_limit": "Límite de utilización",
 	"passphrase": "Contraseña",
 	"invalid_minVlaue": "El valor mínimo es {requirement}",
-	"invalid_number": "Solo se permiten números"
+	"invalid_number": "Solo se permiten números",
+	"shrtn_outdated_headline": "Parece que tu enlace está desactualizado",
+	"shrtn_outdated_subline": "Por favor, contacta al creador del enlace o crea un enlace nuevo si eres el propietario",
+	"shrtn_passphrase_headline": "Este enlace está protegido",
+	"shrtn_passphrase_subline": "Por favor, introduce el secreto para acceder a este enlace",
+	"shrtn_passphrase_info": "Introduce el secreto para acceder a este enlace",
+	"shrtn_passphrase_invalid": "Contraseña secreta inválida",
+	"shrtn_bot_headline": "¡Ups, parece que la redirección ha fallado!",
+	"shrtn_bot_subline": "Haz clic en el enlace de abajo para acceder al contenido redirigido."
 }

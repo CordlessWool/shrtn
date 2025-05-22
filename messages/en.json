@@ -53,6 +53,15 @@
 	"setup_link": "Setup",
 	"call_limit": "Call Limit",
 	"passphrase": "Password",
+	"redirect_to": "Redirect to Website",
 	"invalid_minVlaue": "Minimal value is {requirement}",
-	"invalid_number": "Allow only numbers"
+	"invalid_number": "Allow only numbers",
+	"shrtn_outdated_headline": "Your link seems to be outdated",
+	"shrtn_outdated_subline": "Please contact the creator of the link or create a new link if you are the owner",
+	"shrtn_passphrase_headline": "This link is protected",
+	"shrtn_passphrase_subline": "Please enter the secret to access this link",
+	"shrtn_passphrase_info": "Enter the secret to access this link",
+	"shrtn_passphrase_invalid": "Invalid secret",
+	"shrtn_bot_headline": "Ups, the redirection seems to be failed!",
+	"shrtn_bot_subline": "Click on the link below to access the redirected content."
 }
