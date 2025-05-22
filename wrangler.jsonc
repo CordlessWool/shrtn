@@ -36,7 +36,7 @@
 				"MAIL_PROVIDER": "mailpit",
 				"MAILPIT_DOMAIN": "http://localhost:8025",
 				"MAIL_FROM": "noreply@shrtn.io",
-				"ORIGIN": "https://shrtn.io",
+				"ORIGIN": "http://localhost:4173",
 				"DATABASE_TYPE": "D1"
 			}
 		}
