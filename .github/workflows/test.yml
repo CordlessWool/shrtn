@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_TYPE: libSQL
-      DATABASE_URL: file:test-smtp.db
+
     steps:
       # ...
       - uses: actions/checkout@v4
@@ -30,6 +30,7 @@ jobs:
           MAILPIT_DOMAIN: http://localhost:8025
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
+          DATABASE_URL: file:test-node.db
       - name: Test SMTP
         run: bun run test:e2e:smtp
         env:
@@ -39,6 +40,7 @@ jobs:
           MAIL_PORT: 1025
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
+          DATABASE_URL: file:test-smtp.db
   test-docker:
     name: Test and Build - Docker
     runs-on: ubuntu-latest
