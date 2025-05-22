@@ -20,7 +20,7 @@ test('home page has expected h1', async ({ page }) => {
 test('enter a invalid URL', combine(goto('/'), addLinkAndTest()));
 
 let RANDOM_PASSWORD = faker.internet.password();
-let RANDOM_URL = 'https://shrtn.io'; # random URL failed of error page
+let RANDOM_URL = 'https://shrtn.io'; // random URL failed of error page
 test(
 	'set password and check if it validate',
 	combine(
