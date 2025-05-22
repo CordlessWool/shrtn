@@ -1,11 +1,11 @@
 <script lang="ts">
 	import LinkTile from '$lib/comp/LinkTile.svelte';
 	import { type Link } from '$lib/definitions.js';
-	import { Link as LinkIcon, X as XIcon } from 'lucide-svelte';
+	import { Link as LinkIcon } from 'lucide-svelte';
 	import type { PageData } from './$types.js';
 	import { couldTLLInfinit, getLinkSchema, getTTLs } from '$lib/helper/form.js';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
-	import { superForm, type ValidationErrors } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 	import { SHORTEN_LENGTH } from '$lib/helper/defaults.js';
 	import { nanoid } from 'nanoid';
 	import * as m from '$lib/paraglide/messages.js';
@@ -30,7 +30,7 @@
 				cancel();
 			}
 		},
-		onError: (err) => {
+		onError: () => {
 			$form.short = nanoid(SHORTEN_LENGTH);
 		}
 	});
@@ -49,11 +49,6 @@
 
 	const removeLink = (key: string) => {
 		links = links.filter((l) => l.key !== key);
-	};
-
-	const getErrorMessage = (err: typeof $errors) => {
-		const values = Object.values(err);
-		return values.flat().join('; ');
 	};
 </script>
 

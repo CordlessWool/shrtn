@@ -96,6 +96,12 @@ export const LinkSchemaTemp = v.object({
 export const getLinkSchema = (loggedin: boolean) =>
 	loggedin ? LinkSchemaSignedUp : LinkSchemaTemp;
 
+export const PassphraseSchema = v.object({
+	passphrase: v.pipe(v.string(), v.trim(), v.minLength(1))
+});
+
+export type PassphraseSchemaOutput = v.InferOutput<typeof PassphraseSchema>;
+
 export const LoginMailSchema = v.object({
 	email: v.pipe(v.string(), v.trim(), v.email(m.error_invalid_email)),
 	theme: v.optional(v.pipe(v.number(), v.enum(THEME)))

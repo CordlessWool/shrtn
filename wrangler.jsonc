@@ -13,6 +13,7 @@
 		"MAILGUN_URL": "https://api.eu.mailgun.net",
 		"BUILD_FOR": "cloudflare",
 		"DATABASE_TYPE": "D1",
+		"PUBLIC_FEATURE_MARKETING_PAGES": "on",
 		"PUBLIC_TTL_TEMP": "YEAR",
 		"PUBLIC_LINK_TERMS_DE": "https://github.com/CordlessWool/shrtn/blob/main/officials/TERMS_OF_USE_DE.md",
 		"PUBLIC_LINK_TERMS": "https://github.com/CordlessWool/shrtn/blob/main/officials/TERMS_OF_USE_EN.md",

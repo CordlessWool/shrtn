@@ -74,7 +74,6 @@ export const load: PageServerLoad = async ({ locals, request }) => {
 
 export const actions = {
 	add: async (event) => {
-		console.log('called');
 		const { locals, request } = event;
 		let { user } = locals;
 
@@ -85,14 +84,12 @@ export const actions = {
 
 		const LinkSchema = getLinkSchema(!user.temp);
 		const form = await superValidate(request, valibot(LinkSchema));
-		console.log(form.valid);
 		if (!form.valid) {
 			return fail(400, { form });
 		}
 
 		const { ttl, link: url, short, passphrase, callLimit } = form.data;
 		const expiresAt = ttl === Infinity ? null : new Date(Date.now() + ttl);
-		console.log(form.data);
 		const id = await saveLink({
 			id: short || nanoid(SHORTEN_LENGTH),
 			userId: user.id,
