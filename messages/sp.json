@@ -46,5 +46,13 @@
 	"send_verification": "Enviar correo de verificación",
 	"verification_mail_headline": "Bienvenido a shrtn",
 	"verification_mail_body": "Por favor, introduce la siguiente clave en la página que se abrió después de introducir tu correo electrónico. Esta clave solo funciona en esa página.",
-	"github_link_title": "Código fuente en GitHub"
+	"github_link_title": "Código fuente en GitHub",
+	"terms_of_use": "Términos de uso",
+	"imprint": "Aviso legal",
+	"about_link": "Acerca de",
+	"setup_link": "Configuración",
+	"call_limit": "Límite de utilización",
+	"passphrase": "Contraseña",
+	"invalid_minVlaue": "El valor mínimo es {requirement}",
+	"invalid_number": "Solo se permiten números"
 }

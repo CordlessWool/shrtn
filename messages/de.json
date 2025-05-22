@@ -50,5 +50,9 @@
 	"terms_of_use": "Nutzungsbedingungen",
 	"imprint": "Impressum",
 	"about_link": "Über uns",
-	"setup_link": "Setup"
+	"setup_link": "Setup",
+	"call_limit": "Aufruflimit",
+	"passphrase": "Passwort",
+	"invalid_minVlaue": "Minimalwert {requirement}",
+	"invalid_number": "Nur Nummbern erlaubt"
 }
