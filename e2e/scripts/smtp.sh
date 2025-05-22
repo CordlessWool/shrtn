@@ -1,8 +1,7 @@
 #!/bin/bash
 
 set -e
-rm -f test-smtp.db
-DATABASE_URL=file:test-smtp.db
+
 bun run build
 bun run db:migrate
 bun run preview &
