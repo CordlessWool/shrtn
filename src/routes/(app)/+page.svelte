@@ -21,7 +21,6 @@
 		validators: valibotClient(schema),
 		resetForm: true,
 		onResult: async ({ result, cancel }) => {
-			console.log('send');
 
 			$form.short = nanoid(SHORTEN_LENGTH);
 			if (result.type === 'redirect') {

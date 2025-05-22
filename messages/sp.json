@@ -62,5 +62,6 @@
 	"shrtn_passphrase_info": "Introduce el secreto para acceder a este enlace",
 	"shrtn_passphrase_invalid": "Contraseña secreta inválida",
 	"shrtn_bot_headline": "¡Ups, parece que la redirección ha fallado!",
-	"shrtn_bot_subline": "Haz clic en el enlace de abajo para acceder al contenido redirigido."
+	"shrtn_bot_subline": "Haz clic en el enlace de abajo para acceder al contenido redirigido.",
+	"secret": "Secreto"
 }

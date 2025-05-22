@@ -25,7 +25,7 @@
 				id="passphrase-input"
 				name="passphrase"
 				bind:value={$form.passphrase}
-				placeholder="*****"
+				placeholder={m.secret()}
 			/>
 			<Button disabled={$submitting} class="text-lg" title={m.redirect_to()}><Key /></Button>
 		</InputFrame>

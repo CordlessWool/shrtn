@@ -6,7 +6,8 @@ export default defineConfig({
 			name: 'local',
 			use: {
 				...devices['Desktop Chrome'],
-				baseURL: 'http://localhost:4173'
+				baseURL: 'http://localhost:4173',
+				permissions: ['clipboard-read', 'clipboard-write']
 			}
 		}
 	],
