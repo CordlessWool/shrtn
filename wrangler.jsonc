@@ -7,13 +7,17 @@
 		"directory": ".svelte-kit/cloudflare"
 	},
 	"vars": {
-		"ORIGIN": "http://localhost:8787",
+		"ORIGIN": "https://shrtn.io",
 		"MAIL_FROM": "noreply@shrtn.io",
 		"MAIL_PROVIDER": "mailgun",
 		"MAILGUN_URL": "https://api.eu.mailgun.net",
 		"BUILD_FOR": "cloudflare",
 		"DATABASE_TYPE": "D1",
-		"PUBLIC_FEATURE_MARKETING_PAGES": "on"
+		"PUBLIC_TTL_TEMP": "YEAR",
+		"PUBLIC_LINK_TERMS_DE": "https://github.com/CordlessWool/shrtn/blob/main/officials/TERMS_OF_USE_DE.md",
+		"PUBLIC_LINK_TERMS": "https://github.com/CordlessWool/shrtn/blob/main/officials/TERMS_OF_USE_EN.md",
+		"PUBLIC_LINK_IMPRINT_DE": "https://github.com/CordlessWool/shrtn/blob/main/officials/IMPRESSUN.md",
+		"PUBLIC_LINK_IMPRINT": "https://github.com/CordlessWool/shrtn/blob/main/officials/IMPRINT.md"
 	},
 	"env": {
 		"citest": {
@@ -31,7 +35,7 @@
 				"MAILGUN_URL": "",
 				"MAIL_PROVIDER": "mailpit",
 				"MAIL_FROM": "noreply@shrtn.io",
-				"ORIGIN": "http://localhost:4173",
+				"ORIGIN": "https://shrtn.io",
 				"DATABASE_TYPE": "D1"
 			}
 		}
@@ -41,8 +45,8 @@
 	"d1_databases": [
 		{
 			"binding": "SHRTN_D1",
-			"database_name": "test-shrtn",
-			"database_id": "553dd2db-9ae6-4d12-95ed-dc905cf7505a",
+			"database_name": "shrtn",
+			"database_id": "9095d2d1-60a9-429a-9981-424b25bc8463",
 			"migrations_dir": "drizzle",
 			"migrations_table": "__drizzle_migrations"
 		}
