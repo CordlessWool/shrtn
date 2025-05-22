@@ -5,29 +5,32 @@
 	import type { PageData } from './$types.js';
 	import { couldTLLInfinit, getLinkSchema, getTTLs } from '$lib/helper/form.js';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
-	import { superForm } from 'sveltekit-superforms';
+	import { superForm, type ValidationErrors } from 'sveltekit-superforms';
 	import { SHORTEN_LENGTH } from '$lib/helper/defaults.js';
 	import { nanoid } from 'nanoid';
 	import * as m from '$lib/paraglide/messages.js';
 	import { Input, Button, InputFrame, Select, OptionalInputFrame } from '$lib/comp/form';
-
-	const { data }: { data: PageData } = $props();
-	let links = $state(data.links);
 	const isLoggedIn = (user: PageData['user'] | null | undefined): boolean => {
 		return user != null && !user.temp;
 	};
-	const { form, errors, enhance } = superForm(data.form, {
-		validators: valibotClient(getLinkSchema(isLoggedIn(data.user))),
+	const { data }: { data: PageData } = $props();
+	let links = $state(data.links);
+	const ttls = getTTLs(isLoggedIn(data.user)).reverse();
+	const schema = getLinkSchema(isLoggedIn(data.user));
+	const { form, errors, enhance, validate } = superForm(data.form, {
+		validators: valibotClient(schema),
+		resetForm: true,
 		onResult: async ({ result, cancel }) => {
+			console.log('send');
+
 			$form.short = nanoid(SHORTEN_LENGTH);
 			if (result.type === 'redirect') {
 				const data = await loadLink(result.location);
 				addLink(data);
-				$form.link = '';
 				cancel();
 			}
 		},
-		onError: () => {
+		onError: (err) => {
 			$form.short = nanoid(SHORTEN_LENGTH);
 		}
 	});
@@ -47,6 +50,11 @@
 	const removeLink = (key: string) => {
 		links = links.filter((l) => l.key !== key);
 	};
+
+	const getErrorMessage = (err: typeof $errors) => {
+		const values = Object.values(err);
+		return values.flat().join('; ');
+	};
 </script>
 
 <main>
@@ -55,11 +63,7 @@
 
 	<section class="links">
 		<form method="POST" use:enhance action="?/add">
-			<InputFrame
-				large
-				info={m.link_input_description()}
-				error={$errors.link?.[0] || $errors.ttl?.[0] || $errors.short?.[0]}
-			>
+			<InputFrame large info={m.link_input_description()} error={$errors.link?.[0]}>
 				<Input
 					name="link"
 					placeholder={m.link_input_placeholder()}
@@ -74,12 +78,11 @@
 			<ul class="optional-definitions">
 				<li>
 					<OptionalInputFrame
-						label="Time To Live"
+						label={m.ttl()}
 						for="ttl-input"
 						required={!couldTLLInfinit(isLoggedIn(data.user))}
 					>
-						{@const ttls = getTTLs(isLoggedIn(data.user)).reverse()}
-						<Select id="ttl-input" name="ttl" aria-label={m.ttl()}>
+						<Select id="ttl-input" name="ttl" bind:value={$form.ttl}>
 							{#each ttls as [time, text] (time)}
 								<option value={time}>{m[text]()}</option>
 							{/each}
@@ -87,23 +90,35 @@
 					</OptionalInputFrame>
 				</li>
 				<li>
-					<OptionalInputFrame label="Passphrase" for="link-passphrase-input">
+					<OptionalInputFrame
+						onremove={() => ($form.callLimit = undefined)}
+						label={m.call_limit()}
+						for="call-limit-input"
+						error={$errors.callLimit?.[0]}
+					>
 						<Input
-							id="link-passphrase-input"
-							name="link-passphrase"
-							placeholder="****"
-							type="password"
+							onkeyup={() => validate('callLimit')}
+							id="call-limit-input"
+							name="callLimit"
+							type="number"
+							placeholder="amount"
+							bind:value={$form.callLimit}
+							class="!w-30"
 						/>
 					</OptionalInputFrame>
 				</li>
 				<li>
-					<OptionalInputFrame label="Call Limit" for="call-limit-input">
+					<OptionalInputFrame
+						onremove={() => ($form.passphrase = undefined)}
+						label={m.passphrase()}
+						for="link-passphrase-input"
+					>
 						<Input
-							id="call-limit-input"
-							name="call-limit"
-							type="number"
-							placeholder="amount"
-							class="!w-23"
+							id="link-passphrase-input"
+							name="passphrase"
+							placeholder="****"
+							bind:value={$form.passphrase}
+							type="password"
 						/>
 					</OptionalInputFrame>
 				</li>
