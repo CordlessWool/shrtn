@@ -14,7 +14,7 @@
 	const { label, children, info, large, small, error, ...props }: Props = $props();
 </script>
 
-<div class="frame" class:large class:small>
+<div class="frame" class:large class:small class:error>
 	{#if label && props.for}
 		<label for={props.for}>{label}</label>
 	{/if}
@@ -40,6 +40,10 @@
 	}
 	small {
 		@apply pl-1 text-zinc-600;
+	}
+
+	.error .inputs {
+		@apply ring-1 ring-red-500;
 	}
 
 	:global(.dark) {

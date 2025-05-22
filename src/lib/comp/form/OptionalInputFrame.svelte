@@ -9,15 +9,24 @@
 		label: string;
 		for: string;
 		required?: boolean;
+		error?: string;
+		onremove?: () => unknown;
 		children: Snippet;
 	};
-	let active = $state(false);
-	let { label, required, for: forInput, children }: Props = $props();
+
+	let { label, required, for: forInput, error, onremove, children }: Props = $props();
+	let active = $state(!!required);
+
+	$effect(() => {
+		if (onremove && active === false) {
+			onremove();
+		}
+	});
 </script>
 
 {#if required || active}
 	<div in:fade>
-		<InputFrame small {label} for={forInput}>
+		<InputFrame {error} small {label} for={forInput}>
 			<Button transparent disabled={required} onclick={() => (active = false)}
 				><XIcon size={16} /></Button
 			>
