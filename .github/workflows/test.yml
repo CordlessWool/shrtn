@@ -44,7 +44,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: test-results
+          name: node-test-results
           path: test-results/
           retention-days: 30
   test-docker:
@@ -104,7 +104,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: test-results
+          name: docker-test-results
           path: test-results/
           retention-days: 30
   test-cloudflare:
@@ -134,6 +134,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: test-results
+          name: cloudfalre-test-results
           path: test-results/
           retention-days: 30
