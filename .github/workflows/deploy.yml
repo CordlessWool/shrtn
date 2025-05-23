@@ -29,7 +29,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy
-          environment: production
           secrets: |
             MAILGUN_API_KEY
             MAILGUN_DOMAIN
