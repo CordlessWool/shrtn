@@ -34,7 +34,7 @@ jobs:
           set +e
           TAG=$(jq -r .version < package.json)
           if git ls-remote --exit-code --tags origin "refs/tags/v$TAG" >/dev/null; then
-            echo "Tag already exists"
+            echo "Tag v$TAG already exists"
           else
             git tag "v$TAG"
             git push origin "v$TAG"
