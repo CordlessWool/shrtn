@@ -1,0 +1,35 @@
+name: Deploy to Cloudflare Workers
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: bun-setup
+        uses: oven-sh/setup-bun@v2
+      - name: Install Dependencies
+        run: bun install
+      - name: Build
+        run: bun run build:cloudflare
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          packageManager: bun
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          environment: production
+          secrets: |
+            MAILGUN_API_KEY
+            MAILGUN_DOMAIN
+        env:
+          MAILGUN_API_KEY: ${{ secrets.SUPER_SECRET }}
+          MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
