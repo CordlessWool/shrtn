@@ -29,11 +29,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: d1 migrations apply SHRTN_D1
-          secrets: |
-            MAILGUN_API_KEY
-            MAILGUN_DOMAIN
-            - name: Deploy
-      - uses: cloudflare/wrangler-action@v3
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
         with:
           packageManager: bun
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
