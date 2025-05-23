@@ -1,5 +1,12 @@
 # shrtn.to
 
+## 2.1.1
+
+### Patch Changes
+
+- 10ec493: add feature flag for build and deploy in pipelines
+- 5ad2dbb: fix ttl dropdown - remove forever on select and set infinity on remove
+
 ## 2.1.0
 
 ### Minor Changes
