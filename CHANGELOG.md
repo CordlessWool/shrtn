@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.1.2
+
+### Patch Changes
+
+- c46fa43: add run migration to deploy script
+
 ## 2.1.1
 
 ### Patch Changes
