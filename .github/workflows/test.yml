@@ -41,6 +41,12 @@ jobs:
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
           DATABASE_URL: file:test-smtp.db
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 30
   test-docker:
     name: Test and Build - Docker
     runs-on: ubuntu-latest
@@ -98,8 +104,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: test-results
+          path: test-results/
           retention-days: 30
   test-cloudflare:
     name: Test and Build - Cloudflare
@@ -128,6 +134,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: test-results
+          path: test-results/
           retention-days: 30
