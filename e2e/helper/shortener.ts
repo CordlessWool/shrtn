@@ -27,7 +27,7 @@ export const enterPassword =
 	(pw: string): TestFunction =>
 	async ({ page }) => {
 		await page.getByText('Password').click();
-		await page.getByPlaceholder('****').fill(pw);
+		await page.getByLabel('Password').fill(pw);
 	};
 
 export const enterCallLimit =

@@ -7,7 +7,7 @@ import {
 	submitShortenerForm
 } from './helper/shortener';
 import { goto, gotoClipboardContent, pageIs } from './helper/navigation';
-import { combine, store } from './helper/general';
+import { combine } from './helper/general';
 import { faker } from '@faker-js/faker';
 import { validateErrorMessageOn } from './helper/form';
 import { sendPassphraseForm, enterPassphrase } from './helper/passphrase';
@@ -19,8 +19,8 @@ test('home page has expected h1', async ({ page }) => {
 
 test('enter a invalid URL', combine(goto('/'), addLinkAndTest()));
 
-let RANDOM_PASSWORD = faker.internet.password();
-let RANDOM_URL = 'https://shrtn.io'; // random URL failed of error page
+const RANDOM_PASSWORD = faker.internet.password();
+const RANDOM_URL = 'https://shrtn.io'; // random URL failed of error page
 test(
 	'set password and check if it validate',
 	combine(
