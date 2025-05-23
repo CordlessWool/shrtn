@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
-import { type TestFunction, combine } from './general';
+import { type TestFunction, combine, sleep } from './general';
 
 export const enterLink =
 	(link: string): TestFunction =>
@@ -27,6 +27,7 @@ export const enterPassword =
 	(pw: string): TestFunction =>
 	async ({ page }) => {
 		await page.getByText('Password').click();
+		await sleep(37);
 		const input = await page.getByLabel('Password');
 		await input.fill(pw);
 	};
