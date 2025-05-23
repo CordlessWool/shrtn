@@ -5,7 +5,7 @@ set -e
 bun run build:cloudflare
 #bunx wrangler d1 delete SHRTN_D1 --local --env citest
 bun run db:migrate:cloudflare --local --env citest
-bun wrangler dev --port 4173 --local --env citest &
+nohub bun wrangler dev --port 4173 --local --env citest > /dev/null 2>&1 &
 
 SERVER_PID=$!
 trap 'echo "🛑 Killing server (PID $SERVER_PID)"; kill $SERVER_PID' EXIT

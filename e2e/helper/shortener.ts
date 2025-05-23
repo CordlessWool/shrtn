@@ -27,8 +27,8 @@ export const enterPassword =
 	(pw: string): TestFunction =>
 	async ({ page }) => {
 		await page.getByText('Password').click();
-		await sleep(37);
 		const input = await page.getByLabel('Password');
+		await sleep(37);
 		await input.fill(pw);
 	};
 

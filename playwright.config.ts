@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
+	reporter: process.env.CI ? 'dot' : 'list',
 	projects: [
 		{
 			name: 'local',
