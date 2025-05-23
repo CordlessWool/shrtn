@@ -16,12 +16,12 @@
 	const { data }: { data: PageData } = $props();
 	let links = $state(data.links);
 	const ttls = getTTLs(isLoggedIn(data.user)).reverse();
+	const ttlsWithoutForever = ttls.filter(([num]) => num !== Infinity);
 	const schema = getLinkSchema(isLoggedIn(data.user));
 	const { form, errors, enhance, validate } = superForm(data.form, {
 		validators: valibotClient(schema),
 		resetForm: true,
 		onResult: async ({ result, cancel }) => {
-
 			$form.short = nanoid(SHORTEN_LENGTH);
 			if (result.type === 'redirect') {
 				const data = await loadLink(result.location);
@@ -49,6 +49,18 @@
 	const removeLink = (key: string) => {
 		links = links.filter((l) => l.key !== key);
 	};
+
+	const setTtlToYear = () => {
+		if ($form.ttl === Infinity) {
+			$form.ttl = ttlsWithoutForever[0][0];
+		}
+	};
+
+	const setTtlToInfinity = () => {
+		if ($form.ttl === Infinity) {
+			$form.ttl = Infinity;
+		}
+	};
 </script>
 
 <main>
@@ -75,9 +87,11 @@
 						label={m.ttl()}
 						for="ttl-input"
 						required={!couldTLLInfinit(isLoggedIn(data.user))}
+						onselect={setTtlToYear}
+						onremove={setTtlToInfinity}
 					>
 						<Select id="ttl-input" name="ttl" bind:value={$form.ttl}>
-							{#each ttls as [time, text] (time)}
+							{#each ttlsWithoutForever as [time, text] (time)}
 								<option value={time}>{m[text]()}</option>
 							{/each}
 						</Select>
