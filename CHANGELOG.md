@@ -1,5 +1,13 @@
 # shrtn.to
 
+## 2.1.0
+
+### Minor Changes
+
+- 81a72c7: Add marketing pages and feature switch
+- 4bb68db: Add call limit und passphrase to protect and limit link access
+- 8360584: Add Spanish translation
+
 ## 2.0.4
 
 ### Patch Changes
