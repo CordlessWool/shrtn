@@ -1,70 +1,114 @@
 @reference "tailwindcss/theme";
 
-button {
+button,
+.button {
 	@apply flex flex-row items-center justify-center gap-2 text-nowrap;
-	@apply p-3;
-	@apply rounded-lg focus:ring-2 focus:ring-teal-600 focus:outline-none;
-}
+	@apply p-2 no-underline;
+	@apply rounded-md border-2 border-teal-400 focus:border-dashed;
 
-button:enabled {
-	@apply cursor-pointer;
-	@apply transform transition-all duration-300 ease-in-out hover:scale-105;
-}
-
-button:not(.transparent) {
-	@apply bg-teal-400 shadow-md;
-
-	&.error {
-		@apply bg-red-400;
+	&:not(:disabled) {
+		@apply cursor-pointer;
+		@apply transform bg-teal-400 transition-all duration-300 ease-in-out hover:scale-105;
+	}
+	&.danger {
+		@apply border-red-400 bg-red-400;
 	}
 
-	&:enabled {
-		@apply hover:bg-teal-500;
-	}
-}
-
-button.transparent {
-	@apply bg-transparent text-teal-700;
-
-	&.error {
-		@apply text-red-700;
+	&:not(.transparent, .outline) {
+		@apply shadow-md;
+		&:not(:disabled) {
+			@apply hover:border-teal-500 hover:bg-teal-500;
+		}
 	}
 
-	&:enabled {
-		@apply hover:text-teal-800;
+	&.outline {
+		@apply border-2 bg-transparent text-teal-700;
+
+		&.danger {
+			@apply border-red-600 text-red-600;
+			&:not(:disabled) {
+				@apply hover:border-red-700 hover:text-red-700;
+			}
+		}
+
+		&:not(:disabled) {
+			@apply hover:border-teal-700 hover:text-teal-700;
+		}
+
+		&:disabled {
+			@apply border-zinc-400 text-zinc-400;
+		}
 	}
 
-	&:disabled {
-		@apply text-zinc-400;
+	&.transparent {
+		@apply border-transparent bg-transparent text-teal-800;
+
+		&.danger {
+			@apply text-red-700;
+		}
+
+		&:not(:disabled) {
+			@apply hover:text-teal-900;
+		}
+
+		&:disabled {
+			@apply text-zinc-400;
+		}
 	}
 }
 
 :global(.dark) {
-	button:not(.transparent) {
-		@apply bg-teal-800 hover:bg-teal-700;
+	button,
+	.button {
+		@apply border-teal-800 bg-teal-800;
+		&:not(.transparent, .outline) {
+			@apply bg-teal-800 hover:bg-teal-700;
 
-		&.error {
-			@apply hover:bg-red-700;
+			&.danger {
+				@apply bg-red-800;
+				&:not(:disabled) {
+					@apply hover:bg-red-700;
+				}
+			}
+
+			&:not(:disabled) {
+				@apply hover:bg-teal-700;
+			}
 		}
 
-		&:enabled {
-			@apply hover:bg-teal-700;
+		&.outline {
+			@apply border-2 border-teal-800 bg-transparent;
+
+			&.danger {
+				@apply border-red-400 text-red-400;
+				&:not(:disabled) {
+					@apply hover:border-red-500 hover:text-red-500;
+				}
+			}
+
+			&:not(:disabled) {
+				@apply hover:border-teal-700 hover:text-teal-500;
+			}
+
+			&:disabled {
+				@apply border-zinc-600 text-zinc-600;
+			}
 		}
-	}
 
-	button.transparent {
-		@apply text-teal-500;
+		&.transparent {
+			@apply border-transparent bg-transparent text-teal-500;
 
-		&.error {
-			@apply text-red-400;
-		}
+			&.danger {
+				@apply text-red-400;
+			}
 
-		&:enabled {
-			@apply hover:text-teal-400;
-		}
+			&:not(:disabled) {
+				@apply hover:border-transparent hover:bg-transparent hover:text-teal-500;
+			}
 
-		&:disabled {
-			@apply text-zinc-600;
+			&:disabled {
+				@apply text-zinc-600;
+			}
 		}
 	}
 }
