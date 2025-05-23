@@ -13,7 +13,6 @@
 		"MAILGUN_URL": "https://api.eu.mailgun.net",
 		"BUILD_FOR": "cloudflare",
 		"DATABASE_TYPE": "D1",
-		"PUBLIC_FEATURE_MARKETING_PAGES": "on",
 		"PUBLIC_TTL_TEMP": "YEAR",
 		"PUBLIC_LINK_TERMS_DE": "https://github.com/CordlessWool/shrtn/blob/main/officials/TERMS_OF_USE_DE.md",
 		"PUBLIC_LINK_TERMS": "https://github.com/CordlessWool/shrtn/blob/main/officials/TERMS_OF_USE_EN.md",
@@ -33,10 +32,10 @@
 			],
 			"vars": {
 				"BUILD_FOR": "cloudflare",
+				"MAILGUN_URL": "",
 				"MAIL_PROVIDER": "mailpit",
-				"MAILPIT_DOMAIN": "http://localhost:8025",
 				"MAIL_FROM": "noreply@shrtn.io",
-				"ORIGIN": "http://localhost:4173",
+				"ORIGIN": "https://shrtn.io",
 				"DATABASE_TYPE": "D1"
 			}
 		}

@@ -2,12 +2,11 @@
 
 button {
 	@apply flex flex-row items-center justify-center gap-2 text-nowrap;
-	@apply p-3;
+	@apply cursor-pointer p-3;
 	@apply rounded-lg focus:ring-2 focus:ring-teal-600 focus:outline-none;
 }
 
 button:enabled {
-	@apply cursor-pointer;
 	@apply transform transition-all duration-300 ease-in-out hover:scale-105;
 }
 
@@ -33,10 +32,6 @@ button.transparent {
 	&:enabled {
 		@apply hover:text-teal-800;
 	}
-
-	&:disabled {
-		@apply text-zinc-400;
-	}
 }
 
 :global(.dark) {
@@ -53,18 +48,14 @@ button.transparent {
 	}
 
 	button.transparent {
-		@apply text-teal-500;
+		@apply text-teal-600;
 
 		&.error {
 			@apply text-red-400;
 		}
 
 		&:enabled {
-			@apply hover:text-teal-400;
-		}
-
-		&:disabled {
-			@apply text-zinc-600;
+			@apply hover:text-teal-500;
 		}
 	}
 }

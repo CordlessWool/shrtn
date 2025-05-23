@@ -14,7 +14,7 @@ const getDatabaseURL = () => {
 	return env.DATABASE_URL;
 };
 
-let db: LibSQLDatabase & DrizzleD1Database;
+let db: LibSQLDatabase | DrizzleD1Database;
 
 const createDatabase = () => {
 	const type = env.DATABASE_TYPE?.toLowerCase() ?? 'libsql';

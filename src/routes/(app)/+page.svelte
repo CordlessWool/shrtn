@@ -1,31 +1,32 @@
 <script lang="ts">
+	import Button from '$lib/comp/Button.svelte';
+	import Input from '$lib/comp/Input.svelte';
+	import InputFrame from '$lib/comp/InputFrame.svelte';
 	import LinkTile from '$lib/comp/LinkTile.svelte';
 	import { type Link } from '$lib/definitions.js';
 	import { Link as LinkIcon } from 'lucide-svelte';
 	import type { PageData } from './$types.js';
-	import { couldTLLInfinit, getLinkSchema, getTTLs } from '$lib/helper/form.js';
+	import Select from '$lib/comp/Select.svelte';
+	import { getLinkSchema, getTTLs } from '$lib/helper/form.js';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { superForm } from 'sveltekit-superforms';
 	import { SHORTEN_LENGTH } from '$lib/helper/defaults.js';
 	import { nanoid } from 'nanoid';
 	import * as m from '$lib/paraglide/messages.js';
-	import { Input, Button, InputFrame, Select, OptionalInputFrame } from '$lib/comp/form';
+
+	const { data }: { data: PageData } = $props();
+	let links = $state(data.links);
 	const isLoggedIn = (user: PageData['user'] | null | undefined): boolean => {
 		return user != null && !user.temp;
 	};
-	const { data }: { data: PageData } = $props();
-	let links = $state(data.links);
-	const ttls = getTTLs(isLoggedIn(data.user)).reverse();
-	const schema = getLinkSchema(isLoggedIn(data.user));
-	const { form, errors, enhance, validate } = superForm(data.form, {
-		validators: valibotClient(schema),
-		resetForm: true,
+	const { form, errors, enhance } = superForm(data.form, {
+		validators: valibotClient(getLinkSchema(isLoggedIn(data.user))),
 		onResult: async ({ result, cancel }) => {
-
 			$form.short = nanoid(SHORTEN_LENGTH);
 			if (result.type === 'redirect') {
 				const data = await loadLink(result.location);
 				addLink(data);
+				$form.link = '';
 				cancel();
 			}
 		},
@@ -57,69 +58,27 @@
 
 	<section class="links">
 		<form method="POST" use:enhance action="?/add">
-			<InputFrame large info={m.link_input_description()} error={$errors.link?.[0]}>
+			<InputFrame
+				info={m.link_input_description()}
+				error={$errors.link?.[0] || $errors.ttl?.[0] || $errors.short?.[0]}
+			>
 				<Input
 					name="link"
 					placeholder={m.link_input_placeholder()}
 					autocomplete="off"
 					bind:value={$form.link}
 				/>
-
+				<Select name="ttl" aria-label={m.ttl()}>
+					{#each getTTLs(isLoggedIn(data.user)).reverse() as [time, text] (time)}
+						<option value={time}>{m[text]()}</option>
+					{/each}
+				</Select>
 				<Button type="submit" title={m.create_link()}>
 					<LinkIcon size={16} />
 				</Button>
 			</InputFrame>
-			<ul class="optional-definitions">
-				<li>
-					<OptionalInputFrame
-						label={m.ttl()}
-						for="ttl-input"
-						required={!couldTLLInfinit(isLoggedIn(data.user))}
-					>
-						<Select id="ttl-input" name="ttl" bind:value={$form.ttl}>
-							{#each ttls as [time, text] (time)}
-								<option value={time}>{m[text]()}</option>
-							{/each}
-						</Select>
-					</OptionalInputFrame>
-				</li>
-				<li>
-					<OptionalInputFrame
-						onremove={() => ($form.callLimit = undefined)}
-						label={m.call_limit()}
-						for="call-limit-input"
-						error={$errors.callLimit?.[0]}
-					>
-						<Input
-							onkeyup={() => validate('callLimit')}
-							id="call-limit-input"
-							name="callLimit"
-							type="number"
-							placeholder="amount"
-							bind:value={$form.callLimit}
-							class="!w-30"
-						/>
-					</OptionalInputFrame>
-				</li>
-				<li>
-					<OptionalInputFrame
-						onremove={() => ($form.passphrase = undefined)}
-						label={m.passphrase()}
-						for="link-passphrase-input"
-					>
-						<Input
-							id="link-passphrase-input"
-							name="passphrase"
-							placeholder="****"
-							bind:value={$form.passphrase}
-							type="password"
-						/>
-					</OptionalInputFrame>
-				</li>
-			</ul>
 		</form>
 		{#if data}
-			<hr />
 			{#each links as link (link.key)}
 				<LinkTile {...link} origin={data.origin} deletePath="?/remove" ondeleted={removeLink} />
 			{/each}
@@ -129,33 +88,18 @@
 
 <style lang="postcss">
 	@reference "tailwindcss/theme";
-
-	:global body {
-		@apply max-w-7xl;
-	}
-
 	main {
 		@apply flex min-h-full flex-col items-center justify-center gap-3 p-3 md:p-7;
 	}
 	h1 {
 		@apply text-5xl font-bold;
 	}
-	form,
-	hr {
-		@apply col-span-full;
-	}
-
-	hr {
-		@apply mx-7 my-3 text-zinc-500;
-	}
-
-	.optional-definitions {
-		@apply flex flex-row flex-wrap items-center;
-		@apply my-5 gap-5;
+	form {
+		@apply md:col-span-2;
 	}
 
 	section.links {
-		@apply grid gap-3 md:grid-cols-2 xl:grid-cols-3;
-		@apply m-3 w-full md:m-7;
+		@apply grid gap-3 md:grid-cols-2;
+		@apply m-3 w-full max-w-4xl md:m-7;
 	}
 </style>

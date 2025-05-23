@@ -3,7 +3,7 @@ import { fail, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { getDB, schema } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
-import { emptyStringToNull, getLinkSchema, getString } from '$lib/helper/form';
+import { getLinkSchema, getString } from '$lib/helper/form';
 import { createAndLoginTempUser } from '$lib/helper/auth.server';
 import { and, eq, gte, isNull, or } from 'drizzle-orm';
 import { nanoid } from 'nanoid';
@@ -84,19 +84,18 @@ export const actions = {
 
 		const LinkSchema = getLinkSchema(!user.temp);
 		const form = await superValidate(request, valibot(LinkSchema));
+
 		if (!form.valid) {
 			return fail(400, { form });
 		}
 
-		const { ttl, link: url, short, passphrase, callLimit } = form.data;
+		const { ttl, link: url, short } = form.data;
 		const expiresAt = ttl === Infinity ? null : new Date(Date.now() + ttl);
+
 		const id = await saveLink({
 			id: short || nanoid(SHORTEN_LENGTH),
 			userId: user.id,
 			url,
-			passphrase: emptyStringToNull(passphrase) ?? null,
-			callLimit: callLimit ?? null,
-			calls: null,
 			createdAt: new Date(),
 			expiresAt
 		});

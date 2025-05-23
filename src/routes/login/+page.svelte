@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Input, InputFrame, Button } from '$lib/comp/form';
+	import InputFrame from '$lib/comp/InputFrame.svelte';
+	import Input from '$lib/comp/Input.svelte';
+	import Button from '$lib/comp/Button.svelte';
 	import { LogIn, Mail } from 'lucide-svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';

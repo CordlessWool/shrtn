@@ -39,9 +39,6 @@ export const link = sqliteTable(
 	{
 		id: text('id').primaryKey(),
 		url: text('url').notNull(),
-		passphrase: text('passphrase'),
-		callLimit: integer('call_limit'),
-		calls: integer('calls'),
 		userId: text('user_id')
 			.notNull()
 			.references(() => user.id),
