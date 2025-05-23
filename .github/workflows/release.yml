@@ -14,6 +14,8 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.push_tags.outputs.tag}}
     steps:
       - uses: actions/checkout@v4
       - name: bun-setup
@@ -39,17 +41,27 @@ jobs:
           else
             git tag "v$TAG"
             git push origin "v$TAG"
-            echo "::set-output name=tag::$TAG"
+            echo "tag=v$TAG" >> "$GITHUB_OUTPUT"
           fi
+          echo "tag=v2.1.0" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Trigger Docker Publish workflow
-        if: steps.push_tags.outputs.tag != ''
-        uses: ./.github/workflows/docker-publish.yml
-        with:
-          tag: ${{ steps.push_tags.outputs.tag }}
-      - name: Trigger Build workflow
-        if: steps.push_tags.outputs.tag != ''
-        uses: ./.github/workflows/build.yml
-        with:
-          tag: ${{ steps.push_tags.outputs.tag }}
+  call-docker-push:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    uses: ./.github/workflows/docker-publish.yml
+    with:
+      tag: ${{ needs.release.outputs.tag }}
+    secrets: inherit
+  call-build:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    uses: ./.github/workflows/build.yml
+    with:
+      tag: ${{ needs.release.outputs.tag }}
+    secrets: inherit
+  call-deploy:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
