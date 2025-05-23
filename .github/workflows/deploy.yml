@@ -34,5 +34,5 @@ jobs:
             MAILGUN_API_KEY
             MAILGUN_DOMAIN
         env:
-          MAILGUN_API_KEY: ${{ secrets.SUPER_SECRET }}
+          MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
           MAILGUN_DOMAIN: ${{ secrets.MAILGUN_DOMAIN }}
