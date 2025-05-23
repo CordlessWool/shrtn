@@ -10,6 +10,7 @@ permissions:
   packages: write
   attestations: write
   id-token: write
+  deployments: write
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 env:
   PUBLIC_FEATURE_MARKETING_PAGES: 'on'
