@@ -11,15 +11,18 @@
 		required?: boolean;
 		error?: string;
 		onremove?: () => unknown;
+		onselect?: () => unknown;
 		children: Snippet;
 	};
 
-	let { label, required, for: forInput, error, onremove, children }: Props = $props();
+	let { label, required, for: forInput, error, onselect, onremove, children }: Props = $props();
 	let active = $state(!!required);
 
 	$effect(() => {
-		if (onremove && active === false) {
-			onremove();
+		if (active === false) {
+			onremove?.();
+		} else {
+			onselect?.();
 		}
 	});
 </script>

@@ -47,7 +47,6 @@ jobs:
             git push origin "v$TAG"
             echo "tag=v$TAG" >> "$GITHUB_OUTPUT"
           fi
-          echo "tag=v2.1.0" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   call-docker-push:
