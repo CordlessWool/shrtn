@@ -2,7 +2,7 @@
 	import type { Link } from '$lib/definitions.js';
 	import { onMount } from 'svelte';
 	import { Copy, Trash2 } from 'lucide-svelte';
-	import Button from './Button.svelte';
+	import { Button } from '$lib/comp/form';
 	import { enhance } from '$app/forms';
 	import { slide } from 'svelte/transition';
 	import * as m from '$lib/paraglide/messages.js';

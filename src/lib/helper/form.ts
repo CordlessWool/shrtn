@@ -41,6 +41,9 @@ const TTLs = [
 	[Infinity, 'forever']
 ] as const;
 
+export const emptyStringToNull = (str: string | undefined | null) =>
+	str?.trim() === '' ? null : str;
+
 export const ttlFromStep = (step: TTL_STEPS): number => {
 	return TTLs[step][0];
 };
@@ -52,6 +55,8 @@ const getTTLTempUser = () => ttlMapFromStep(MAX_TTL_TEMP);
 const getTTLUser = () => ttlMapFromStep(MAX_TTL_USER);
 
 export const getTTLs = (loggedin: boolean) => (loggedin ? getTTLUser() : getTTLTempUser());
+export const couldTLLInfinit = (loggedin: boolean) =>
+	(loggedin ? MAX_TTL_USER : MAX_TTL_TEMP) === TTL_STEPS.EVER;
 
 const LinkValueSchema = v.pipe(
 	v.string(),
@@ -61,24 +66,41 @@ const LinkValueSchema = v.pipe(
 	v.url(m.error_invalid_url)
 );
 
-export const LinkSchemaSignedUp = v.object({
+const LinkSchemaBase = v.object({
 	link: LinkValueSchema,
-	ttl: v.pipe(v.optional(v.number(), HOUR_IN_MS), v.maxValue(ttlFromStep(MAX_TTL_USER))),
+	passphrase: v.optional(v.pipe(v.string(), v.trim())),
+	callLimit: v.optional(
+		v.pipe(v.number(m.invalid_number), v.integer(), v.minValue(1, m.invalid_minVlaue))
+	),
 	short: v.pipe(
 		v.fallback(v.pipe(v.string(), v.trim(), v.minLength(1)), () => nanoid(SHORTEN_LENGTH))
 	)
 });
 
+export const LinkSchemaSignedUp = v.object({
+	...LinkSchemaBase.entries,
+	ttl: v.pipe(
+		v.optional(v.number(), ttlFromStep(MAX_TTL_USER)),
+		v.maxValue(ttlFromStep(MAX_TTL_USER))
+	)
+});
+
 export const LinkSchemaTemp = v.object({
-	link: LinkValueSchema,
-	ttl: v.pipe(v.optional(v.number(), HOUR_IN_MS), v.maxValue(ttlFromStep(MAX_TTL_TEMP))),
-	short: v.pipe(
-		v.fallback(v.pipe(v.string(), v.trim(), v.minLength(1)), () => nanoid(SHORTEN_LENGTH))
+	...LinkSchemaBase.entries,
+	ttl: v.pipe(
+		v.optional(v.number(), ttlFromStep(MAX_TTL_TEMP)),
+		v.maxValue(ttlFromStep(MAX_TTL_TEMP))
 	)
 });
 
 export const getLinkSchema = (loggedin: boolean) =>
 	loggedin ? LinkSchemaSignedUp : LinkSchemaTemp;
+
+export const PassphraseSchema = v.object({
+	passphrase: v.pipe(v.string(), v.trim(), v.minLength(1))
+});
+
+export type PassphraseSchemaOutput = v.InferOutput<typeof PassphraseSchema>;
 
 export const LoginMailSchema = v.object({
 	email: v.pipe(v.string(), v.trim(), v.email(m.error_invalid_email)),

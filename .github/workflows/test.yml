@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_TYPE: libSQL
-      DATABASE_URL: file:local.db
+
     steps:
       # ...
       - uses: actions/checkout@v4
@@ -23,13 +23,14 @@ jobs:
       # run any `bun` or `bunx` command
       - run: bun install
       - name: Prepare playwright
-        run: bunx playwright install
+        run: bunx playwright install --with-deps
       - name: Run all Tests
         run: bun run test
         env:
           MAILPIT_DOMAIN: http://localhost:8025
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
+          DATABASE_URL: file:test-node.db
       - name: Test SMTP
         run: bun run test:e2e:smtp
         env:
@@ -39,6 +40,13 @@ jobs:
           MAIL_PORT: 1025
           MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
+          DATABASE_URL: file:test-smtp.db
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: node-test-results
+          path: test-results/
+          retention-days: 30
   test-docker:
     name: Test and Build - Docker
     runs-on: ubuntu-latest
@@ -53,7 +61,7 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Prepare playwright
-        run: bunx playwright install
+        run: bunx playwright install --with-deps
       - run: bun install
       - name: Set up Docker Buildx
         id: buildx
@@ -93,6 +101,12 @@ jobs:
           MAILPIT_DOMAIN: http://localhost:8025 #Requiered for e2e api access
       - name: Stop Container
         run: docker stop shrtn && docker stop mailpit
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: docker-test-results
+          path: test-results/
+          retention-days: 30
   test-cloudflare:
     name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
@@ -112,8 +126,14 @@ jobs:
       # run any `bun` or `bunx` command
       - run: bun install
       - name: Prepare playwright
-        run: bunx playwright install
+        run: bunx playwright install --with-deps
       - name: Run all Tests
         run: bun run test:e2e:cloudflare
         env:
           MAILPIT_DOMAIN: http://localhost:8025
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: cloudfalre-test-results
+          path: test-results/
+          retention-days: 30

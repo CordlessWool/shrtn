@@ -50,5 +50,18 @@
 	"terms_of_use": "Nutzungsbedingungen",
 	"imprint": "Impressum",
 	"about_link": "Über uns",
-	"setup_link": "Setup"
+	"setup_link": "Setup",
+	"call_limit": "Aufruflimit",
+	"passphrase": "Passwort",
+	"invalid_minValue": "Minimalwert {requirement}",
+	"invalid_number": "Nur Nummern erlaubt",
+	"shrtn_outdated_headline": "Der Link scheint veraltet zu sein",
+	"shrtn_outdated_subline": "Bitte kontaktieren Sie den Ersteller des Links oder erstellen Sie einen neuen Link, falls Sie der Eigentümer sind",
+	"shrtn_passphrase_headline": "Dieser Link ist geschützt",
+	"shrtn_passphrase_subline": "Gebe das Kennwort ein, um weitergeleitet zu werden",
+	"shrtn_passphrase_info": "Gebe hier dein Kennwort ein",
+	"shrtn_passphrase_invalid": "Ungültiges Kennwort",
+	"shrtn_bot_headline": "Ups, die Weiterleitung ist fehlgeschlagen!",
+	"shrtn_bot_subline": "Klicken Sie auf den untenstehenden Link, um auf den weitergeleiteten Inhalt zuzugreifen.",
+	"secret": "Kennwort"
 }
