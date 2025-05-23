@@ -109,6 +109,7 @@ jobs:
     steps:
       # ...
       - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@3
       - uses: oven-sh/setup-bun@v2
 
       # run any `bun` or `bunx` command
