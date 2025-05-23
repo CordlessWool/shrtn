@@ -28,7 +28,7 @@ jobs:
           packageManager: bun
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: d1 migrations apply SHRTN_D1
+          command: d1 migrations apply SHRTN_D1 --remote
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
