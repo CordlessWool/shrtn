@@ -22,8 +22,18 @@ jobs:
         run: bun install
       - name: Build
         run: bun run build:cloudflare
-      - name: Deploy
+      - name: Migrate
         uses: cloudflare/wrangler-action@v3
+        with:
+          packageManager: bun
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: d1 migrations apply SHRTN_D1
+          secrets: |
+            MAILGUN_API_KEY
+            MAILGUN_DOMAIN
+            - name: Deploy
+      - uses: cloudflare/wrangler-action@v3
         with:
           packageManager: bun
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
