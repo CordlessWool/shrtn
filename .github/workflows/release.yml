@@ -43,8 +43,13 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Invoke reusable Deploy workflow
+      - name: Trigger Docker Publish workflow
         if: steps.push_tags.outputs.tag != ''
-        uses: ./.github/workflows/deploy.yml
+        uses: ./.github/workflows/docker-publish.yml
+        with:
+          tag: ${{ steps.push_tags.outputs.tag }}
+      - name: Trigger Build workflow
+        if: steps.push_tags.outputs.tag != ''
+        uses: ./.github/workflows/build.yml
         with:
           tag: ${{ steps.push_tags.outputs.tag }}
