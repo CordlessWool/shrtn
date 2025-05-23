@@ -30,6 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Push Tags
+        id: push_tags
         run: |
           set +e
           TAG=$(jq -r .version < package.json)
@@ -38,6 +39,12 @@ jobs:
           else
             git tag "v$TAG"
             git push origin "v$TAG"
+            echo "::set-output name=tag::$TAG"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Invoke reusable Deploy workflow
+        if: steps.push_tags.outputs.tag != ''
+        uses: ./.github/workflows/deploy.yml
+        with:
+          tag: ${{ steps.push_tags.outputs.tag }}

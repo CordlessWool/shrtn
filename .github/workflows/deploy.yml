@@ -1,6 +1,10 @@
 name: Deploy to Cloudflare Workers
 
 on:
+  workflow_run:
+    workflows: ['Release'] # name: Release
+    types:
+      - completed
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
