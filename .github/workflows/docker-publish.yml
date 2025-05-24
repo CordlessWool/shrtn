@@ -41,6 +41,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
+          tag: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
+            type=raw,enable=true,value=${{ inputs.tag }}
           images: |
             cordlesswool/shrtn
             ghcr.io/cordlesswool/shrtn
@@ -51,7 +57,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ inputs.tag || steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64
 
