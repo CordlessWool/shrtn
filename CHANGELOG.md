@@ -1,5 +1,12 @@
 # shrtn.to
 
+## 2.2.1
+
+### Patch Changes
+
+- 757ab96: Block private links by default. Set `PUBLIC_FEATURE_PRIVATE_LINKS=on`to allow private links.
+- 6f7dd6b: do not count bot vistis as visits on call count
+
 ## 2.2.0
 
 ### Minor Changes
