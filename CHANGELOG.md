@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.2.2
+
+### Patch Changes
+
+- 7b16885: fix docker pipeline
+
 ## 2.2.1
 
 ### Patch Changes
