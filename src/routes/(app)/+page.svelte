@@ -18,7 +18,7 @@
 	const ttls = getTTLs(isLoggedIn(data.user)).reverse();
 	const ttlsWithoutForever = ttls.filter(([num]) => num !== Infinity);
 	const schema = getLinkSchema(isLoggedIn(data.user));
-	const { form, errors, enhance, validate } = superForm(data.form, {
+	const { form, errors, enhance, validate, submitting } = superForm(data.form, {
 		validators: valibotClient(schema),
 		resetForm: true,
 		onResult: async ({ result, cancel }) => {
@@ -26,7 +26,6 @@
 			if (result.type === 'redirect') {
 				const data = await loadLink(result.location);
 				addLink(data);
-				cancel();
 			}
 		},
 		onError: () => {
@@ -78,7 +77,7 @@
 				/>
 
 				<Button type="submit" title={m.create_link()}>
-					<LinkIcon size={16} />
+					<LinkIcon size={16} class={$submitting ? 'animate-spin' : ''} />
 				</Button>
 			</InputFrame>
 			<ul class="optional-definitions">
