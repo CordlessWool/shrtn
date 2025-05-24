@@ -1,5 +1,16 @@
 # shrtn.to
 
+## 2.2.0
+
+### Minor Changes
+
+- d279a5a: Change style of login and logout button
+- 461e1c0: improve styles and add icons to option buttons
+
+### Patch Changes
+
+- 8b0cdfb: fix form reset and show submitting by spinning icon
+
 ## 2.1.2
 
 ### Patch Changes
