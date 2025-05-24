@@ -15,7 +15,7 @@ import { nanoid } from 'nanoid';
 import * as v from 'valibot';
 import * as m from '$lib/paraglide/messages';
 import { env } from '$env/dynamic/public';
-import { isPrivateIPv4, isPrivateIPv6 } from './link';
+import { isIPv4, isIPv4InRange, isIPv6, isPrivateIPv4, isPrivateIPv6 } from './link';
 
 export const getString = (
 	value: string | FormDataEntryValue | null,
@@ -69,7 +69,11 @@ const LinkValueSchema = v.pipe(
 	v.custom<string>((value: unknown) => {
 		if (env.PUBLIC_FEATURE_PRIVATE_LINKS !== 'on' && typeof value === 'string') {
 			const { hostname } = new URL(value);
-			return !(isPrivateIPv4(hostname) || isPrivateIPv6(hostname));
+			if (isIPv4(hostname)) {
+				return !isPrivateIPv4(hostname);
+			} else if (isIPv6(hostname)) {
+				return !isPrivateIPv6(hostname);
+			}
 		}
 		return true;
 	}, m.invalid_private_link)

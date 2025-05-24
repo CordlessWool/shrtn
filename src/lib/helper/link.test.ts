@@ -11,9 +11,21 @@ describe('isPublicLink', () => {
 		['mongo://10.50.50.50'],
 		['https://172.31.255.254'],
 		['ftp://192.168.100.100']
-	])('url is private – IP: %s Range: %s Subnet Size: %d', async (link) => {
+	])('url is private – %s', async (link) => {
 		const result = await isPublicLink(link);
 		expect(result).toBe(false);
+	});
+
+	test.each([
+		['https://test.de'],
+		['https://gooogle.com'],
+		['https://heise.de'],
+		['https://golem.de'],
+		['https://bing.com'],
+		['https://linkedin.com']
+	])('url is public – %s', async (link) => {
+		const result = await isPublicLink(link);
+		expect(result).toBe(true);
 	});
 });
 

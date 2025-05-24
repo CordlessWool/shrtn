@@ -1,5 +1,4 @@
 import dns from 'node:dns/promises';
-import { is } from 'valibot';
 
 export const isPrivateIPv4 = (ip: string) =>
 	isIPv4InRange(ip, '10.0.0.0', 8) ||
@@ -43,6 +42,22 @@ export const isIPv4InRange = (ip: string, ipNet: string, subnetSize: number) => 
 	const netHex = ipv4ToHex(ipNet) >>> (32 - subnetSize);
 
 	return ipHex === netHex;
+};
+
+export const isIPv4 = (ip: string) => {
+	const split = ip.split('.');
+	return (
+		split.length === 4 &&
+		split.every((part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255)
+	);
+};
+
+export const isIPv6 = (ip: string) => {
+	const split = ip.split(':');
+	return (
+		split.length >= 2 &&
+		split.every((part) => part === '' || (part.length <= 4 && /^[0-9a-fA-F]+$/.test(part)))
+	);
 };
 
 const ipv6ToHex = (ip: string) =>
