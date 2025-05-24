@@ -1,6 +1,5 @@
 import { expect } from '@playwright/test';
-import { faker } from '@faker-js/faker';
-import { type TestFunction, combine, sleep } from './general';
+import { type TestFunction, combine } from './general';
 
 export const enterLink =
 	(link: string): TestFunction =>
@@ -18,7 +17,7 @@ export const submitShortenerForm =
 
 export const addLink = (link: string) => combine(enterLink(link), submitShortenerForm());
 
-export const addLinkAndTest = (link: string = faker.internet.url()) =>
+export const addLinkAndTest = (link: string = 'https://google.com') =>
 	combine(addLink(link), ({ page }) =>
 		expect(page.locator(`section a[href="${link}"]`)).toBeVisible()
 	);

@@ -11,8 +11,6 @@ export const store = <T = unknown>(key: string | symbol, value?: T) => {
 	return mapStore.get(key);
 };
 
-export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export const combine =
 	(...fus: Array<TestFunction>): TestFunction =>
 	async ({ page }) => {
