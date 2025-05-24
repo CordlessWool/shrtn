@@ -13,6 +13,7 @@ const getAdapter = (env) => {
 	return nodeAdapter({ dynamic_origin: true });
 };
 
+/** @type {import('@sveltejs/kit').Config} */
 const config = {
 	preprocess: [vitePreprocess(), mdsvex()],
 	kit: { adapter: getAdapter(BUILD_FOR) },

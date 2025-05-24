@@ -1,5 +1,21 @@
 import { describe, expect, test } from 'vitest';
-import { isIPv4InRange, type IPv4 } from './link';
+import { isIPv4InRange, isIPv6InRange, isPublicLink } from './link';
+
+describe('isPublicLink', () => {
+	test.each([
+		['http://192.168.1.1'],
+		['https://192.168.255.255/some/extra'],
+		['postgres://10.0.0.1'],
+		['file://172.16.0.1'],
+		['http://192.168.0.5'],
+		['mongo://10.50.50.50'],
+		['https://172.31.255.254'],
+		['ftp://192.168.100.100']
+	])('url is private – IP: %s Range: %s Subnet Size: %d', async (link) => {
+		const result = await isPublicLink(link);
+		expect(result).toBe(false);
+	});
+});
 
 describe('isPrivateLink', () => {
 	test.each([
@@ -12,7 +28,7 @@ describe('isPrivateLink', () => {
 		['172.31.255.254', '172.16.0.0', 12],
 		['192.168.100.100', '192.168.0.0', 16]
 	])('should be in subnet – IP: %s Range: %s Subnet Size: %d', async (ip, range, subnetSize) => {
-		const result = isIPv4InRange(ip, range as IPv4, subnetSize);
+		const result = isIPv4InRange(ip, range, subnetSize);
 		expect(result).toBe(true);
 	});
 
@@ -77,4 +93,26 @@ describe('isPrivateLink', () => {
 			expect(result).toBe(false);
 		}
 	);
+});
+
+describe('isIPv6InRange', () => {
+	test.each([
+		['2001:db8::1', '2001:db8::', 32],
+		['2001:db8:0:ff00::1', '2001:db8:0:ff00::', 64],
+		['fe80::1', 'fe80::', 64],
+		['2001:0db8:85a3::8a2e:370:7334', '2001:db8:85a3::', 48]
+	])('should be in subnet – IP: %s Range: %s Prefix: %d', async (ip, range, prefix) => {
+		const result = isIPv6InRange(ip, range, prefix);
+		expect(result).toBe(true);
+	});
+
+	test.each([
+		['2000:db9::1', '2001:db8::', 32],
+		['2001:db7:0:ff01::1', '2001:db8:0:ff00::', 64],
+		['fe81::1', 'fe80::', 64],
+		['2001:0eb8:85a3::8a2e:370:7335', '2001:db8:85a3::', 48]
+	])('should be NOT in subnet – IP: %s Range: %s Prefix: %d', async (ip, range, prefix) => {
+		const result = isIPv6InRange(ip, range, prefix);
+		expect(result).toBe(false);
+	});
 });

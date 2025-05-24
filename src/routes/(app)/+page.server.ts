@@ -1,5 +1,5 @@
 import type { Actions, PageServerLoad } from './$types';
-import { fail, superValidate } from 'sveltekit-superforms';
+import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { getDB, schema } from '$lib/server/db';
 import { error, redirect } from '@sveltejs/kit';
@@ -12,6 +12,10 @@ import type { Link as LinkSchema } from '$lib/server/db/schema';
 import { ORIGIN } from '$lib/server/defaults.js';
 import type { Link } from '$lib/definitions';
 import { localizeHref } from '$lib/paraglide/runtime';
+import { env } from '$env/dynamic/public';
+import { isPublicLink } from '$lib/helper/link';
+
+import * as m from '$lib/paraglide/messages';
 
 const saveLink = async (data: LinkSchema, counter = 5) => {
 	const db = getDB();
@@ -86,6 +90,10 @@ export const actions = {
 		const form = await superValidate(request, valibot(LinkSchema));
 		if (!form.valid) {
 			return fail(400, { form });
+		}
+
+		if (env.PUBLIC_FEATURE_PRIVATE_LINKS !== 'on' && !(await isPublicLink(form.data.link))) {
+			return message(form, m.invalid_private_link(), { status: 400 });
 		}
 
 		const { ttl, link: url, short, passphrase, callLimit } = form.data;
