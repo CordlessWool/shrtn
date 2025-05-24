@@ -18,10 +18,16 @@
 </svelte:head>
 <Header showName={page.url.pathname !== '/'}>
 	{#if !data.user || data.user.temp}
-		<AnchorButton href="/login"><Key />{m.sign_in_link()}</AnchorButton>
+		<AnchorButton href="/login">
+			<Key />
+			<span class="max-sm:hidden">{m.sign_in_link()}</span>
+		</AnchorButton>
 	{:else}
 		<form method="POST" action="/login/?/logout">
-			<Button danger outline type="submit" title={m.sign_out()}><LogOut />{m.sign_out()}</Button>
+			<Button danger outline type="submit" title={m.sign_out()}>
+				<LogOut />
+				<span class="max-sm:hidden">{m.sign_out()}</span></Button
+			>
 		</form>
 	{/if}
 </Header>
