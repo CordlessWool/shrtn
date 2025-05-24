@@ -46,7 +46,7 @@ jobs:
         with:
           name: node-test-results
           path: test-results/
-          retention-days: 30
+          retention-days: 3
   test-docker:
     name: Test and Build - Docker
     runs-on: ubuntu-latest
@@ -106,7 +106,7 @@ jobs:
         with:
           name: docker-test-results
           path: test-results/
-          retention-days: 30
+          retention-days: 3
   test-cloudflare:
     name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
@@ -136,4 +136,4 @@ jobs:
         with:
           name: cloudfalre-test-results
           path: test-results/
-          retention-days: 30
+          retention-days: 3
