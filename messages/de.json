@@ -55,6 +55,7 @@
 	"passphrase": "Passwort",
 	"invalid_minValue": "Minimalwert {requirement}",
 	"invalid_number": "Nur Nummern erlaubt",
+	"invalid_private_link": "Private links sind nicht erlaubt!",
 	"shrtn_outdated_headline": "Der Link scheint veraltet zu sein",
 	"shrtn_outdated_subline": "Bitte kontaktieren Sie den Ersteller des Links oder erstellen Sie einen neuen Link, falls Sie der Eigentümer sind",
 	"shrtn_passphrase_headline": "Dieser Link ist geschützt",
