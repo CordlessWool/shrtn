@@ -18,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: bun-setup
+        uses: oven-sh/setup-bun@v2
+      - name: Install Dependencies
+        run: bun install
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1

@@ -25,10 +25,6 @@ jobs:
       tag: ${{ steps.push_tags.outputs.tag}}
     steps:
       - uses: actions/checkout@v4
-      - name: bun-setup
-        uses: oven-sh/setup-bun@v2
-      - name: Install Dependencies
-        run: bun install
       - name: Push Tags
         id: push_tags
         run: |
