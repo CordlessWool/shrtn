@@ -2,4 +2,4 @@
 'shrtn.to': patch
 ---
 
-block private links by default
+Block private links by default. Set `PUBLIC_FEATURE_PRIVATE_LINKS=on`to allow private links.
