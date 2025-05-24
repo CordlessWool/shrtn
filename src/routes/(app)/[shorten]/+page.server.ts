@@ -46,17 +46,11 @@ export const load: PageServerLoad = async ({ params, request }) => {
 			return {
 				code: 403
 			};
-		} else {
+		} else if (!isbot(request.headers.get('User-Agent'))) {
 			await db.update(schema.link).set({
 				calls: data.calls ?? 0 + 1
 			});
 		}
-	}
-	if (isbot(request.headers.get('User-Agent'))) {
-		return {
-			code: 200,
-			link: data.link
-		};
 	}
 	redirect(302, data.link);
 };
