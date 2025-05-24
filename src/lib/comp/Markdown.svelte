@@ -9,7 +9,7 @@
 <style lang="postcss">
 	@reference 'tailwindcss/theme';
 	.markdown :global {
-		@apply hyphens-auto;
+		@apply px-3 hyphens-auto;
 
 		h1 {
 			@apply mt-1 mb-3 text-3xl font-bold;

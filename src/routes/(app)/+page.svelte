@@ -115,7 +115,7 @@
 							type="number"
 							placeholder="amount"
 							bind:value={$form.callLimit}
-							class="!w-30"
+							class="max-sx:!w-30"
 						/>
 					</OptionalInputFrame>
 				</li>
@@ -171,8 +171,12 @@
 	}
 
 	.optional-definitions {
-		@apply flex flex-row flex-wrap items-center;
-		@apply my-5 gap-5;
+		@apply flex flex-row flex-wrap;
+		@apply my-5 gap-x-5 gap-y-1;
+
+		li {
+			@apply flex flex-col;
+		}
 	}
 
 	section.links {

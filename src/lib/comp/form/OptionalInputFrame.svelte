@@ -37,7 +37,7 @@
 		</InputFrame>
 	</div>
 {:else}
-	<div in:fade>
+	<div in:fade class="my-4">
 		<Button transparent onclick={() => (active = true)}>
 			<Plus />
 			{#if typeof label === 'string'}
