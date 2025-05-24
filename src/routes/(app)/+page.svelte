@@ -18,10 +18,10 @@
 	const ttls = getTTLs(isLoggedIn(data.user)).reverse();
 	const ttlsWithoutForever = ttls.filter(([num]) => num !== Infinity);
 	const schema = getLinkSchema(isLoggedIn(data.user));
-	const { form, errors, enhance, validate, submitting } = superForm(data.form, {
+	const { form, errors, enhance, validate, submitting, message } = superForm(data.form, {
 		validators: valibotClient(schema),
 		resetForm: true,
-		onResult: async ({ result, cancel }) => {
+		onResult: async ({ result }) => {
 			$form.short = nanoid(SHORTEN_LENGTH);
 			if (result.type === 'redirect') {
 				const data = await loadLink(result.location);
@@ -32,6 +32,8 @@
 			$form.short = nanoid(SHORTEN_LENGTH);
 		}
 	});
+
+	errors.subscribe(console.log);
 
 	const addLink = (link: Link) => {
 		links.push({
@@ -68,7 +70,7 @@
 
 	<section class="links">
 		<form method="POST" use:enhance action="?/add">
-			<InputFrame large info={m.link_input_description()} error={$errors.link?.[0]}>
+			<InputFrame large info={m.link_input_description()} error={$errors.link?.[0] || $message}>
 				<Input
 					name="link"
 					placeholder={m.link_input_placeholder()}
