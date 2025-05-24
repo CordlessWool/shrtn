@@ -6,7 +6,7 @@
 	import { fade } from 'svelte/transition';
 
 	type Props = {
-		label: string;
+		label: string | Snippet;
 		for: string;
 		required?: boolean;
 		error?: string;
@@ -37,10 +37,14 @@
 		</InputFrame>
 	</div>
 {:else}
-	<div in:fade>
+	<div in:fade class="my-4">
 		<Button transparent onclick={() => (active = true)}>
 			<Plus />
-			{label}
+			{#if typeof label === 'string'}
+				{label}
+			{:else}
+				{@render label()}
+			{/if}
 		</Button>
 	</div>
 {/if}

@@ -3,7 +3,7 @@
 
 	type Props = {
 		for?: string;
-		label?: string;
+		label?: string | Snippet;
 		large?: boolean;
 		small?: boolean;
 		children: Snippet;
@@ -16,7 +16,9 @@
 
 <div class="frame" class:large class:small class:error>
 	{#if label && props.for}
-		<label for={props.for}>{label}</label>
+		<label for={props.for}
+			>{#if typeof label === 'string'}{label}{:else}{@render label()}{/if}</label
+		>
 	{/if}
 	<div class="inputs">
 		{@render children()}
@@ -36,7 +38,11 @@
 		@apply grid gap-0;
 	}
 	label {
-		@apply pl-1 text-zinc-600;
+		@apply flex flex-row flex-nowrap items-center gap-1 pl-1 text-zinc-600;
+		:global(svg) {
+			width: 1em;
+			height: 1em;
+		}
 	}
 	small {
 		@apply pl-1 text-zinc-600;

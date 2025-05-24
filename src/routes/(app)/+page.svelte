@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LinkTile from '$lib/comp/LinkTile.svelte';
 	import { type Link } from '$lib/definitions.js';
-	import { Link as LinkIcon } from 'lucide-svelte';
+	import { Link as LinkIcon, Key, MousePointerClick, ClockFading } from 'lucide-svelte';
 	import type { PageData } from './$types.js';
 	import { couldTLLInfinit, getLinkSchema, getTTLs } from '$lib/helper/form.js';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
@@ -84,12 +84,14 @@
 			<ul class="optional-definitions">
 				<li>
 					<OptionalInputFrame
-						label={m.ttl()}
 						for="ttl-input"
 						required={!couldTLLInfinit(isLoggedIn(data.user))}
 						onselect={setTtlToYear}
 						onremove={setTtlToInfinity}
 					>
+						{#snippet label()}
+							{m.ttl()}<ClockFading />
+						{/snippet}
 						<Select id="ttl-input" name="ttl" bind:value={$form.ttl}>
 							{#each ttlsWithoutForever as [time, text] (time)}
 								<option value={time}>{m[text]()}</option>
@@ -100,10 +102,12 @@
 				<li>
 					<OptionalInputFrame
 						onremove={() => ($form.callLimit = undefined)}
-						label={m.call_limit()}
 						for="call-limit-input"
 						error={$errors.callLimit?.[0]}
 					>
+						{#snippet label()}
+							{m.call_limit()}<MousePointerClick />
+						{/snippet}
 						<Input
 							onkeyup={() => validate('callLimit')}
 							id="call-limit-input"
@@ -111,16 +115,19 @@
 							type="number"
 							placeholder="amount"
 							bind:value={$form.callLimit}
-							class="!w-30"
+							class="max-sx:!w-30"
 						/>
 					</OptionalInputFrame>
 				</li>
 				<li>
 					<OptionalInputFrame
 						onremove={() => ($form.passphrase = undefined)}
-						label={m.passphrase()}
 						for="link-passphrase-input"
 					>
+						{#snippet label()}
+							{m.passphrase()}<Key />
+						{/snippet}
+
 						<Input
 							id="link-passphrase-input"
 							name="passphrase"
@@ -164,8 +171,12 @@
 	}
 
 	.optional-definitions {
-		@apply flex flex-row flex-wrap items-center;
-		@apply my-5 gap-5;
+		@apply flex flex-row flex-wrap;
+		@apply my-5 gap-x-5 gap-y-1;
+
+		li {
+			@apply flex flex-col;
+		}
 	}
 
 	section.links {
