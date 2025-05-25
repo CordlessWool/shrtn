@@ -1,6 +1,12 @@
 name: Publish Docker image
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        type: string
+        description: The tag to use for the Docker image
   workflow_call:
     inputs:
       tag:
@@ -44,6 +50,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
+          tags: |
+            type=raw,enable=${{ inputs.tag != '' }},value=${{ inputs.tag }}
+            type=raw,enable=${{ inputs.tag != '' }},value=latest
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
           images: |
             cordlesswool/shrtn
             ghcr.io/cordlesswool/shrtn
