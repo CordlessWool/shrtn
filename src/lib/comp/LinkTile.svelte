@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { Link } from '$lib/definitions.js';
 	import { onMount } from 'svelte';
-	import { ArrowRightCircle, ClockFading, Copy, Trash2, Lock } from 'lucide-svelte';
+	import { ArrowRightCircle, ClockFading, Copy, Trash2, Lock, QrCode } from 'lucide-svelte';
 	import { Button } from '$lib/comp/form';
 	import { enhance } from '$app/forms';
 	import { slide } from 'svelte/transition';
 	import * as m from '$lib/paraglide/messages.js';
+	import QRCodeModel from '$lib/comp/QRModal.svelte';
 
 	type Props = Link & {
 		origin: string;
@@ -24,6 +25,7 @@
 		deletePath,
 		ondeleted
 	}: Props = $props();
+	let showModal = $state(false);
 	const shrtnUrl = new URL(key, origin);
 	const { hostname } = new URL(url);
 	const favicon = `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
@@ -66,6 +68,10 @@
 	});
 </script>
 
+{#if showModal}
+	<QRCodeModel bind:show={showModal} name="shrtn_qr_{key}" value={shrtnUrl.href} />
+{/if}
+
 <section transition:slide>
 	<a href={url} target="_blank" class="link">
 		<img src={favicon} alt={`Icon of ${hostname}`} />
@@ -103,10 +109,19 @@
 			transparent
 			title={m.copy_link()}
 		>
-			<Copy size={19} />
+			<Copy />
+		</Button>
+		<Button
+			onclick={() => (showModal = true)}
+			download="shrtn_qr_{key}"
+			transparent
+			title={m.generate_qr_code()}
+		>
+			<QrCode />
 		</Button>
 		{#if deletePath}
 			<form
+				class="col-start-2"
 				method="POST"
 				action={deletePath}
 				use:enhance={() => {
@@ -118,7 +133,7 @@
 				}}
 			>
 				<Button type="submit" outline danger title={m.delete_link()}>
-					<Trash2 size={19} />
+					<Trash2 />
 				</Button>
 				<input name="key" value={key} hidden />
 			</form>

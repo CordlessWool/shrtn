@@ -21,15 +21,19 @@ At Shrtn, we believe in:
 ## Core Features
 
 - **Self-Hosted**
-  Deploy on Docker, Kubernetes, Cloud VM, or bare-metal with ease.
+  Deploy effortlessly on your own infrastructure—whether using Docker, Kubernetes, a Cloud VM, or bare-metal servers.
 - **SQLite (libSQL) & Cloudflare D1**
-  Reliable, embeddable storage options for local and edge deployments.
-- **REST API**
-  Create, update, and manage short links programmatically.
+  Enjoy robust, embeddable storage with options like SQLite (libSQL) and Cloudflare D1, ideal for both local and edge deployments.
 - **Open Source**
-  Licensed under MIT—contribute, audit, and customize as you see fit.
+  Fully open-source and MIT licensed, allowing you to contribute, audit, and customize as needed.
 - **Developer-Friendly**
-  A simple, RESTful API and minimal dependencies mean quick integrations and rock-solid stability.
+  Integrate quickly with a streamlined RESTful API and minimal dependencies for enhanced stability.
+- **Password-Protected Links**
+  Enhance security by requiring a password to access your shortened links.
+- **Click Limits & Expirations**
+  Easily set click limits or define expiration dates to control link usage.
+- **QR Code Generation**
+  Quickly generate QR codes for your shortened links, making sharing more convenient.
 
 ---
 
@@ -37,15 +41,13 @@ At Shrtn, we believe in:
 
 We’re actively developing:
 
-- **Password-Protected Links**
-  Add a passphrase requirement for secure sharing.
+
 - **Private Server**
   Disable public access to your link shortener instance and restrict login access.
 
 - **Public Server**
   Disable private access to your link shortener instance.
-- **Click Limits & Expirations**
-  Define total click allowances or automatic expiry dates.
+
 - **On-Prem Analytics Dashboard**
   View click trends, referrer data and geodata.
 

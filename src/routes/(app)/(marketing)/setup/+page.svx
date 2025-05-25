@@ -9,11 +9,9 @@ Launch your own privacy-first Link shortener in minutes. Whether you choose Dock
 ## Why Choose a Self-Hosted Link Shortener?
 
 - **Full Control & Privacy**
-  Host on your own VPS or local machine—no vendor lock-in, no data leaks.
+  Host on your own VPS, Kubernetes, Docker, Cloudflare Workers or local machine—no vendor lock-in, no data leaks.
 - **Fast & Lightweight**
   Built on Node.js with minimal dependencies for rock-solid performance.
-- **Extensible API**
-  Automate link creation from any app or script.
 
 ---
 
@@ -79,17 +77,11 @@ Launch your own privacy-first Link shortener in minutes. Whether you choose Dock
 
 We’re actively working on:
 
-- **Password-Protected Links**
-  Secure shares with a custom passphrase so only authorized users can follow.
-
 - **Private Server**
   Disable public access to your link shortener instance and restrict login access.
 
 - **Public Server**
   Disable private access to your link shortener instance.
-
-- **Click Limits & Expirations**
-  Perfect for one-time invites or limited-run promotions: cap total clicks or set an automatic expiry date.
 
 - **On-Prem Analytics Dashboard**
   View click-through trends, top referrers, and geodata stored on your server.
@@ -103,13 +95,14 @@ We’re actively working on:
 
 ### Base Configuration
 
-| Variable            | Description                                                      | Default                 |
-| ------------------- |----------------------------------------------------------------- | ----------------------- |
-| `DATABASE_URL`      | Connection string (SQLite, PostgreSQL, MySQL, Cloudflare D1)     | –                       |
-| `ORIGIN`            | Base URL for your short-link domain                              | –                       |
-| `MAIL_PROVIDER`     | `smtp` \| `mailgun` \| `mailpit` (see blow)                      | –                       |
-| `PUBLIC_TTL_TEMP`   | Default expiry for anonymous/temporary links                     | `WEEK`                  |
-| `PUBLIC_TTL_USER`   | Default expiry for user-generated or authenticated short URLs    | `EVER`                  |
+| Variable                          | Description                                                           | Default                 |
+| ----------------------------------|---------------------------------------------------------------------- | ----------------------- |
+| `PUBLIC_FEATURE_PRIVATE_LINKS`    | Enable private access to your link shortener instance. `on` \| `off`  | `off`                   |
+| `DATABASE_URL`                    | Connection string (SQLite, PostgreSQL, MySQL, Cloudflare D1)          | –                       |
+| `ORIGIN`                          | Base URL for your short-link domain                                   | –                       |
+| `MAIL_PROVIDER`                   | `smtp` \| `mailgun` \| `mailpit` (see below)                          | –                       |
+| `PUBLIC_TTL_TEMP`                 | Default expiry for anonymous/temporary links                          | `WEEK`                  |
+| `PUBLIC_TTL_USER`                 | Default expiry for user-generated or authenticated short URLs         | `EVER`                  |
 
 ### Sending Emails
 
@@ -155,7 +148,7 @@ Set `MAIL_PROVIDER` to `SMTP`.
 - **SQLite** (default) - via libSQL
 - **[Tursor](https://tursor.tech)** (default) - via libSQL
 - **Cloudflare D1** for edge-deployed, serverless URL hosting
-- Deploy via **Docker**, **Kubernetes**, **Cloud VM** or **bare-metal**
+- Deploy via **Docker**, **Kubernetes**, **Cloudflare Worker**, **Cloud VM** or **bare-metal**
 
 ---
 
