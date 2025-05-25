@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.3.1
+
+### Patch Changes
+
+- 80cac53: Fix infinity bug
+
 ## 2.3.0
 
 ### Minor Changes
