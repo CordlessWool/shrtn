@@ -179,7 +179,7 @@
 	}
 
 	section.links {
-		@apply grid gap-3 md:grid-cols-2 xl:grid-cols-3;
+		@apply grid gap-5 md:grid-cols-2 xl:grid-cols-3;
 		@apply m-3 w-full md:m-7;
 	}
 </style>

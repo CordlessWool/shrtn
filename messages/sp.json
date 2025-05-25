@@ -68,5 +68,8 @@
 	"secret": "Secreto",
 	"remove": "Eliminar",
 	"clicks_left": "{left} llamadas restantes de {limit}",
-	"protected_link": "Enlace protegido"
+	"protected_link": "Enlace protegido",
+	"download": "Descargar",
+	"close": "Cerrar",
+	"qr_code": "Código QR"
 }

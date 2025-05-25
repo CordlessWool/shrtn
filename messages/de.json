@@ -68,5 +68,8 @@
 	"secret": "Kennwort",
 	"remove": "Entfernen",
 	"clicks_left": "{left} Aufrufe von {limit} übrig",
-	"protected_link": "Geschützter Link"
+	"protected_link": "Geschützter Link",
+	"download": "Herunterladen",
+	"close": "Schließen",
+	"qr_code": "QR-Code"
 }

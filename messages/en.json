@@ -69,5 +69,8 @@
 	"secret": "Secret",
 	"remove": "Remove",
 	"clicks_left": "{left} calls left of {limit}",
-	"protected_link": "Protected Link"
+	"protected_link": "Protected Link",
+	"download": "Download",
+	"close": "Close",
+	"qr_code": "QR Code"
 }
