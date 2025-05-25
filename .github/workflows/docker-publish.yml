@@ -44,6 +44,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
+          tags: |
+            type=raw,enable=${{ inputs.tag != '' }},value=${{ inputs.tag }}
+            type=raw,enable=${{ inputs.tag != '' }},value=latest
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
+            type=ref,event=pr
           images: |
             cordlesswool/shrtn
             ghcr.io/cordlesswool/shrtn
