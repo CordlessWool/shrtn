@@ -108,7 +108,7 @@ export const actions = {
 		}
 
 		const { ttl, link: url, short, passphrase, callLimit } = form.data;
-		const expiresAt = ttl === Infinity ? null : new Date(Date.now() + ttl);
+		const expiresAt = ttl == null ? null : new Date(Date.now() + ttl);
 		const id = await saveLink({
 			id: short || nanoid(SHORTEN_LENGTH),
 			userId: user.id,

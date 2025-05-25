@@ -55,6 +55,7 @@
 	"call_limit": "Límite de utilización",
 	"passphrase": "Contraseña",
 	"invalid_minVlaue": "El valor mínimo es {requirement}",
+	"invalid_maxValue": "El valor máximo es {requirement}",
 	"invalid_number": "Solo se permiten números",
 	"invalid_private_link": "No se permiten enlaces privados!",
 	"shrtn_outdated_headline": "Parece que tu enlace está desactualizado",

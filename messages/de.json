@@ -55,6 +55,7 @@
 	"call_limit": "Aufruflimit",
 	"passphrase": "Passwort",
 	"invalid_minValue": "Minimalwert {requirement}",
+	"invalid_maxValue": "Maximalwert {requirement}",
 	"invalid_number": "Nur Nummern erlaubt",
 	"invalid_private_link": "Private links sind nicht erlaubt!",
 	"shrtn_outdated_headline": "Der Link scheint veraltet zu sein",

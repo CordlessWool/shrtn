@@ -12,8 +12,7 @@ export enum TTL_STEPS {
 	DAY,
 	WEEK,
 	MONTH,
-	YEAR,
-	EVER
+	YEAR
 }
 
 export enum THEME {
@@ -21,7 +20,7 @@ export enum THEME {
 	LIGHT
 }
 
-const toTTLSTEP = (step: unknown, defaultValue: TTL_STEPS): TTL_STEPS => {
+const toTTLSTEP = (step: unknown, defaultValue?: TTL_STEPS): TTL_STEPS | undefined => {
 	if (typeof step !== 'string') {
 		return defaultValue;
 	}
@@ -34,5 +33,5 @@ const toTTLSTEP = (step: unknown, defaultValue: TTL_STEPS): TTL_STEPS => {
 };
 
 export const SHORTEN_LENGTH = Number(env.PUBLIC_ID_LENGTH ?? 5);
-export const MAX_TTL_USER = toTTLSTEP(env.PUBLIC_TTL_USER, TTL_STEPS.EVER);
+export const MAX_TTL_USER = toTTLSTEP(env.PUBLIC_TTL_USER);
 export const MAX_TTL_TEMP = toTTLSTEP(env.PUBLIC_TTL_TEMP, TTL_STEPS.WEEK);

@@ -15,7 +15,7 @@ import { nanoid } from 'nanoid';
 import * as v from 'valibot';
 import * as m from '$lib/paraglide/messages';
 import { env } from '$env/dynamic/public';
-import { isIPv4, isIPv4InRange, isIPv6, isPrivateIPv4, isPrivateIPv6 } from './link';
+import { isIPv4, isIPv6, isPrivateIPv4, isPrivateIPv6 } from './link';
 
 export const getString = (
 	value: string | FormDataEntryValue | null,
@@ -39,18 +39,26 @@ const TTLs = [
 	[DAY_IN_MS, 'aday'],
 	[WEEK_IN_MS, 'aweek'],
 	[MONTH_IN_MS, 'amonth'],
-	[YEAR_IN_MS, 'ayear'],
-	[Infinity, 'forever']
+	[YEAR_IN_MS, 'ayear']
 ] as const;
 
 export const emptyStringToNull = (str: string | undefined | null) =>
 	str?.trim() === '' ? null : str;
 
-export const ttlFromStep = (step: TTL_STEPS): number => {
+export function ttlFromStep(step: undefined): undefined;
+export function ttlFromStep(step: TTL_STEPS): number;
+export function ttlFromStep(step: TTL_STEPS | undefined): number | undefined;
+export function ttlFromStep(step: TTL_STEPS | undefined): number | undefined {
+	if (!step) {
+		return undefined;
+	}
 	return TTLs[step][0];
-};
+}
 
-const ttlMapFromStep = (step: TTL_STEPS) => {
+const ttlMapFromStep = (step: TTL_STEPS | undefined) => {
+	if (step === undefined) {
+		return TTLs;
+	}
 	return TTLs.slice(0, step + 1) as [number, (typeof TTLs)[number][1]][];
 };
 const getTTLTempUser = () => ttlMapFromStep(MAX_TTL_TEMP);
@@ -58,7 +66,7 @@ const getTTLUser = () => ttlMapFromStep(MAX_TTL_USER);
 
 export const getTTLs = (loggedin: boolean) => (loggedin ? getTTLUser() : getTTLTempUser());
 export const couldTLLInfinit = (loggedin: boolean) =>
-	(loggedin ? MAX_TTL_USER : MAX_TTL_TEMP) === TTL_STEPS.EVER;
+	(loggedin ? MAX_TTL_USER : MAX_TTL_TEMP) === undefined;
 
 const LinkValueSchema = v.pipe(
 	v.string(),
@@ -90,20 +98,32 @@ const LinkSchemaBase = v.object({
 	)
 });
 
+const getMaxValueValidator = (step: TTL_STEPS | undefined) => {
+	//	return v.maxValue();
+	const maxValue = ttlFromStep(step);
+	const errorMessage = maxValue ? () => m.invalid_maxValue({ requirement: maxValue }) : '';
+	return v.custom<number | undefined>((input) => {
+		if (!maxValue) {
+			return true;
+		}
+		if (typeof input === 'number') {
+			return input <= maxValue;
+		}
+		return false;
+	}, errorMessage);
+};
+
 export const LinkSchemaSignedUp = v.object({
 	...LinkSchemaBase.entries,
 	ttl: v.pipe(
-		v.optional(v.number(), ttlFromStep(MAX_TTL_USER)),
-		v.maxValue(ttlFromStep(MAX_TTL_USER))
+		v.optional(v.pipe(v.number()), ttlFromStep(MAX_TTL_USER)),
+		getMaxValueValidator(MAX_TTL_USER)
 	)
 });
 
 export const LinkSchemaTemp = v.object({
 	...LinkSchemaBase.entries,
-	ttl: v.pipe(
-		v.optional(v.number(), ttlFromStep(MAX_TTL_TEMP)),
-		v.maxValue(ttlFromStep(MAX_TTL_TEMP))
-	)
+	ttl: v.pipe(v.optional(v.number(), ttlFromStep(MAX_TTL_TEMP)), getMaxValueValidator(MAX_TTL_TEMP))
 });
 
 export const getLinkSchema = (loggedin: boolean) =>
