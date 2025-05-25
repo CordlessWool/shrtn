@@ -1,9 +1,5 @@
 name: Test
-on:
-  push:
-    branches:
-      - main
-      - master
+on: [push]
 env:
   PUBLIC_FEATURE_MARKETING_PAGES: 'off'
 jobs:
