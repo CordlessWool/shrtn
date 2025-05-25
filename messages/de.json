@@ -64,5 +64,6 @@
 	"shrtn_passphrase_invalid": "Ungültiges Kennwort",
 	"shrtn_bot_headline": "Ups, die Weiterleitung ist fehlgeschlagen!",
 	"shrtn_bot_subline": "Klicken Sie auf den untenstehenden Link, um auf den weitergeleiteten Inhalt zuzugreifen.",
-	"secret": "Kennwort"
+	"secret": "Kennwort",
+	"remove": "Entfernen"
 }

@@ -65,5 +65,6 @@
 	"shrtn_passphrase_invalid": "Invalid secret",
 	"shrtn_bot_headline": "Ups, the redirection seems to be failed!",
 	"shrtn_bot_subline": "Click on the link below to access the redirected content.",
-	"secret": "Secret"
+	"secret": "Secret",
+	"remove": "Remove"
 }

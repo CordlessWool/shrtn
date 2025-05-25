@@ -64,5 +64,6 @@
 	"shrtn_passphrase_invalid": "Contraseña inválida",
 	"shrtn_bot_headline": "¡Ups, parece que la redirección ha fallado!",
 	"shrtn_bot_subline": "Haz clic en el enlace de abajo para acceder al contenido redirigido.",
-	"secret": "Secreto"
+	"secret": "Secreto",
+	"remove": "Eliminar"
 }

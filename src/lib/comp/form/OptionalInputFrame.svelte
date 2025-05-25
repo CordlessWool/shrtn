@@ -4,6 +4,7 @@
 	import Button from './Button.svelte';
 	import { X as XIcon, Plus } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
+	import * as m from '$lib/paraglide/messages';
 
 	type Props = {
 		label: string | Snippet;
@@ -30,7 +31,7 @@
 {#if required || active}
 	<div in:fade>
 		<InputFrame {error} small {label} for={forInput}>
-			<Button transparent disabled={required} onclick={() => (active = false)}
+			<Button title={m.remove()} transparent disabled={required} onclick={() => (active = false)}
 				><XIcon size={16} /></Button
 			>
 			{@render children()}
