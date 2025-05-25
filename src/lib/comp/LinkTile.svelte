@@ -79,7 +79,7 @@
 
 	<div class="options">
 		{#if expiresAt}
-			<div title={expiresText}>
+			<div title={m.expires_in() + ' ' + expiresText}>
 				<ClockFading />
 				{expiresText}
 			</div>
