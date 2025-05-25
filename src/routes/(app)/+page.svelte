@@ -33,8 +33,6 @@
 		}
 	});
 
-	errors.subscribe(console.log);
-
 	const addLink = (link: Link) => {
 		links.push({
 			...link,

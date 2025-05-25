@@ -7,8 +7,8 @@ on:
         required: true
         type: string
   push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+    branches:
+      - main
 
 jobs:
   push_to_registry:
@@ -22,6 +22,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -41,12 +44,6 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          tag: |
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=tag
-            type=ref,event=pr
-            type=raw,enable=true,value=${{ inputs.tag }}
           images: |
             cordlesswool/shrtn
             ghcr.io/cordlesswool/shrtn
