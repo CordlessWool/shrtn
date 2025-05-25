@@ -11,6 +11,9 @@ export const GET: RequestHandler = async ({ params }) => {
 		.select({
 			url: schema.link.url,
 			key: schema.link.id,
+			password: schema.link.passphrase,
+			callLimit: schema.link.callLimit,
+			calls: schema.link.calls,
 			createdAt: schema.link.createdAt,
 			expiresAt: schema.link.expiresAt
 		})
@@ -20,6 +23,6 @@ export const GET: RequestHandler = async ({ params }) => {
 	if (!link) {
 		return error(404, 'Not Found');
 	}
-
-	return json(link satisfies Link);
+	const { password, ...rest } = link;
+	return json({ ...rest, hasPassphrase: !!password } satisfies Link);
 };

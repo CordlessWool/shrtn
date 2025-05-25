@@ -57,6 +57,9 @@ export const load: PageServerLoad = async ({ locals, request }) => {
 		.select({
 			url: schema.link.url,
 			key: schema.link.id,
+			passphrase: schema.link.passphrase,
+			calls: schema.link.calls,
+			callLimit: schema.link.callLimit,
 			createdAt: schema.link.createdAt,
 			expiresAt: schema.link.expiresAt
 		})
@@ -71,7 +74,15 @@ export const load: PageServerLoad = async ({ locals, request }) => {
 
 	return {
 		origin,
-		links: data,
+		links: data.map((link) => ({
+			key: link.key,
+			url: link.url,
+			hasPassphrase: !!link.passphrase,
+			calls: link.calls,
+			callLimit: link.callLimit,
+			createdAt: link.createdAt,
+			expiresAt: link.expiresAt
+		})),
 		form: await form
 	};
 };
