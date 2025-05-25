@@ -1,5 +1,12 @@
 # shrtn.to
 
+## 2.2.4
+
+### Patch Changes
+
+- 37fc5e5: Add title attribute to remove button on link options and add title attribute to login button
+- af2e555: LAST ROUND: Fix docker build. Checkout tag given by workflow call
+
 ## 2.2.3
 
 ### Patch Changes
