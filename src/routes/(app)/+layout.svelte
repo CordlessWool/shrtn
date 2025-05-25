@@ -18,7 +18,7 @@
 </svelte:head>
 <Header showName={page.url.pathname !== '/'}>
 	{#if !data.user || data.user.temp}
-		<AnchorButton href="/login">
+		<AnchorButton href="/login" title={m.sign_in_link()}>
 			<Key />
 			<span class="max-sm:hidden">{m.sign_in_link()}</span>
 		</AnchorButton>
