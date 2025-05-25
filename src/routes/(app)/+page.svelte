@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LinkTile from '$lib/comp/LinkTile.svelte';
 	import { type Link } from '$lib/definitions.js';
-	import { Link as LinkIcon, Key, MousePointerClick, ClockFading } from 'lucide-svelte';
+	import { Link as LinkIcon, Key, MousePointerClick, ClockFading, Lock } from 'lucide-svelte';
 	import type { PageData } from './$types.js';
 	import { couldTLLInfinit, getLinkSchema, getTTLs } from '$lib/helper/form.js';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
@@ -124,7 +124,7 @@
 						for="link-passphrase-input"
 					>
 						{#snippet label()}
-							{m.passphrase()}<Key />
+							{m.passphrase()}<Lock />
 						{/snippet}
 
 						<Input

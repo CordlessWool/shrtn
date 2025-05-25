@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Link } from '$lib/definitions.js';
 	import { onMount } from 'svelte';
-	import { Copy, Trash2 } from 'lucide-svelte';
+	import { ArrowRightCircle, ClockFading, Copy, Trash2, Lock } from 'lucide-svelte';
 	import { Button } from '$lib/comp/form';
 	import { enhance } from '$app/forms';
 	import { slide } from 'svelte/transition';
@@ -13,7 +13,17 @@
 		ondeleted: (key: string) => void;
 	};
 
-	const { url, key, origin, expiresAt, deletePath, ondeleted }: Props = $props();
+	const {
+		url,
+		key,
+		origin,
+		expiresAt,
+		hasPassphrase,
+		callLimit,
+		calls,
+		deletePath,
+		ondeleted
+	}: Props = $props();
 	const shrtnUrl = new URL(key, origin);
 	const { hostname } = new URL(url);
 	const favicon = `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
@@ -31,6 +41,8 @@
 	const getExpiresInText = (expiresAt: Date | null) => {
 		if (!expiresAt) return m.expires_never();
 		const { days, hours, minutes } = calcTimeLeft(expiresAt);
+		if (days > 70) return m.expires_months({ number: Math.floor(days / 30) });
+		if (days > 14) return m.expires_weeks({ number: Math.floor(days / 7) });
 		if (days > 2) return m.expires_days({ number: days });
 		if (hours > 2) return m.expires_hours({ number: days * 24 + hours });
 		return m.expires_minutes({ number: hours * 60 + minutes });
@@ -55,8 +67,8 @@
 </script>
 
 <section transition:slide>
-	<img src={favicon} alt={`Icon of ${hostname}`} />
 	<a href={url} target="_blank" class="link">
+		<img src={favicon} alt={`Icon of ${hostname}`} />
 		<div class="shorted">
 			{shrtnUrl.hostname}{shrtnUrl.pathname}
 		</div>
@@ -65,11 +77,32 @@
 		</p>
 	</a>
 
-	<small class="expires">
-		{expiresText}
-	</small>
+	<div class="options">
+		{#if expiresAt}
+			<div title={expiresText}>
+				<ClockFading />
+				{expiresText}
+			</div>
+		{/if}
+		{#if callLimit}
+			<div title={m.clicks_left({ left: callLimit - (calls ?? 0), limit: callLimit })}>
+				<ArrowRightCircle />
+				{callLimit - (calls ?? 0)}
+			</div>
+		{/if}
+		{#if hasPassphrase}
+			<div title={m.protected_link()}>
+				<Lock />
+			</div>
+		{/if}
+	</div>
+
 	<div class="actions">
-		<Button onclick={() => navigator.clipboard.writeText(shrtnUrl.href)} title={m.copy_link()}>
+		<Button
+			onclick={() => navigator.clipboard.writeText(shrtnUrl.href)}
+			transparent
+			title={m.copy_link()}
+		>
 			<Copy size={19} />
 		</Button>
 		{#if deletePath}
@@ -84,7 +117,7 @@
 					};
 				}}
 			>
-				<Button submit title={m.delete_link()}>
+				<Button type="submit" outline danger title={m.delete_link()}>
 					<Trash2 size={19} />
 				</Button>
 				<input name="key" value={key} hidden />
@@ -96,26 +129,29 @@
 <style lang="postcss">
 	@reference "tailwindcss/theme";
 	section {
-		@apply grid grid-flow-col grid-cols-3 grid-rows-3 items-center gap-x-3;
+		@apply grid grid-flow-col grid-rows-3 items-center gap-x-3;
 		@apply w-full rounded-md bg-zinc-200 p-3;
-		grid-template-columns: auto 1fr auto;
+		grid-template-columns: 1fr auto;
 	}
 
 	:global(.dark) section {
 		@apply bg-zinc-700;
 	}
 
-	img {
-		@apply row-span-3 w-12 items-center justify-center p-1;
-	}
-	.shorted {
-		@apply font-bold;
-	}
 	.link {
-		@apply relative row-span-2 overflow-hidden;
-	}
-	.tourl {
-		@apply ml-1 overflow-hidden text-xs text-nowrap text-ellipsis;
+		@apply grid grid-rows-2 gap-x-2;
+		grid-template-columns: auto 1fr;
+		@apply row-span-2;
+		@apply relative overflow-hidden;
+		img {
+			@apply row-span-2 w-12 items-center justify-center p-1;
+		}
+		.shorted {
+			@apply font-bold;
+		}
+		.tourl {
+			@apply ml-1 overflow-hidden text-xs text-nowrap text-ellipsis;
+		}
 	}
 
 	.expires {
@@ -124,8 +160,22 @@
 	}
 
 	.actions {
-		@apply flex flex-row gap-3;
+		@apply grid grid-cols-2 gap-5;
 		@apply row-span-3;
 		@apply justify-self-end;
+	}
+
+	.options {
+		@apply flex flex-row flex-wrap gap-5;
+		@apply text-sm;
+
+		div {
+			@apply flex flex-row items-center gap-1;
+		}
+
+		:global svg {
+			height: 1rem;
+			width: 1rem;
+		}
 	}
 </style>
