@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.2.3
+
+### Patch Changes
+
+- 15b7221: fetch github tags on docker checkout to push version tag
+
 ## 2.2.2
 
 ### Patch Changes
