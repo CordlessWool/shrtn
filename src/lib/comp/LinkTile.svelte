@@ -115,7 +115,7 @@
 			onclick={() => (showModal = true)}
 			download="shrtn_qr_{key}"
 			transparent
-			title={m.copy_link()}
+			title={m.generate_qr_code()}
 		>
 			<QrCode />
 		</Button>

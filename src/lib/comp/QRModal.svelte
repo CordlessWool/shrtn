@@ -54,7 +54,7 @@
 			{#await getQRCode(value)}
 				<LoaderCircle class="animate-spin" />
 			{:then [dataLink, filename]}
-				<AnchorButton href={dataLink} download={filename} transparent title={m.download()}>
+				<AnchorButton href={dataLink} download={filename} transparent title={m.download_qr_code()}>
 					<Download />
 				</AnchorButton>
 			{/await}

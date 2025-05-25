@@ -72,5 +72,7 @@
 	"protected_link": "Protected Link",
 	"download": "Download",
 	"close": "Close",
-	"qr_code": "QR Code"
+	"qr_code": "QR Code",
+	"generate_qr_code": "Generate QR Code",
+	"download_qr_code": "Download QR Code"
 }
