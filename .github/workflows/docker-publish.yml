@@ -1,6 +1,12 @@
 name: Publish Docker image
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        type: string
+        description: The tag to use for the Docker image
   workflow_call:
     inputs:
       tag:
