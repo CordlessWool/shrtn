@@ -1,5 +1,16 @@
 # shrtn.to
 
+## 2.3.0
+
+### Minor Changes
+
+- bca1a57: Add options to link tiles, to see what was set
+- 33011d4: add qr code generation
+
+### Patch Changes
+
+- ae9e3bf: fix: name is shown at top on base path
+
 ## 2.2.5
 
 ### Patch Changes
