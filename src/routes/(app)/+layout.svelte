@@ -16,7 +16,7 @@
 	<meta name="description" content={m.meta_description()} />
 	<meta name="keywords" content={m.meta_keywords()} />
 </svelte:head>
-<Header showName={page.url.pathname !== '/'}>
+<Header showName={page.route.id !== '/(app)'}>
 	{#if !data.user || data.user.temp}
 		<AnchorButton href="/login" title={m.sign_in_link()}>
 			<Key />
