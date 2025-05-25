@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.2.5
+
+### Patch Changes
+
+- 7e82ad5: ONE ROUND MORE: Fix docker build pipeline by setting self defined tags
+
 ## 2.2.4
 
 ### Patch Changes
