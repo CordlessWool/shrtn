@@ -1,12 +1,12 @@
-<meta name="description" content="Quickly self-host your own privacy-first URL shortener with Docker or native install. Upcoming support for password-protected links, click-limits and on-prem analytics.">
+<meta name="description" content="Quickly self-host your own privacy-first URL shortener with Docker or native install. Upcoming support for password-protected URLs, click-limits and on-prem analytics.">
 
-# Self-Hosted Link Shortener Setup
+# Self-Hosted URL Shortener Setup
 
-Launch your own privacy-first Link shortener in minutes. Whether you choose Docker or a native install, you’ll have a fast, lightweight service running on your own server—no third parties required.
+Launch your own privacy-first URL shortener in minutes. Whether you choose Docker or a native install, you’ll have a fast, lightweight service running on your own server—no third parties required.
 
 ---
 
-## Why Choose a Self-Hosted Link Shortener?
+## Why Choose a Self-Hosted URL Shortener?
 
 - **Full Control & Privacy**
   Host on your own VPS, Kubernetes, Docker, Cloudflare Workers or local machine—no vendor lock-in, no data leaks.
@@ -26,15 +26,15 @@ Launch your own privacy-first Link shortener in minutes. Whether you choose Dock
      -p 3001:3001 \
      --name my-shrtn \
      -v ~/shrtn-data:/data \
-     -e ORIGIN=https://links.example.com \
+     -e ORIGIN=https://url.example.com \
      -e MAIL_FROM=noreply@example.com \
      cordlesswool/shrtn
    ```
-   - **ORIGIN**: The public Link where your short links resolve (e.g. `https://links.example.com`).
+   - **ORIGIN**: The public URL where your short URLs resolve (e.g. `https://url.example.com`).
    - **MAIL_FROM**: Sender address for notification emails.
 
 3. **Verify & Use**
-   Visit `https://links.example.com` in your browser. Create and manage short Links instantly.
+   Visit `https://url.example.com` in your browser. Create and manage shorten URLs instantly.
 
 ---
 
@@ -55,7 +55,7 @@ Launch your own privacy-first Link shortener in minutes. Whether you choose Dock
 
    ```env
    DATABASE_URL=file:./shrtn.sqlite
-   ORIGIN=https://links.example.com
+   ORIGIN=https://URLs.example.com
    MAIL_PROVIDER=smtp
    MAIL_HOST=smtp.example.com
    MAIL_PORT=465
@@ -77,12 +77,6 @@ Launch your own privacy-first Link shortener in minutes. Whether you choose Dock
 
 We’re actively working on:
 
-- **Private Server**
-  Disable public access to your link shortener instance and restrict login access.
-
-- **Public Server**
-  Disable private access to your link shortener instance.
-
 - **On-Prem Analytics Dashboard**
   View click-through trends, top referrers, and geodata stored on your server.
 
@@ -93,16 +87,22 @@ We’re actively working on:
 
 ## 🔧 Environment Variables & Customization
 
+Don't be confused about the `PUBLIC_`prefix. It is used to indicate that the variable is public and can be accessed on the browser.
+This means all other variables are protected by default.
+
 ### Base Configuration
 
-| Variable                          | Description                                                           | Default                 |
-| ----------------------------------|---------------------------------------------------------------------- | ----------------------- |
-| `PUBLIC_FEATURE_PRIVATE_LINKS`    | Enable private access to your link shortener instance. `on` \| `off`  | `off`                   |
-| `DATABASE_URL`                    | Connection string (SQLite, PostgreSQL, MySQL, Cloudflare D1)          | –                       |
-| `ORIGIN`                          | Base URL for your short-link domain                                   | –                       |
-| `MAIL_PROVIDER`                   | `smtp` \| `mailgun` \| `mailpit` (see below)                          | –                       |
-| `PUBLIC_TTL_TEMP`                 | Default expiry for anonymous/temporary links                          | `WEEK`                  |
-| `PUBLIC_TTL_USER`                 | Default expiry for user-generated or authenticated short URLs         | `EVER`                  |
+| Variable                          | Description                                                                                                                       | Default                 |
+| ----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------| ----------------------- |
+| `PUBLIC_FEATURE_PRIVATE_LINKS`    | Enable private access to your URL shortener instance. `on` \| `off`                                                               | `off`                   |
+| `PUBLIC_INSTANCE_MODE`            | Allow only or disable public access to your URL shortener instance. `PUBLIC_ONLY` \| `PRIVATE`                                    | -                       |
+| `DATABASE_URL`                    | Connection string (SQLite, Tursor)                                                                                                | –                       |
+| `ORIGIN`                          | Base URL for your URL shortener instance.                                                                                         | –                       |
+| `MAIL_PROVIDER`                   | `smtp` \| `mailgun` \| `mailpit` (see below)                                                                                      | –                       |
+| `PUBLIC_TTL_TEMP`                 | Default expiry for anonymous/temporary users `HOUR` `DAY` `WEEK` `MONTH` `YEAR`                                                   | `WEEK`                  |
+| `PUBLIC_TTL_USER`                 | Default expiry for authenticated users `HOUR` `DAY` `WEEK` `MONTH` `YEAR`                                                         | –                       |
+| `ALLOWED_LOGIN_EMAILS`            | List of email addresses that are allowed to login to your account. Use `;` as a separator. Will disable `ALLOWED_LOGIN_DOMAINS`.  | –                       |
+| `ALLOWED_LOGIN_DOMAINS`           | List of email domains that are allowed to login to your account. Use `;` as a separator.                                          | –                       |
 
 ### Sending Emails
 

@@ -28,12 +28,17 @@ At Shrtn, we believe in:
   Fully open-source and MIT licensed, allowing you to contribute, audit, and customize as needed.
 - **Developer-Friendly**
   Integrate quickly with a streamlined RESTful API and minimal dependencies for enhanced stability.
-- **Password-Protected Links**
-  Enhance security by requiring a password to access your shortened links.
+- **Password-Protected URL**
+  Enhance security by requiring a password to access your shortened URLs.
 - **Click Limits & Expirations**
-  Easily set click limits or define expiration dates to control link usage.
+  Easily set click limits or define expiration dates to control URL usage.
 - **QR Code Generation**
-  Quickly generate QR codes for your shortened links, making sharing more convenient.
+  Quickly generate QR codes for your shortened URLs, making sharing more convenient.
+- **Private Server**
+  Disable public access to your URL shortener instance and restrict login access.
+
+- **Public Server**
+  Disable login to your URL shortener instance.
 
 ---
 
@@ -42,11 +47,7 @@ At Shrtn, we believe in:
 We’re actively developing:
 
 
-- **Private Server**
-  Disable public access to your link shortener instance and restrict login access.
 
-- **Public Server**
-  Disable private access to your link shortener instance.
 
 - **On-Prem Analytics Dashboard**
   View click trends, referrer data and geodata.
