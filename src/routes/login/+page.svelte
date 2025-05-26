@@ -18,7 +18,7 @@
 		}
 	});
 
-	const { form, errors, enhance } = superForm(data.form, {
+	const { form, errors, enhance, message } = superForm(data.form, {
 		applyAction: true,
 		validators: valibotClient(LoginMailSchema)
 	});
@@ -28,7 +28,12 @@
 	<section>
 		<h1>{m.sign_in()}</h1>
 		<form method="POST" use:enhance action="?/mail" class="inputs">
-			<InputFrame for="mail" label={m.email()} info={m.email_info()} error={$errors.email?.[0]}>
+			<InputFrame
+				for="mail"
+				label={m.email()}
+				info={m.email_info()}
+				error={$errors.email?.[0] || $message}
+			>
 				<Mail />
 				<Input id="mail" name="email" bind:value={$form.email} />
 				<Button type="submit" title={m.send_verification()}>

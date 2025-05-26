@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Link } from '$lib/definitions.js';
 	import { onMount } from 'svelte';
-	import { ArrowRightCircle, ClockFading, Copy, Trash2, Lock, QrCode } from 'lucide-svelte';
+	import { ClockFading, Copy, Trash2, Lock, QrCode } from 'lucide-svelte';
 	import { Button } from '$lib/comp/form';
 	import { enhance } from '$app/forms';
 	import { slide } from 'svelte/transition';

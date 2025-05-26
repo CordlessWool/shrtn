@@ -1,3 +1,7 @@
+# Shrtn – host your own URL shortener
+
+You will find more details about the setup on [https://shrtn.io/setup](https://shrtn.io/setup).
+
 ## Docker Setup Instructions
 
 1. **Install Docker**: Download from [Docker's official website](https://www.docker.com/products/docker-desktop).

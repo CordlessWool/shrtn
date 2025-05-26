@@ -59,6 +59,7 @@
 	"invalid_maxValue": "Maximal value is {requirement}",
 	"invalid_number": "Allow only numbers",
 	"invalid_private_link": "Private links are not allowed!",
+	"invalid_email_not_allowed": "Login is restricted to specific e-mail addresses or domains",
 	"shrtn_outdated_headline": "Your link seems to be outdated",
 	"shrtn_outdated_subline": "Please contact the creator of the link or create a new link if you are the owner",
 	"shrtn_passphrase_headline": "This link is protected",
