@@ -26,3 +26,5 @@ export const loginUser = async (event: RequestEvent, userId: string) => {
 	const session = await auth.createSession(sessionToken, userId);
 	auth.setSessionTokenCookie(event, sessionToken, session.expiresAt);
 };
+
+export const isAuthenticated = (locals: App.Locals) => !!(locals.user && !locals.user.temp);
