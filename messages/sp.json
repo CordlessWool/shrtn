@@ -58,6 +58,7 @@
 	"invalid_maxValue": "El valor máximo es {requirement}",
 	"invalid_number": "Solo se permiten números",
 	"invalid_private_link": "No se permiten enlaces privados!",
+	"invalid_email_not_allowed": "El acceso está restringido a direcciones de correo electrónico o dominios específicos",
 	"shrtn_outdated_headline": "Parece que tu enlace está desactualizado",
 	"shrtn_outdated_subline": "Por favor, contacta al creador del enlace o crea un enlace nuevo si eres el propietario",
 	"shrtn_passphrase_headline": "Este enlace está protegido",

@@ -6,11 +6,13 @@ import { eq } from 'drizzle-orm';
 import { error, fail, redirect } from '@sveltejs/kit';
 import * as auth from '$lib/server/auth';
 import { LoginMailSchema } from '$lib/helper/form';
-import { superValidate } from 'sveltekit-superforms';
+import { message, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { createUUID } from '$lib/helper/identifiers';
 import { HOUR_IN_MS } from '$lib/helper/defaults';
 import { localizeHref } from '$lib/paraglide/runtime';
+import { isAllowedEmail } from '$lib/helper/auth.server';
+import * as m from '$lib/paraglide/messages';
 
 const nanokey = customAlphabet('abcdefghijkmnpqrstuvwxyz23456789', 3);
 
@@ -57,6 +59,11 @@ export const actions = {
 			return fail(400, { form });
 		}
 		const { email, theme } = form.data;
+
+		if (!isAllowedEmail(email)) {
+			return message(form, m.invalid_email_not_allowed(), { status: 400 });
+		}
+
 		const userId = await getUserId(email, locals.user?.id);
 
 		const magicid = createUUID();
