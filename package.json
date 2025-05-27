@@ -1,7 +1,7 @@
 {
 	"name": "shrtn.to",
 	"license": "MIT",
-	"version": "2.4.3",
+	"version": "2.4.4",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
