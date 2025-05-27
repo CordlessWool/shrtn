@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.4.4
+
+### Patch Changes
+
+- a65bc4e: Keep compatible with TTL env value EVER. Will now be interpretet as undefined
+
 ## 2.4.3
 
 ### Patch Changes
