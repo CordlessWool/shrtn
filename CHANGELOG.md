@@ -1,5 +1,13 @@
 # shrtn.to
 
+## 2.4.0
+
+### Minor Changes
+
+- 17a32b9: Allow to disable login
+- 17a32b9: Set private flag to require login
+- e943648: allow to restrict login to domains or email addresses
+
 ## 2.3.1
 
 ### Patch Changes
