@@ -99,7 +99,7 @@ This means all other variables are protected by default.
 | `DATABASE_URL`                    | Connection string (SQLite, Tursor)                                                                                                | –                       |
 | `ORIGIN`                          | Base URL for your URL shortener instance.                                                                                         | –                       |
 | `MAIL_PROVIDER`                   | `smtp` \| `mailgun` \| `mailpit` (see below)                                                                                      | –                       |
-| `PUBLIC_TTL_TEMP`                 | Default expiry for anonymous/temporary users `HOUR` `DAY` `WEEK` `MONTH` `YEAR`                                                   | `WEEK`                  |
+| `PUBLIC_TTL_TEMP`                 | Default expiry for anonymous/temporary users `HOUR` `DAY` `WEEK` `MONTH` `YEAR`                                                   | –                       |
 | `PUBLIC_TTL_USER`                 | Default expiry for authenticated users `HOUR` `DAY` `WEEK` `MONTH` `YEAR`                                                         | –                       |
 | `ALLOWED_LOGIN_EMAILS`            | List of email addresses that are allowed to login to your account. Use `;` as a separator. Will disable `ALLOWED_LOGIN_DOMAINS`.  | –                       |
 | `ALLOWED_LOGIN_DOMAINS`           | List of email domains that are allowed to login to your account. Use `;` as a separator.                                          | –                       |

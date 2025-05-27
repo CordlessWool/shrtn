@@ -34,4 +34,4 @@ const toTTLSTEP = (step: unknown, defaultValue?: TTL_STEPS): TTL_STEPS | undefin
 
 export const SHORTEN_LENGTH = Number(env.PUBLIC_ID_LENGTH ?? 5);
 export const MAX_TTL_USER = toTTLSTEP(env.PUBLIC_TTL_USER);
-export const MAX_TTL_TEMP = toTTLSTEP(env.PUBLIC_TTL_TEMP, TTL_STEPS.WEEK);
+export const MAX_TTL_TEMP = toTTLSTEP(env.PUBLIC_TTL_TEMP);
