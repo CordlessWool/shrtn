@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/private';
 import assert from 'node:assert';
 import type { MailData, MailProvider } from './types';
 
-function objectToFormData(obj) {
+function objectToFormData(obj: Record<string, string>) {
 	const formData = new FormData();
 
 	Object.entries(obj).forEach(([key, value]) => {
