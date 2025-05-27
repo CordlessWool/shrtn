@@ -4,6 +4,7 @@ import { THEME } from '$lib/helper/defaults';
 import VERIFICATION_TEMPLATE from './templates/verification.html?raw';
 import * as m from '$lib/paraglide/messages';
 import { initMailgun } from './provider/mailgun';
+import { initPostmark } from './provider/postmark';
 import { env } from '$env/dynamic/private';
 import type { MailProvider } from './provider/types';
 import { initMailpit } from './provider/mailpit';
@@ -16,6 +17,8 @@ const getProvider = (): MailProvider => {
 			return initMailgun();
 		case 'SMTP':
 			return initSMTP();
+		case 'POSTMARK':
+			return initPostmark();
 		default:
 		case 'MAILPIT':
 			return initMailpit();

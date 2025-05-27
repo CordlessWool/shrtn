@@ -117,6 +117,16 @@ Set `MAIL_PROVIDER` to `MAILPIT`
 | `MAILPIT_DOMAIN`    | URL to your Mailpit Server  (e.g. `https://my.mailpit.io`)       | —                       |
 | `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
 
+#### Postmark
+
+Set `MAIL_PROVIDER` to `POSTMARK`
+
+| Variable            | Description                                                      | Default                 |
+| ------------------- |----------------------------------------------------------------- | ----------------------- |
+| `POSTMARK_API_TOKEN`| API token for your Postmark account                              | —                       |
+| `POSTMARK_STREAM`   | Name of your Postmark message stream                             | —                       |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+
 #### Mailgun
 
 Set `MAIL_PROVIDER` to `MAILGUN`
