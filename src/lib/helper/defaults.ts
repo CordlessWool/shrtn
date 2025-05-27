@@ -24,6 +24,11 @@ const toTTLSTEP = (step: unknown, defaultValue?: TTL_STEPS): TTL_STEPS | undefin
 	if (typeof step !== 'string') {
 		return defaultValue;
 	}
+
+	if (step.trim.length === 0) {
+		return undefined;
+	}
+
 	const upperStep = step.toUpperCase();
 	if (upperStep in TTL_STEPS) {
 		return TTL_STEPS[upperStep as keyof typeof TTL_STEPS];
