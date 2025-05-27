@@ -27,7 +27,6 @@ Launch your own privacy-first URL shortener in minutes. Whether you choose Docke
      --name my-shrtn \
      -v ~/shrtn-data:/data \
      -e ORIGIN=https://url.example.com \
-     -e MAIL_FROM=noreply@example.com \
      cordlesswool/shrtn
    ```
    - **ORIGIN**: The public URL where your short URLs resolve (e.g. `https://url.example.com`).
@@ -116,7 +115,7 @@ Set `MAIL_PROVIDER` to `MAILPIT`
 | Variable            | Description                                                      | Default                 |
 | ------------------- |----------------------------------------------------------------- | ----------------------- |
 | `MAILPIT_DOMAIN`    | URL to your Mailpit Server  (e.g. `https://my.mailpit.io`)       | —                       |
-| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@origin`   |
 
 #### Mailgun
 
@@ -127,7 +126,7 @@ Set `MAIL_PROVIDER` to `MAILGUN`
 | `MAILGUN_DOMAIN`    | Domain of your Mailgun account  (e.g. `mg.example.com`)          | —                       |
 | `MAILGUN_API_KEY`   | API key for your Mailgun account                                 | —                       |
 | `MAILGUN_URL`       | URL of Mailgun ( e.g. `https://api.mailgun.net`)                 | —                       |
-| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@origin`   |
 
 #### SMTP
 
@@ -139,7 +138,7 @@ Set `MAIL_PROVIDER` to `SMTP`.
 | `MAIL_PORT`         | SMTP port                                                        | —                       |
 | `MAIL_USER`         | SMTP username                                                    | —                       |
 | `MAIL_PASS`         | SMTP password                                                    | —                       |
-| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@example.com`   |
+| `MAIL_FROM`         | Envelope “from” address for outgoing mail                        | `noreply@origin`   |
 
 ---
 

@@ -9,6 +9,7 @@ import type { MailProvider } from './provider/types';
 import { initMailpit } from './provider/mailpit';
 import { initSMTP } from './provider/smtp';
 import assert from 'node:assert';
+import { ORIGIN } from '../defaults';
 
 const getProvider = (): MailProvider => {
 	switch (env.MAIL_PROVIDER?.toUpperCase()) {
@@ -24,7 +25,7 @@ const getProvider = (): MailProvider => {
 
 const provider = getProvider();
 
-const defaultFrom = env.MAIL_FROM;
+const defaultFrom = env.MAIL_FROM ?? `noreply@${new URL(ORIGIN).hostname}`;
 
 export const sendVerificationMail = async (to: string, key: string, theme: THEME = THEME.DARK) => {
 	const html = mustache.render(VERIFICATION_TEMPLATE, {
