@@ -1,0 +1,14 @@
+services:
+  shrtn:
+    image: cordlesswool/shrtn
+    container_name: shrtn
+    ports:
+      - '3001:3001'
+    environment:
+      - ORIGIN=http://localhost:3001
+      - MAIL_PROVIDER=smtp
+      - MAIL_HOST=example.com
+      - MAIL_PORT=465
+      - MAIL_USER=test@example.com
+      - MAIL_PASS=secure
+      - MAIL_FROM=noreply@example.com
