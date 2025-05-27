@@ -34,6 +34,11 @@ export const load: PageServerLoad = async ({ params, request }) => {
 			code: 404
 		};
 	}
+	if (data.callLimit != null && data.callLimit < (data.calls ?? 0)) {
+		return {
+			code: 404
+		};
+	}
 	if (data.passphrase != null) {
 		const form = await superValidate(valibot(PassphraseSchema));
 		return {
@@ -41,16 +46,10 @@ export const load: PageServerLoad = async ({ params, request }) => {
 			form
 		};
 	}
-	if (data.callLimit != null) {
-		if (data.callLimit > (data.calls ?? 0)) {
-			return {
-				code: 403
-			};
-		} else if (!isbot(request.headers.get('User-Agent'))) {
-			await db.update(schema.link).set({
-				calls: data.calls ?? 0 + 1
-			});
-		}
+	if (data.callLimit != null && !isbot(request.headers.get('User-Agent'))) {
+		await db.update(schema.link).set({
+			calls: data.calls ?? 0 + 1
+		});
 	}
 	redirect(302, data.link);
 };
@@ -65,7 +64,11 @@ export const actions = {
 		}
 
 		const result = await db
-			.select({ url: schema.link.url })
+			.select({
+				url: schema.link.url,
+				calls: schema.link.calls,
+				callLimit: schema.link.callLimit
+			})
 			.from(schema.link)
 			.where(and(eq(schema.link.id, shorten), eq(schema.link.passphrase, form.data.passphrase)))
 			.get();
@@ -73,6 +76,12 @@ export const actions = {
 		if (!result) {
 			return setError(form, 'passphrase', m.shrtn_passphrase_invalid());
 		}
+		if (result.callLimit != null) {
+			await db.update(schema.link).set({
+				calls: result.calls ?? 0 + 1
+			});
+		}
+
 		return redirect(302, result.url);
 	}
 } satisfies Actions;
