@@ -20,12 +20,12 @@ export enum THEME {
 	LIGHT
 }
 
-const toTTLSTEP = (step: unknown, defaultValue?: TTL_STEPS): TTL_STEPS | undefined => {
+export const toTTLSTEP = (step: unknown, defaultValue?: TTL_STEPS): TTL_STEPS | undefined => {
 	if (typeof step !== 'string') {
 		return defaultValue;
 	}
 
-	if (step.trim.length === 0) {
+	if (step.trim().length === 0) {
 		return undefined;
 	}
 
