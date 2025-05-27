@@ -12,7 +12,9 @@ jobs:
           - 1025:1025
     name: Test and Build - Local
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.52.0
+    container:
+      image: mcr.microsoft.com/playwright:v1.52.0-noble
+      options: --user 1001
     env:
       DATABASE_TYPE: libSQL
 
