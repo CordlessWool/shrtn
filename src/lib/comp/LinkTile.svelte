@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Link } from '$lib/definitions.js';
 	import { onMount } from 'svelte';
-	import { ClockFading, Copy, Trash2, Lock, QrCode } from 'lucide-svelte';
+	import { ClockFading, Copy, Trash2, Lock, QrCode, MousePointerClick } from 'lucide-svelte';
 	import { Button } from '$lib/comp/form';
 	import { enhance } from '$app/forms';
 	import { slide } from 'svelte/transition';
@@ -92,7 +92,7 @@
 		{/if}
 		{#if callLimit}
 			<div title={m.clicks_left({ left: callLimit - (calls ?? 0), limit: callLimit })}>
-				<ArrowRightCircle />
+				<MousePointerClick />
 				{callLimit - (calls ?? 0)}
 			</div>
 		{/if}
