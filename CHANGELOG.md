@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.4.6
+
+### Patch Changes
+
+- be2d76d: set a default value for MAIL_FROM
+
 ## 2.4.5
 
 ### Patch Changes
