@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.4.1
+
+### Patch Changes
+
+- b16e8e4: Replace Icon and fix missing import
+
 ## 2.4.0
 
 ### Minor Changes
