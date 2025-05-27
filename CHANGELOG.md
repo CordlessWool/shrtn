@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.4.2
+
+### Patch Changes
+
+- b14dcc2: Remove default value for `PUBLIC_TTL_TEMP`
+
 ## 2.4.1
 
 ### Patch Changes
