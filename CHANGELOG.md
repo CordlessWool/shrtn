@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.4.5
+
+### Patch Changes
+
+- 59f4160: fix call limit links also in combination with passphrase protection
+
 ## 2.4.4
 
 ### Patch Changes
