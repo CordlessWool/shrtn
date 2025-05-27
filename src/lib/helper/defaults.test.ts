@@ -29,4 +29,9 @@ describe('toTTLSteps', () => {
 	test('Invalid value throws error', () => {
 		expect(() => toTTLSTEP('INVALID')).toThrow();
 	});
+
+	test('Set EVER as undefined', () => {
+		const STEP = 'EVER';
+		expect(toTTLSTEP(STEP)).toBeUndefined();
+	});
 });

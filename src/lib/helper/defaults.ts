@@ -25,7 +25,7 @@ export const toTTLSTEP = (step: unknown, defaultValue?: TTL_STEPS): TTL_STEPS | 
 		return defaultValue;
 	}
 
-	if (step.trim().length === 0) {
+	if (step.trim().length === 0 || step === 'EVER') {
 		return undefined;
 	}
 
