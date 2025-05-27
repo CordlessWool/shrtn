@@ -28,7 +28,6 @@ jobs:
         run: bun run test
         env:
           MAILPIT_DOMAIN: http://localhost:8025
-          MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
           DATABASE_URL: file:test-node.db
       - name: Test SMTP
@@ -38,7 +37,6 @@ jobs:
           MAIL_PROVIDER: smtp
           MAIL_HOST: localhost
           MAIL_PORT: 1025
-          MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
           DATABASE_URL: file:test-smtp.db
       - uses: actions/upload-artifact@v4
@@ -93,7 +91,6 @@ jobs:
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
           -e MAILPIT_DOMAIN=http://mailpit.shrtn:8025 \
-          -e MAIL_FROM=noreply@shrtn.io \
           shrtn
       - name: Run Tests
         run: bun run test:e2e:docker
