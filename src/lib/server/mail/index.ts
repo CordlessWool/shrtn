@@ -24,7 +24,7 @@ const getProvider = (): MailProvider => {
 
 const provider = getProvider();
 
-const defaultFrom = env.MAIL_FROM;
+const defaultFrom = env.MAIL_FROM ?? `noreply@example.com`;
 
 export const sendVerificationMail = async (to: string, key: string, theme: THEME = THEME.DARK) => {
 	const html = mustache.render(VERIFICATION_TEMPLATE, {

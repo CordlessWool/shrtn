@@ -27,7 +27,6 @@ Launch your own privacy-first URL shortener in minutes. Whether you choose Docke
      --name my-shrtn \
      -v ~/shrtn-data:/data \
      -e ORIGIN=https://url.example.com \
-     -e MAIL_FROM=noreply@example.com \
      cordlesswool/shrtn
    ```
    - **ORIGIN**: The public URL where your short URLs resolve (e.g. `https://url.example.com`).
