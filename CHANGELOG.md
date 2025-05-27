@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.5.0
+
+### Minor Changes
+
+- 3779e59: support postmark as provider
+
 ## 2.4.6
 
 ### Patch Changes
