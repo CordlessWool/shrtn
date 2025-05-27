@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.4.3
+
+### Patch Changes
+
+- 0301400: fix set of ttl timerange
+
 ## 2.4.2
 
 ### Patch Changes
