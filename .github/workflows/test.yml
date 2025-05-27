@@ -12,23 +12,21 @@ jobs:
           - 1025:1025
     name: Test and Build - Local
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.52.0-noble
+      options: --user 1001
     env:
       DATABASE_TYPE: libSQL
 
     steps:
-      # ...
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-
       # run any `bun` or `bunx` command
       - run: bun install
-      - name: Prepare playwright
-        run: bunx playwright install --with-deps
       - name: Run all Tests
         run: bun run test
         env:
           MAILPIT_DOMAIN: http://localhost:8025
-          MAIL_FROM: noreply@shrtn.io
           ORIGIN: http://localhost:4173
           DATABASE_URL: file:test-node.db
       - name: Test SMTP
@@ -50,6 +48,7 @@ jobs:
   test-docker:
     name: Test and Build - Docker
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.52.0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,8 +59,6 @@ jobs:
           key: buildx-${{ hashFiles('**/Dockerfile') }}
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
-      - name: Prepare playwright
-        run: bunx playwright install --with-deps
       - run: bun install
       - name: Set up Docker Buildx
         id: buildx
@@ -93,7 +90,6 @@ jobs:
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
           -e MAILPIT_DOMAIN=http://mailpit.shrtn:8025 \
-          -e MAIL_FROM=noreply@shrtn.io \
           shrtn
       - name: Run Tests
         run: bun run test:e2e:docker
@@ -110,6 +106,7 @@ jobs:
   test-cloudflare:
     name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.52.0
     services:
       mailpit:
         image: axllent/mailpit
@@ -125,8 +122,6 @@ jobs:
 
       # run any `bun` or `bunx` command
       - run: bun install
-      - name: Prepare playwright
-        run: bunx playwright install --with-deps
       - name: Run all Tests
         run: bun run test:e2e:cloudflare
         env:
