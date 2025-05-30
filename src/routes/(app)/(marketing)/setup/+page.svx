@@ -32,8 +32,10 @@ Launch your own privacy-first URL shortener in minutes. Whether you choose Docke
    - **ORIGIN**: The public URL where your short URLs resolve (e.g. `https://url.example.com`).
    - **MAIL_FROM**: Sender address for notification emails.
 
+    > Do NOT set `DATABASE_URL`! It’s already configured within the Docker container, and modifying it may lead to issues.
 3. **Verify & Use**
-   Visit `https://url.example.com` in your browser. Create and manage shorten URLs instantly.
+    Open `https://url.example.com` in your browser to start creating and managing short URLs instantly.
+4. Configure your email provider for login; all necessary environment variables are detailed below.
 
 ---
 
