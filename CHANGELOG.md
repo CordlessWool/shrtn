@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.5.1
+
+### Patch Changes
+
+- a34e559: Update dependencies
+
 ## 2.5.0
 
 ### Minor Changes
