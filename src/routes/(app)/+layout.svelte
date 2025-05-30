@@ -1,4 +1,5 @@
 <script lang="ts">
+	import './test.md';
 	import type { Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 	import Header from '$lib/comp/Header.svelte';
