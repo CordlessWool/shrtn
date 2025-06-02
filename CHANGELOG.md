@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.5.2
+
+### Patch Changes
+
+- 27a1ec7: Allow to access links public on private instance
+
 ## 2.5.1
 
 ### Patch Changes
