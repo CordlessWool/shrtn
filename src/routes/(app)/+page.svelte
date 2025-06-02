@@ -23,8 +23,8 @@
 		resetForm: true,
 		onResult: async ({ result }) => {
 			$form.short = nanoid(SHORTEN_LENGTH);
-			if (result.type === 'redirect') {
-				const data = await loadLink(result.location);
+			if (result.type === 'success') {
+				const data = result.data as Link;
 				addLink(data);
 			}
 		},

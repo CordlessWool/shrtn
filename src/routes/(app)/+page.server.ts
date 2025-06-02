@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { getDB, schema } from '$lib/server/db';
-import { error, redirect } from '@sveltejs/kit';
+import { error, json, redirect } from '@sveltejs/kit';
 import { emptyStringToNull, getLinkSchema, getString } from '$lib/helper/form';
 import { createAndLoginTempUser } from '$lib/helper/auth.server';
 import { and, eq, gte, isNull, or } from 'drizzle-orm';
@@ -11,17 +11,21 @@ import { SHORTEN_LENGTH } from '$lib/helper/defaults';
 import type { Link as LinkSchema } from '$lib/server/db/schema';
 import { ORIGIN } from '$lib/server/defaults.js';
 import type { Link } from '$lib/definitions';
-import { localizeHref } from '$lib/paraglide/runtime';
 import { env } from '$env/dynamic/public';
 import { isPublicLink } from '$lib/helper/link';
 
 import * as m from '$lib/paraglide/messages';
 
-const saveLink = async (data: LinkSchema, counter = 5) => {
+const saveLink = async (data: LinkSchema, counter = 5): Promise<Link> => {
 	const db = getDB();
 	try {
 		await db.insert(schema.link).values([data]).run();
-		return data.id;
+		const { passphrase, id, ...restData } = data;
+		return {
+			...restData,
+			key: id,
+			hasPassphrase: !!passphrase
+		};
 	} catch (err) {
 		if (
 			err != null &&
@@ -30,7 +34,7 @@ const saveLink = async (data: LinkSchema, counter = 5) => {
 			'code' in err &&
 			err.code === 'SQLITE_CONSTRAINT_PRIMARYKEY'
 		) {
-			const id = nanoid(SHORTEN_LENGTH - (counter - 10));
+			const id = nanoid(SHORTEN_LENGTH + (5 - counter));
 			return saveLink({ ...data, id }, counter - 1);
 		} else {
 			throw err;
@@ -109,7 +113,7 @@ export const actions = {
 
 		const { ttl, link: url, short, passphrase, callLimit } = form.data;
 		const expiresAt = ttl == null ? null : new Date(Date.now() + ttl);
-		const id = await saveLink({
+		return saveLink({
 			id: short || nanoid(SHORTEN_LENGTH),
 			userId: user.id,
 			url,
@@ -120,7 +124,7 @@ export const actions = {
 			expiresAt
 		});
 
-		redirect(302, localizeHref(`/link/${id}`));
+		// redirect(302, localizeHref(`/link/${id}`));
 	},
 	remove: async ({ locals, request }) => {
 		const { user } = locals;
