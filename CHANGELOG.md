@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.6.0
+
+### Minor Changes
+
+- 6d0060a: Simplify the link creation. Remove one redirect and improve security.
+
 ## 2.5.2
 
 ### Patch Changes
