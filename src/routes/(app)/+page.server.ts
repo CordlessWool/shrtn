@@ -113,7 +113,7 @@ export const actions = {
 
 		const { ttl, link: url, short, passphrase, callLimit } = form.data;
 		const expiresAt = ttl == null ? null : new Date(Date.now() + ttl);
-		return saveLink({
+		const linkData = await saveLink({
 			id: short || nanoid(SHORTEN_LENGTH),
 			userId: user.id,
 			url,
@@ -123,6 +123,8 @@ export const actions = {
 			createdAt: new Date(),
 			expiresAt
 		});
+
+		return { success: true, data: linkData, form };
 
 		// redirect(302, localizeHref(`/link/${id}`));
 	},
@@ -139,6 +141,6 @@ export const actions = {
 			.delete(schema.link)
 			.where(and(eq(schema.link.id, key), eq(schema.link.userId, user.id)))
 			.run();
-		return { success: true };
+		return { success: true, form };
 	}
 } satisfies Actions;

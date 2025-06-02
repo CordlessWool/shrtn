@@ -24,7 +24,7 @@
 		onResult: async ({ result }) => {
 			$form.short = nanoid(SHORTEN_LENGTH);
 			if (result.type === 'success') {
-				const data = result.data as Link;
+				const { data } = result.data as { data: Link };
 				addLink(data);
 			}
 		},
@@ -38,11 +38,6 @@
 			...link,
 			expiresAt: link.expiresAt ? new Date(link.expiresAt) : null
 		});
-	};
-
-	const loadLink = async (url: string) => {
-		const response = await fetch(url);
-		return (await response.json()) as Link;
 	};
 
 	const removeLink = (key: string) => {
