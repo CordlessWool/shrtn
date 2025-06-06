@@ -1,64 +1,105 @@
+# -- Number of replicas
 replicaCount: 1
 
 image:
+  # -- Container image repository
   repository: cordlesswool/shrtn
+  # -- Image pull policy
   pullPolicy: IfNotPresent
+  # -- Image tag (defaults to chart appVersion)
   tag: ""
 
+# -- Image pull secrets
 imagePullSecrets: []
 
+# -- Override name of the chart
 nameOverride: ""
+
+# -- Override full name of the chart
 fullnameOverride: ""
 
 persistence:
+  # -- Persistent volume access mode
   accessMode: "ReadWriteOnce"
+  # -- Persistent volume size
   size: "1Gi"
+  # -- Storage class to use (empty means default)
   storageClass: ""
 
 database:
+  # -- Database connection URL (e.g. Turso)
   url: ""
 
 mail:
-  provider: smtp  # one of: none, smtp, mailgun, mailpit
+  # -- Mail provider
+  # @description One of: none, smtp, mailgun, mailpit
+  provider: smtp
+  # -- From address used in emails
   from: noreply@example.com
   smtp:
+    # -- SMTP host
     host: smtp.example.com
+    # -- SMTP port
     port: "465"
+    # -- SMTP from address
     from: noreply@example.com
+    # -- SMTP username
     user: noreply@example.com
+    # -- SMTP password
     pass: secure_password
   mailgun:
+    # -- Mailgun API key
     apiKey: your_mailgun_api_key
+    # -- Mailgun domain
     domain: your_mailgun_domain
+    # -- Mailgun API URL
     url: https://api.mailgun.net
   mailpit:
+    # -- Mailpit domain URL
     domain: http://localhost:8025
 
 shrtn:
-  # Base URL for the public-facing site, could also be provided by request headers
+  # -- Public origin base URL
+  # @description Base URL for the public-facing site, could also be provided by request headers
   origin: http://localhost:5173
-  featurePrivateLinks: "off"  # PUBLIC_FEATURE_PRIVATE_LINKS: on | off
-  instanceMode: "PRIVATE"     # PUBLIC_INSTANCE_MODE: PUBLIC_ONLY | PRIVATE
-  # Time-to-live settings for temporary and user-generated content
-  ## Possible values: HOUR, DAY, WEEK, MONTH, YEAR, EVER
+  # -- Enable private links feature
+  # @description PUBLIC_FEATURE_PRIVATE_LINKS: on | off
+  featurePrivateLinks: "off"
+  # -- Instance mode
+  # @description PUBLIC_INSTANCE_MODE: PUBLIC_ONLY | PRIVATE
+  instanceMode: "PRIVATE"
   ttl:
+    # -- Default TTL for temporary users
+    # @description Options: HOUR, DAY, WEEK, MONTH, YEAR, EVER
     temp: YEAR
+    # -- Default TTL for authenticated users
+    # @description Options: HOUR, DAY, WEEK, MONTH, YEAR, EVER
     user: EVER
 
+# -- Additional custom environment variables
 env: {}
 
 serviceAccount:
+  # -- Create service account
   create: true
+  # -- Automount service account token
   automount: true
+  # -- Annotations for the service account
   annotations: {}
+  # -- Service account name
   name: ""
 
+# -- Pod annotations
 podAnnotations: {}
+
+# -- Pod labels
 podLabels: {}
 
+# -- Pod security context
 podSecurityContext: {}
   # fsGroup: 2000
 
+# -- Container security context
 securityContext: {}
   # capabilities:
   #   drop:
@@ -68,30 +109,32 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
+  # -- Service type
   type: ClusterIP
+  # -- Service port
   port: 3001
 
 ingress:
+  # -- Enable ingress
   enabled: false
+  # -- Ingress class name
   className: ""
+  # -- Ingress annotations
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # -- Ingress hosts
   hosts:
     - host: chart-example.local
       paths:
         - path: /
           pathType: ImplementationSpecific
+  # -- TLS configuration
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  # - secretName: chart-example-tls
+  #   hosts:
+  #     - chart-example.local
 
+# -- Resource requests and limits
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -99,28 +142,36 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
+# -- Liveness probe
 livenessProbe:
   httpGet:
     path: /
     port: http
+
+# -- Readiness probe
 readinessProbe:
   httpGet:
     path: /
     port: http
 
+# -- Additional volumes
 volumes: []
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
+# -- Volume mounts
 volumeMounts: []
 # - name: foo
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
+# -- Node selector
 nodeSelector: {}
 
+# -- Tolerations
 tolerations: []
 
+# -- Affinity rules
 affinity: {}
