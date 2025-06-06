@@ -46,6 +46,13 @@ jobs:
     with:
       tag: ${{ needs.release.outputs.tag }}
     secrets: inherit
+  call-chart-bump:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    uses: ./.github/workflows/set_app_version.yml
+    with:
+      tag: ${{ needs.release.outputs.tag }}
+    secrets: inherit
   call-build:
     needs: release
     if: needs.release.outputs.tag != ''

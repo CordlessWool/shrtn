@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "shrtn.fullname" . }}
+  labels:
+    {{- include "shrtn.labels" . | nindent 4 }}
+data:
+    {{- range $key, $value := .Values.env }}
+    {{ $key }}: {{ tpl $value $ | quote }}
+    {{- end }}
+
+    {{- $defaultUrl := "file:sqlite_file_name.db" }}
+    {{- $provided := .Values.database.url }}
+    {{- $url := default $defaultUrl $provided }}
+
+    {{- if and $provided (not (or (hasPrefix "http://" $provided) (hasPrefix "https://" $provided))) }}
+    {{- fail (printf "Invalid database URL provided: %s. Must start with http:// or https://" $provided) }}
+    {{- end }}
+
+    DATABASE_URL: {{ $url }}
+    PUBLIC_TTL_TEMP: {{ .Values.shrtn.ttl.temp | quote }}
+    PUBLIC_TTL_USER: {{ .Values.shrtn.ttl.user | quote }}
+    ORIGIN: {{ .Values.shrtn.origin | quote }}
+    MAIL_PROVIDER: {{ .Values.mail.provider | quote }}
+    MAIL_FROM: {{ .Values.mail.from | quote }}
+    {{- if eq .Values.mail.provider "smtp" }}
+    MAIL_HOST: {{ .Values.mail.smtp.host | quote }}
+    MAIL_PORT: {{ .Values.mail.smtp.port | quote }}
+    MAIL_FROM: {{ .Values.mail.smtp.from | quote }}
+    MAIL_USER: {{ .Values.mail.smtp.user | quote }}
+    MAIL_PASS: {{ .Values.mail.smtp.pass | quote }}
+    {{- else if eq .Values.mail.provider "mailgun" }}
+    MAILGUN_API_KEY: {{ .Values.mail.mailgun.apiKey | quote }}
+    MAILGUN_DOMAIN: {{ .Values.mail.mailgun.domain | quote }}
+    MAILGUN_URL: {{ .Values.mail.mailgun.url | quote }}
+    {{- else if eq .Values.mail.provider "mailpit" }}
+    MAILPIT_DOMAIN: {{ .Values.mail.mailpit.domain | quote }}
+    {{- end }}
+    PUBLIC_FEATURE_PRIVATE_LINKS: {{ .Values.shrtn.featurePrivateLinks | quote }}
+    PUBLIC_INSTANCE_MODE: {{ .Values.shrtn.instanceMode | quote }}
+    {{- if .Values.allowedLoginEmails }}
+    ALLOWED_LOGIN_EMAILS: {{ .Values.allowedLoginEmails | quote }}
+    {{- end }}
+    {{- if .Values.allowedLoginDomains }}
+    ALLOWED_LOGIN_DOMAINS: {{ .Values.allowedLoginDomains | quote }}
+    {{- end }}
+  
