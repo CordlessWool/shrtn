@@ -11,8 +11,6 @@ spec:
       {{- include "shrtn.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      annotations:
-        checksum/environment: {{ .Files.Get "environment/environment.yaml" | sha256sum }}
       {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}

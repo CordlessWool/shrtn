@@ -15,6 +15,36 @@ persistence:
   size: "1Gi"
   storageClass: ""
 
+database:
+  url: ""
+
+mail:
+  provider: smtp  # one of: none, smtp, mailgun, mailpit
+  from: noreply@example.com
+  smtp:
+    host: smtp.example.com
+    port: "465"
+    from: noreply@example.com
+    user: noreply@example.com
+    pass: secure_password
+  mailgun:
+    apiKey: your_mailgun_api_key
+    domain: your_mailgun_domain
+    url: https://api.mailgun.net
+  mailpit:
+    domain: http://localhost:8025
+
+shrtn:
+  # Base URL for the public-facing site, could also be provided by request headers
+  origin: http://localhost:5173
+  featurePrivateLinks: "off"  # PUBLIC_FEATURE_PRIVATE_LINKS: on | off
+  instanceMode: "PRIVATE"     # PUBLIC_INSTANCE_MODE: PUBLIC_ONLY | PRIVATE
+  # Time-to-live settings for temporary and user-generated content
+  ## Possible values: HOUR, DAY, WEEK, MONTH, YEAR, EVER
+  ttl:
+    temp: YEAR
+    user: EVER
+
 env: {}
 
 serviceAccount:
