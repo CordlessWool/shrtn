@@ -12,6 +12,9 @@ jobs:
           - 1025:1025
     name: Test and Build - Local
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.52.0-noble
+      options: --user 1001
     env:
       DATABASE_TYPE: libSQL
 
@@ -22,8 +25,6 @@ jobs:
 
       # run any `bun` or `bunx` command
       - run: bun install
-      - name: Prepare playwright
-        run: bunx playwright install --with-deps
       - name: Run all Tests
         run: bun run test
         env:
@@ -48,6 +49,7 @@ jobs:
   test-docker:
     name: Test and Build - Docker
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.52.0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,8 +60,6 @@ jobs:
           key: buildx-${{ hashFiles('**/Dockerfile') }}
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
-      - name: Prepare playwright
-        run: bunx playwright install --with-deps
       - run: bun install
       - name: Set up Docker Buildx
         id: buildx
@@ -107,6 +107,7 @@ jobs:
   test-cloudflare:
     name: Test and Build - Cloudflare
     runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.52.0
     services:
       mailpit:
         image: axllent/mailpit
@@ -122,8 +123,6 @@ jobs:
 
       # run any `bun` or `bunx` command
       - run: bun install
-      - name: Prepare playwright
-        run: bunx playwright install --with-deps
       - name: Run all Tests
         run: bun run test:e2e:cloudflare
         env:
