@@ -1,2 +1,0 @@
-owner: CordlessWool
-release-name-template: "{{ .Name }}-{{ .Version }}"
