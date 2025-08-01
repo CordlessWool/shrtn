@@ -56,11 +56,6 @@ jobs:
         with:
           path: /tmp/.buildx-cache
           key: buildx-${{ hashFiles('**/Dockerfile') }}
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-      - name: Prepare playwright
-        run: bunx playwright install --with-deps
-      - run: bun install
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -93,6 +88,11 @@ jobs:
           -e ORIGIN=http://localhost:4173 \
           -e MAILPIT_DOMAIN=http://mailpit.shrtn:8025 \
           shrtn
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - name: Prepare playwright
+        run: bunx playwright install --with-deps
       - name: Run Tests
         run: bun run test:e2e:docker
         env:
