@@ -2,6 +2,7 @@ services:
   shrtn:
     image: cordlesswool/shrtn
     container_name: shrtn
+    build: .
     ports:
       - '3001:3001'
     environment:

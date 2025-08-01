@@ -55,6 +55,8 @@ EXPOSE 3001/tcp
 COPY --chmod=755 <<EOT /entrypoint.sh
 #!/usr/bin/env bash
 set -e
+echo test
+chown -R bun:bun /data
 if ! [ -e /data/shrt-container.db ]; then
     touch /data/shrt-container.db
 fi
