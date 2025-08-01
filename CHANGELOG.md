@@ -1,5 +1,15 @@
 # shrtn.to
 
+## 2.7.0
+
+### Minor Changes
+
+- c89f424: Start container as root and switch to bun user for running the app
+
+### Patch Changes
+
+- a65114e: Set owner of /data dir also at startup
+
 ## 2.6.0
 
 ### Minor Changes
