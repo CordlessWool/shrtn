@@ -81,7 +81,7 @@ jobs:
           axllent/mailpit
       - name: Start Container
         run: |
-          docker run -d --name shrtn --rm \
+          docker run --name shrtn --rm \
           --network shrtn \
           -v ./test-mount:/data \
           -p 4173:3001 \

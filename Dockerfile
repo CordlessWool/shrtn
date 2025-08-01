@@ -57,6 +57,7 @@ COPY --chmod=755 <<EOT /entrypoint.sh
 set -e
 echo test
 chown -R bun:bun /data
+ls -la /
 if ! [ -e /data/shrt-container.db ]; then
     touch /data/shrt-container.db
 fi
