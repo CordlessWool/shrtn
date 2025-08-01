@@ -46,7 +46,7 @@ COPY --from=prerelease /usr/src/app/drizzle ./drizzle
 
 RUN mkdir -p /data
 RUN chown -R bun:bun /data
-RUN chmod -R 755 /data
+RUN chmod -R 775 /data
 ENV DATABASE_URL="file:/data/shrt-container.db"
 ENV PORT=3001
 
