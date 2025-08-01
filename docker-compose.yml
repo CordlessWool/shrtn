@@ -3,6 +3,8 @@ services:
     image: cordlesswool/shrtn
     container_name: shrtn
     build: .
+    volumes:
+      - ./container-data:/data
     ports:
       - '3001:3001'
     environment:
