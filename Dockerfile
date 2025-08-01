@@ -36,7 +36,10 @@ RUN bun run build
 # Copy production dependencies and source code into final image
 FROM base AS release
 
-
+ARG PUID=1000
+ARG PGID=1000
+RUN usermod -u $PUID bun && \
+    groupmod -g $PGID bun
 
 COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=prerelease /usr/src/app/build .
@@ -56,7 +59,6 @@ EXPOSE 3001/tcp
 COPY --chmod=755 <<EOT /entrypoint.sh
 #!/usr/bin/env bash
 set -e
-ls -la /
 if ! [ -e /data/shrt-container.db ]; then
     touch /data/shrt-container.db
 fi
