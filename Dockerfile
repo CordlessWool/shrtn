@@ -46,6 +46,7 @@ COPY --from=prerelease /usr/src/app/drizzle ./drizzle
 
 RUN mkdir -p /data
 RUN chown -R bun:bun /data
+RUN chmod -R 755 /data
 ENV DATABASE_URL="file:/data/shrt-container.db"
 ENV PORT=3001
 
@@ -55,8 +56,6 @@ EXPOSE 3001/tcp
 COPY --chmod=755 <<EOT /entrypoint.sh
 #!/usr/bin/env bash
 set -e
-echo test
-chown -R bun:bun /data
 ls -la /
 if ! [ -e /data/shrt-container.db ]; then
     touch /data/shrt-container.db
