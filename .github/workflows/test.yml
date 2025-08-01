@@ -88,6 +88,7 @@ jobs:
         run: |
           docker run -d --name shrtn --rm \
           --network shrtn \
+          -v ./test-mount:/data
           -p 4173:3001 \
           -e ORIGIN=http://localhost:4173 \
           -e MAILPIT_DOMAIN=http://mailpit.shrtn:8025 \
