@@ -30,7 +30,7 @@
 </header>
 
 <style lang="postcss">
-	@reference "tailwindcss/theme";
+	@reference "tailwindcss";
 	header {
 		@apply flex items-center justify-end gap-3 p-3;
 	}

@@ -7,7 +7,7 @@
 </select>
 
 <style lang="postcss">
-	@reference "tailwindcss/theme";
+	@reference "tailwindcss";
 	select {
 		@apply border-0;
 		@apply rounded-md bg-zinc-200;

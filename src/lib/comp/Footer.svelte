@@ -53,7 +53,7 @@
 </footer>
 
 <style lang="postcss">
-	@reference "tailwindcss/theme";
+	@reference "tailwindcss";
 	footer {
 		@apply mt-7 mb-2 flex flex-wrap items-center justify-center gap-y-5 text-zinc-600;
 		@apply divide-x-2 divide-zinc-600;

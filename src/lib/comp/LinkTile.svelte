@@ -142,7 +142,7 @@
 </section>
 
 <style lang="postcss">
-	@reference "tailwindcss/theme";
+	@reference "tailwindcss";
 	section {
 		@apply grid grid-flow-col grid-rows-3 items-center gap-x-3;
 		@apply w-full rounded-md bg-zinc-200 p-3;
