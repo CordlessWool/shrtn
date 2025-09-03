@@ -1,5 +1,12 @@
 # shrtn.to
 
+## 2.8.0
+
+### Minor Changes
+
+- 520d93b: Moved cleanup to a route that need to be called to cleanup database. Include cronjob into the docker container.
+- 89cee96: Update dependencies
+
 ## 2.7.0
 
 ### Minor Changes
