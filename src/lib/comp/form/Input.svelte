@@ -4,8 +4,8 @@
 
 <input bind:value {...props} />
 
-<style>
-	@reference "tailwindcss/theme";
+<style lang="postcss">
+	@reference "tailwindcss";
 	input {
 		all: unset;
 		@apply w-full border-0 bg-transparent py-1;

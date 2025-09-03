@@ -3,6 +3,17 @@
 FROM oven/bun AS base
 WORKDIR /usr/src/app
 
+RUN apt-get update && \
+    apt-get install -y cron curl && \
+    rm -rf /var/lib/apt/lists/*
+
+
+RUN echo "* */24 * * * root curl -s https://localhost:${PORT:=3001}/cleanup > /var/log/cron.log 2>&1" > /etc/cron.d/cleanup && \
+    chmod 0644 /etc/cron.d/cleanup && \
+    touch /var/log/cron.log && \
+    chown root:root /var/log/cron.log && \
+    chmod 644 /var/log/cron.log
+
 FROM base AS bun
 RUN curl -fsSL https://bun.sh/install | bash
 

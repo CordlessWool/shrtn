@@ -46,7 +46,7 @@
 </main>
 
 <style lang="postcss">
-	@reference "tailwindcss/theme";
+	@reference "tailwindcss";
 	main {
 		@apply flex flex-col items-center justify-center gap-3 p-3 md:p-7;
 	}

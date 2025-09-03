@@ -72,6 +72,13 @@ Launch your own privacy-first URL shortener in minutes. Whether you choose Docke
    node index.js
    ```
 
+5. **Setup Cron to Cleanup**
+    If you want to automatically clean up expired URLs, add the following to your crontab:
+
+    ```bash
+    0 0 * * * http://localhost:3000/cleanup
+    ```
+
 ---
 
 ## 🛠️ Upcoming Features (Roadmap)

@@ -33,7 +33,7 @@
 </div>
 
 <style lang="postcss">
-	@reference "tailwindcss/theme";
+	@reference "tailwindcss";
 	.frame {
 		@apply grid gap-0;
 	}

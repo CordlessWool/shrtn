@@ -143,7 +143,7 @@
 </main>
 
 <style lang="postcss">
-	@reference "tailwindcss/theme";
+	@reference "tailwindcss";
 
 	:global body {
 		@apply max-w-7xl;
