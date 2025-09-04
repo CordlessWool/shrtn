@@ -7,7 +7,7 @@
 </div>
 
 <style lang="postcss">
-	@reference 'tailwindcss/theme';
+	@reference 'tailwindcss';
 	.markdown :global {
 		@apply px-3 hyphens-auto;
 
@@ -37,7 +37,10 @@
 
 		a,
 		a.link {
-			@apply text-teal-800 underline decoration-dotted underline-offset-4 transition-colors duration-200 dark:text-teal-300;
+			@apply text-teal-800 underline decoration-dotted underline-offset-4 transition-colors duration-200;
+			:global(.dark) & {
+				@apply text-teal-300;
+			}
 		}
 
 		a:hover,
@@ -45,7 +48,10 @@
 		a:focus-visible,
 		a.link:hover,
 		a.link:focus {
-			@apply text-teal-900 focus:no-underline dark:text-teal-200;
+			@apply text-teal-900 focus:no-underline;
+			:global(.dark) & {
+				@apply text-teal-200;
+			}
 		}
 
 		p {
@@ -64,15 +70,20 @@
 		}
 
 		code {
-			@apply rounded-md bg-zinc-50 px-2 py-1 dark:bg-zinc-900;
+			@apply rounded-md bg-zinc-50 px-2 py-1 font-mono text-sm font-normal dark:bg-zinc-900;
+			:global(.dark) & {
+				@apply bg-zinc-900;
+			}
 		}
 
 		pre {
-			@apply relative mb-5 overflow-auto rounded-md bg-zinc-50 px-7 py-5 dark:bg-zinc-900;
+			@apply relative mb-5 overflow-auto rounded-md bg-zinc-50 px-7 py-5;
+			:global(.dark) & {
+				@apply bg-zinc-900;
+			}
 		}
 
 		pre code {
-			@apply bg-zinc-50 font-mono text-sm font-normal dark:bg-zinc-900;
 			@apply block;
 			/* @apply flex flex-col; */
 		}
