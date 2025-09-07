@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.8.1
+
+### Patch Changes
+
+- eb8b9f4: Fix dark mode styling for code areas
+
 ## 2.8.0
 
 ### Minor Changes
