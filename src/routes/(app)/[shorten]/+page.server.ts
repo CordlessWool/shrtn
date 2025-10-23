@@ -9,10 +9,12 @@ import { PassphraseSchema } from '$lib/helper/form';
 import type { Actions, PageServerLoad } from './$types';
 
 import * as m from '$lib/paraglide/messages';
+import { isSecure } from '$lib/security';
 
-export const load: PageServerLoad = async ({ params, request }) => {
+export const load: PageServerLoad = async ({ params, request, url }) => {
 	const db = getDB();
 	const { shorten } = params;
+
 	const data = await db
 		.select({
 			link: schema.link.url,
@@ -29,6 +31,7 @@ export const load: PageServerLoad = async ({ params, request }) => {
 			)
 		)
 		.get();
+
 	if (data == null || (data.expiresAt && isExpired(data.expiresAt, new Date()))) {
 		return {
 			code: 404
@@ -51,7 +54,10 @@ export const load: PageServerLoad = async ({ params, request }) => {
 			calls: data.calls ?? 0 + 1
 		});
 	}
-	redirect(302, data.link);
+	return {
+		code: 302,
+		redirect: data.link
+	};
 };
 
 export const actions = {
