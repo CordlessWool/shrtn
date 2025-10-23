@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.9.0
+
+### Minor Changes
+
+- 63d7938: Add security check: If users try to hide the link in hashes and search params the link will be labeled as unsecure
+
 ## 2.8.1
 
 ### Patch Changes
