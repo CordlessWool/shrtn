@@ -9,7 +9,6 @@ import { PassphraseSchema } from '$lib/helper/form';
 import type { Actions, PageServerLoad } from './$types';
 
 import * as m from '$lib/paraglide/messages';
-import { isSecure } from '$lib/security';
 
 export const load: PageServerLoad = async ({ params, request, url }) => {
 	const db = getDB();
@@ -54,10 +53,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
 			calls: data.calls ?? 0 + 1
 		});
 	}
-	return {
-		code: 302,
-		redirect: data.link
-	};
+	return redirect(302, data.link);
 };
 
 export const actions = {
