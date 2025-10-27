@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.9.1
+
+### Patch Changes
+
+- 3673e67: Skip hash check, website flash is confusing.
+
 ## 2.9.0
 
 ### Minor Changes
