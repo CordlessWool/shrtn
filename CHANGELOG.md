@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.10.0
+
+### Minor Changes
+
+- e036a27: Add google safe browsing vaidation
+
 ## 2.9.1
 
 ### Patch Changes
