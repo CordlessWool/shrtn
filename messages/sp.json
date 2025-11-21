@@ -79,5 +79,6 @@
 	"close": "Cerrar",
 	"qr_code": "Código QR",
 	"generate_qr_code": "Generar código QR",
-	"download_qr_code": "Descargar código QR"
+	"download_qr_code": "Descargar código QR",
+	"unsecure_link": "Enlace no seguro: este enlace está marcado como no seguro y puede contener contenido malicioso."
 }
