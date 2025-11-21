@@ -15,6 +15,7 @@ import { env } from '$env/dynamic/public';
 import { isPublicLink } from '$lib/helper/link';
 
 import * as m from '$lib/paraglide/messages';
+import { googleSafeBrowsing } from '$lib/server/security/fishing';
 
 const saveLink = async (data: LinkSchema, counter = 5): Promise<Link> => {
 	const db = getDB();
@@ -111,6 +112,10 @@ export const actions = {
 			return message(form, m.invalid_private_link(), { status: 400 });
 		}
 
+		if (!(await googleSafeBrowsing(form.data.link))) {
+			return message(form, m.unsecure_link(), { status: 400 });
+		}
+
 		const { ttl, link: url, short, passphrase, callLimit } = form.data;
 		const expiresAt = ttl == null ? null : new Date(Date.now() + ttl);
 		const linkData = await saveLink({
@@ -141,6 +146,6 @@ export const actions = {
 			.delete(schema.link)
 			.where(and(eq(schema.link.id, key), eq(schema.link.userId, user.id)))
 			.run();
-		return { success: true, form };
+		return { success: true };
 	}
 } satisfies Actions;

@@ -79,5 +79,6 @@
 	"close": "Schließen",
 	"qr_code": "QR-Code",
 	"generate_qr_code": "QR-Code generieren",
-	"download_qr_code": "QR-Code herunterladen"
+	"download_qr_code": "QR-Code herunterladen",
+	"unsecure_link": "Unsicherer Link: Dieser Link ist als unsicher gekennzeichnet und kann schädliche Inhalte enthalten."
 }
