@@ -7,6 +7,7 @@ const cleanupLinks = async () => {
 	// Remove expired links and magic links
 	await db.delete(schema.link).where(lte(schema.link.expiresAt, new Date())).run();
 	await db.delete(schema.magicLink).where(lte(schema.magicLink.expiresAt, new Date())).run();
+	await db.delete(schema.session).where(lte(schema.session.expiresAt, new Date())).run();
 };
 
 export const GET: RequestHandler = () => {

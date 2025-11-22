@@ -10,7 +10,7 @@ import type { Actions, PageServerLoad } from './$types';
 
 import * as m from '$lib/paraglide/messages';
 
-export const load: PageServerLoad = async ({ params, request, url }) => {
+export const load: PageServerLoad = async ({ params, request }) => {
 	const db = getDB();
 	const { shorten } = params;
 

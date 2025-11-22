@@ -1,8 +1,8 @@
 import type { Actions, PageServerLoad } from './$types';
-import { fail, message, setError, superValidate } from 'sveltekit-superforms';
+import { fail, message, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { getDB, schema } from '$lib/server/db';
-import { error, json, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { emptyStringToNull, getLinkSchema, getString } from '$lib/helper/form';
 import { createAndLoginTempUser } from '$lib/helper/auth.server';
 import { and, eq, gte, isNull, or } from 'drizzle-orm';
@@ -112,8 +112,12 @@ export const actions = {
 			return message(form, m.invalid_private_link(), { status: 400 });
 		}
 
-		if (!(await googleSafeBrowsing(form.data.link))) {
+		let lastScan: Date | null = null;
+		const scanResult = await googleSafeBrowsing(form.data.link);
+		if (scanResult === false) {
 			return message(form, m.unsecure_link(), { status: 400 });
+		} else if (scanResult === true) {
+			lastScan = new Date();
 		}
 
 		const { ttl, link: url, short, passphrase, callLimit } = form.data;
@@ -125,6 +129,8 @@ export const actions = {
 			passphrase: emptyStringToNull(passphrase) ?? null,
 			callLimit: callLimit ?? null,
 			calls: null,
+			lastScan,
+			riskDetectedAt: null,
 			createdAt: new Date(),
 			expiresAt
 		});

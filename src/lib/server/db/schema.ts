@@ -42,6 +42,8 @@ export const link = sqliteTable(
 		passphrase: text('passphrase'),
 		callLimit: integer('call_limit'),
 		calls: integer('calls'),
+		lastScan: integer('last_scan', { mode: 'timestamp' }),
+		riskDetectedAt: integer('risk_detected_at', { mode: 'timestamp' }),
 		userId: text('user_id')
 			.notNull()
 			.references(() => user.id),

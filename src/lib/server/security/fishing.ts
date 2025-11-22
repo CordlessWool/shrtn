@@ -1,10 +1,10 @@
 import { env } from '$env/dynamic/private';
 import { version } from '../../../../package.json' with { type: 'json' };
 
-export const googleSafeBrowsing = async (url: string): Promise<boolean> => {
+export const googleSafeBrowsing = async (url: string): Promise<boolean | null> => {
 	if (env.GOOGLE_SAFE_BROWSING_API_KEY === undefined) {
 		console.warn('GOOGLE_SAFE_BROWSING_API_KEY is not defined');
-		return true;
+		return null;
 	}
 
 	const googleSafeBrowsing = new URL('https://safebrowsing.googleapis.com/v4/threatMatches:find');
