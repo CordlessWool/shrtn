@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.10.1
+
+### Patch Changes
+
+- d30edf1: Update dependencies
+
 ## 2.10.0
 
 ### Minor Changes
