@@ -10,6 +10,10 @@
 	import { nanoid } from 'nanoid';
 	import * as m from '$lib/paraglide/messages.js';
 	import { Input, Button, InputFrame, Select, OptionalInputFrame } from '$lib/comp/form';
+	import { PUBLIC_FEATURE_MARKETING_PAGES } from '$env/static/public';
+	import { isOn } from '$lib/helper/env';
+	import { localizeHref } from '$lib/paraglide/runtime';
+	import { TriangleAlert } from 'lucide-svelte';
 	const isLoggedIn = (user: PageData['user'] | null | undefined): boolean => {
 		return user != null && !user.temp;
 	};
@@ -58,6 +62,18 @@
 </script>
 
 <main>
+	{#if isOn(PUBLIC_FEATURE_MARKETING_PAGES)}
+		<aside class="move-notice" role="status">
+			<TriangleAlert class="shrink-0" />
+			<div>
+				<strong>{m.move_notice_title()}</strong>
+				<p>{m.move_notice_reason()}</p>
+				<p><b>{m.move_notice_ttl()}</b></p>
+				<p>{m.move_notice_support()}</p>
+				<a href={localizeHref('/setup')}>{m.move_notice_setup()}</a>
+			</div>
+		</aside>
+	{/if}
 	<h1>shrtn</h1>
 	<p>{m.teaser()} - <b>{m.teaser_sub()}</b>.</p>
 
@@ -154,6 +170,23 @@
 	}
 	h1 {
 		@apply text-5xl font-bold;
+	}
+
+	.move-notice {
+		@apply flex w-full max-w-3xl gap-3 rounded-md p-4;
+		@apply border border-amber-400 bg-amber-100 text-amber-900;
+
+		div {
+			@apply flex flex-col gap-2;
+		}
+
+		a {
+			@apply font-bold underline underline-offset-4;
+		}
+	}
+
+	:global(.dark) .move-notice {
+		@apply border-amber-600 bg-amber-950 text-amber-100;
 	}
 	form,
 	hr {
