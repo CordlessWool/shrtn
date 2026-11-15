@@ -1,4 +1,4 @@
-import { eq, and, gte, or, isNull } from 'drizzle-orm';
+import { eq, and, gte, or, isNull, sql } from 'drizzle-orm';
 import { getDB, schema } from '$lib/server/db';
 import { redirect } from '@sveltejs/kit';
 import { isbot } from 'isbot';
@@ -9,6 +9,13 @@ import { PassphraseSchema } from '$lib/helper/form';
 import type { Actions, PageServerLoad } from './$types';
 
 import * as m from '$lib/paraglide/messages';
+
+const incrementCalls = (id: string) =>
+	getDB()
+		.update(schema.link)
+		.set({ calls: sql`coalesce(${schema.link.calls}, 0) + 1` })
+		.where(eq(schema.link.id, id))
+		.run();
 
 export const load: PageServerLoad = async ({ params, request, url }) => {
 	const db = getDB();
@@ -36,7 +43,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
 			code: 404
 		};
 	}
-	if (data.callLimit != null && data.callLimit < (data.calls ?? 0)) {
+	if (data.callLimit != null && (data.calls ?? 0) >= data.callLimit) {
 		return {
 			code: 404
 		};
@@ -49,9 +56,7 @@ export const load: PageServerLoad = async ({ params, request, url }) => {
 		};
 	}
 	if (data.callLimit != null && !isbot(request.headers.get('User-Agent'))) {
-		await db.update(schema.link).set({
-			calls: data.calls ?? 0 + 1
-		});
+		await incrementCalls(shorten);
 	}
 	return redirect(302, data.link);
 };
@@ -68,7 +73,6 @@ export const actions = {
 		const result = await db
 			.select({
 				url: schema.link.url,
-				calls: schema.link.calls,
 				callLimit: schema.link.callLimit
 			})
 			.from(schema.link)
@@ -79,9 +83,7 @@ export const actions = {
 			return setError(form, 'passphrase', m.shrtn_passphrase_invalid());
 		}
 		if (result.callLimit != null) {
-			await db.update(schema.link).set({
-				calls: result.calls ?? 0 + 1
-			});
+			await incrementCalls(shorten);
 		}
 
 		return redirect(302, result.url);

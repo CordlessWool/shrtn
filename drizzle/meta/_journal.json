@@ -64,6 +64,13 @@
       "when": 1747859474773,
       "tag": "0008_jazzy_vanisher",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1791231945488,
+      "tag": "0009_add-user-indexes",
+      "breakpoints": true
     }
   ]
 }

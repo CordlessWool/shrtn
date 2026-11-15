@@ -22,17 +22,25 @@ export const magicLink = sqliteTable(
 		email: text('email').notNull()
 	},
 	(table) => ({
-		expiresIdx: index('magic_expires_idx').on(table.expiresAt)
+		expiresIdx: index('magic_expires_idx').on(table.expiresAt),
+		userIdx: index('magic_user_idx').on(table.userId)
 	})
 );
 
-export const session = sqliteTable('session', {
-	id: text('id').primaryKey(),
-	userId: text('user_id')
-		.notNull()
-		.references(() => user.id),
-	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull()
-});
+export const session = sqliteTable(
+	'session',
+	{
+		id: text('id').primaryKey(),
+		userId: text('user_id')
+			.notNull()
+			.references(() => user.id),
+		expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull()
+	},
+	(table) => ({
+		expiresIdx: index('session_expires_idx').on(table.expiresAt),
+		userIdx: index('session_user_idx').on(table.userId)
+	})
+);
 
 export const link = sqliteTable(
 	'link',
@@ -49,7 +57,8 @@ export const link = sqliteTable(
 		expiresAt: integer('expires_at', { mode: 'timestamp' })
 	},
 	(table) => ({
-		expiresIdx: index('link_expires_idx').on(table.expiresAt)
+		expiresIdx: index('link_expires_idx').on(table.expiresAt),
+		userIdx: index('link_user_idx').on(table.userId)
 	})
 );
 
