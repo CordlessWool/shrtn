@@ -33,7 +33,7 @@
 		"@faker-js/faker": "^9.9.0",
 		"@inlang/cli": "^3.1.11",
 		"@inlang/paraglide-js": "^2.18.2",
-		"@playwright/test": "^1.60.0",
+		"@playwright/test": "^1.65.1",
 		"@sveltejs/adapter-cloudflare": "^7.2.8",
 		"@sveltejs/adapter-node": "^5.5.4",
 		"@sveltejs/kit": "^2.64.0",
