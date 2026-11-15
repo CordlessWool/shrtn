@@ -1,5 +1,12 @@
 # shrtn.to
 
+## 2.10.2
+
+### Patch Changes
+
+- 8823ac2: Fix call counter updating every link, add user_id indexes and clean up expired sessions and orphaned temp users.
+  Fix project name.
+
 ## 2.10.1
 
 ### Patch Changes
