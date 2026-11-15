@@ -49,7 +49,7 @@ export function ttlFromStep(step: undefined): undefined;
 export function ttlFromStep(step: TTL_STEPS): number;
 export function ttlFromStep(step: TTL_STEPS | undefined): number | undefined;
 export function ttlFromStep(step: TTL_STEPS | undefined): number | undefined {
-	if (!step) {
+	if (step === undefined) {
 		return undefined;
 	}
 	return TTLs[step][0];
@@ -101,9 +101,10 @@ const LinkSchemaBase = v.object({
 const getMaxValueValidator = (step: TTL_STEPS | undefined) => {
 	//	return v.maxValue();
 	const maxValue = ttlFromStep(step);
-	const errorMessage = maxValue ? () => m.invalid_maxValue({ requirement: maxValue }) : '';
+	const errorMessage =
+		maxValue !== undefined ? () => m.invalid_maxValue({ requirement: maxValue }) : '';
 	return v.custom<number | undefined>((input) => {
-		if (!maxValue) {
+		if (maxValue === undefined) {
 			return true;
 		}
 		if (typeof input === 'number') {
