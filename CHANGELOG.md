@@ -1,5 +1,11 @@
 # shrtn.to
 
+## 2.10.3
+
+### Patch Changes
+
+- 0739cf1: Add banner on the start page (marketing instance only) announcing the move of shrtn.io to demo.shrtn.io as a public demo with one-hour links.
+
 ## 2.10.2
 
 ### Patch Changes
