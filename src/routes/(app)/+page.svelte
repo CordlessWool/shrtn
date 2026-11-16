@@ -69,6 +69,7 @@
 				<strong>{m.move_notice_title()}</strong>
 				<p>{m.move_notice_reason()}</p>
 				<p><b>{m.move_notice_ttl()}</b></p>
+				<p><b>{m.move_notice_data()}</b></p>
 				<p>{m.move_notice_support()}</p>
 				<a href={localizeHref('/setup')}>{m.move_notice_setup()}</a>
 			</div>

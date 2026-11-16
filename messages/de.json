@@ -57,6 +57,7 @@
 	"move_notice_title": "shrtn.io zieht um nach demo.shrtn.io",
 	"move_notice_reason": "shrtn.io wird zunehmend für Phishing missbraucht. Um das zu unterbinden, zieht diese Instanz bald nach demo.shrtn.io um und dient nur noch als öffentliche Demo.",
 	"move_notice_ttl": "Auf demo.shrtn.io ist jeder Link nur noch eine Stunde gültig.",
+	"move_notice_data": "Bestehende Links und Konten werden nicht nach demo.shrtn.io übernommen.",
 	"move_notice_support": "Das ist nicht das Ende von shrtn: Das Projekt bleibt Open Source, wird aktiv weiterentwickelt und unterstützt. Unser Fokus liegt darauf, dass Du shrtn einfach selbst hosten kannst.",
 	"move_notice_setup": "Eigene Instanz aufsetzen",
 	"call_limit": "Aufruflimit",
